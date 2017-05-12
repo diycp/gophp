@@ -1,0 +1,300 @@
+<?php
+
+namespace gophp;
+
+use gophp\helper\dir;
+use gophp\traits\call;
+
+class route
+{
+
+    private $config;
+    private $module;     //当前模块名
+    private $controller; //当前控制器名
+    private $action;     //当前方法名
+
+    private $handler;    //当前控制器实例化句柄
+
+    use call;
+
+    // 初始化
+    private function __construct()
+    {
+
+        $this->config = config::get('http');
+
+        $urlRewrite   = $this->config['url_rewrite'];
+        $uriParam     = $this->config['uri_param'];
+
+        $uri          = request::get($uriParam, '');
+
+        $urlParse     = $this->parse($uri);
+
+        $urlDomain    = request::getDomain();
+
+        if($urlRewrite){
+
+            $siteUrl  = pathinfo(ROOT_URL, PATHINFO_DIRNAME);
+
+        }else{
+
+            $siteUrl  = ROOT_URL . '?' . $uriParam . '=';
+
+        }
+
+        $siteUrl = rtrim($siteUrl, '/');
+
+        $this->module     = $urlParse['module'];
+        $this->controller = $urlParse['controller'];
+        $this->action     = $urlParse['action'];
+
+        define('SITE_ABSOLUTE_URL',  $urlDomain . $siteUrl); //定义绝对网站URL
+        define('SITE_RELATIVE_URL',  $siteUrl); //定义相对网站URL
+        define('MODULE_NAME',     $urlParse['module']); //定义当前模块名常量
+        define('CONTROLLER_NAME', $urlParse['controller']); //定义当前控制器名常量
+        define('ACTION_NAME',     $urlParse['action']); //定义当前方法名常量
+
+        define('MODULE_PATH',     APP_PATH. '/' . MODULE_NAME); //定义当前模块目录常量
+
+        define('CONTROLLER_PATH', MODULE_PATH . '/controller'); //定义当前模块控制器目录常量
+        define('MODEL_PATH',      MODULE_PATH . '/model'); //定义当前模块模型目录常量
+        define('VIEW_PATH',       MODULE_PATH . '/view'); //定义当前模块视图目录常量
+        define('CONFIG_PATH',     MODULE_PATH . '/config'); //定义当前模块配置目录常量
+        define('FILTER_PATH',     MODULE_PATH . '/filter'); //定义当前模块过滤器目录常量
+
+    }
+
+    // URL解析
+    private function parse($uri)
+    {
+
+        $module      = $this->config['default_module'];
+        $controller  = $this->config['default_controller'];
+        $action      = $this->config['default_action'];
+
+        if(!$uri){
+
+            return [
+                'module'     => $module,
+                'controller' => $controller,
+                'action'     => $action,
+            ];
+
+        }
+
+        // 获取所有模块
+        $allowModule = dir::getDir(APP_PATH);
+
+        // 排除公共模块
+        unset($allowModule[array_search("common", $allowModule)]);
+
+        $urlInfo = array_filter(explode( '/', explode('.', $uri)[0]));
+
+        // 重建索引
+        $urlInfo = array_values($urlInfo);
+
+        switch (count($urlInfo)) {
+
+            case 0:
+
+                break;
+
+            case 1:
+
+                if(in_array($urlInfo[0], $allowModule) && $urlInfo[0] != $module){
+
+                    $module     = $urlInfo[0];
+
+                }else{
+
+                    $controller = $urlInfo[0];
+
+                }
+
+                break;
+
+            case 2:
+
+                if(in_array($urlInfo[0], $allowModule) && $urlInfo[0] != $module){
+
+                    $module     = $urlInfo[0];
+                    $controller = $urlInfo[1];
+
+                }else{
+
+                    $controller = $urlInfo[0];
+                    $action     = $urlInfo[1];
+
+                }
+
+                break;
+
+            case 3:
+
+                if(in_array($urlInfo[0], $allowModule) && $urlInfo[0] != $module){
+
+                    $module     = $urlInfo[0];
+                    $controller = $urlInfo[1];
+                    $action     = $urlInfo[2];
+                }
+
+                break;
+
+            default:
+
+                if(in_array($urlInfo[0], $allowModule) && $urlInfo[0] != $module){
+
+                    $module     = array_shift($urlInfo);
+                    $action     = array_pop($urlInfo);
+                    $controller = implode('\\', $urlInfo);
+
+                }else{
+
+                    $action     = array_pop($urlInfo);
+                    $controller = implode('\\', $urlInfo);
+
+                }
+
+                break;
+
+        }
+
+        return [
+            'module'     => $module ,
+            'controller' => $controller ,
+            'action'     => $action ,
+        ];
+
+    }
+
+    // URL分发
+    protected function dispatch()
+    {
+
+        // 拼装完整控制器类名
+        $controllerClass = app::$namespace. '\\' . $this->module . '\\' . 'controller\\' . $this->controller;
+
+        // 拼装完整空控制器类名
+        $emptyClass      = app::$namespace. '\\' . $this->module . '\\' . 'controller\\call';
+
+        if(!class_exists($controllerClass) && class_exists($emptyClass)){
+
+            $controllerClass = $emptyClass;
+
+        }elseif(!class_exists($controllerClass)){
+
+            throw new exception('Controller Error', 'Controller ' . $controllerClass . ' not exist');
+
+        }
+
+        if(!method_exists($controllerClass, $this->action) && !method_exists($controllerClass, '__call')){
+
+            throw new exception('Method Error', 'Method ' . $this->action . ' not exist');
+
+        }
+
+        // 执行全局过滤器
+        filter::globals();
+
+        // 执行模块过滤器
+        filter::module();
+
+        // 单例模式实例化控制器
+        if (!($this->handler)) {
+
+            $this->handler = new $controllerClass();
+
+        }
+
+        // 执行控制方法
+        return call_user_func([$this->handler, $this->action]);
+
+    }
+
+    // URL生成
+    protected function url($uri = null, $arguments = [], $isAbsolute = false, $extension = null)
+    {
+
+        if(!$uri){
+
+            return request::getUrl($isAbsolute);
+
+        }
+
+        $uriInfo = array_filter(explode('/', $uri));
+        $uriInfo = array_values($uriInfo);
+
+        switch (count($uriInfo)) {
+
+            case 1:
+
+                $moduleName     = MODULE_NAME;
+                $controllerName = CONTROLLER_NAME;
+                $actionName     = $uriInfo[0];
+
+                break;
+
+            case 2:
+
+                $moduleName     = MODULE_NAME;
+                $controllerName = $uriInfo[0];
+                $actionName     = $uriInfo[1];
+
+                break;
+
+            case 3:
+
+                $moduleName     = $uriInfo[0];
+                $controllerName = $uriInfo[1];
+                $actionName     = $uriInfo[2];
+
+                break;
+
+        }
+
+        $defaultModule        = $this->config['default_module'];
+        $defaultController    = $this->config['default_controller'];
+        $defaultAction        = $this->config['default_action'];
+
+        $siteUrl   = $isAbsolute ? SITE_ABSOLUTE_URL : SITE_RELATIVE_URL;
+        $extension = $extension ? $extension : $this->config['default_extension'];
+
+        $urlQuery  = http_build_query($arguments);
+
+        if($moduleName == $defaultModule){
+
+            $moduleName = '';
+
+        }
+
+        if($controllerName == $defaultController && $actionName == $defaultAction){
+
+            $controllerName = '';
+
+        }
+
+        if($actionName == $defaultAction){
+
+            $actionName = '';
+        }
+
+        $moduleName     = $moduleName ? '/' . $moduleName . '/' : '';
+        $controllerName = $controllerName ? $controllerName . '/' : '';
+        $actionName     = $actionName ? $actionName . '/' : '';
+
+        $uri = rtrim($siteUrl .$moduleName . $controllerName . $actionName, '/'). '.' . $extension;
+
+        if(strpos($uri, '?') !== false){
+
+            return $uri .'&'. $urlQuery;
+
+        }else{
+
+            return $uri .'?'. $urlQuery;
+
+        }
+
+    }
+
+}
+
