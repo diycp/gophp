@@ -39,6 +39,7 @@ class route
 
         }
 
+
         $siteUrl = rtrim($siteUrl, '/');
 
         $this->module     = $urlParse['module'];
