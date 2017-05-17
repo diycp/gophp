@@ -12,7 +12,6 @@ class route
     private $module;     //当前模块名
     private $controller; //当前控制器名
     private $action;     //当前方法名
-
     private $handler;    //当前控制器实例化句柄
 
     use call;
