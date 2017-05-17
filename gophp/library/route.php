@@ -26,9 +26,7 @@ class route
         $urlRewrite   = $this->config['url_rewrite'];
         $uriParam     = $this->config['uri_param'];
 
-        $uri          = request::get($uriParam, '');
-
-        $urlParse     = $this->parse($uri);
+        $urlParse     = $this->parse(request::get($uriParam, ''));
 
         $urlDomain    = request::getDomain();
 
@@ -55,7 +53,6 @@ class route
         define('ACTION_NAME',     $urlParse['action']); //定义当前方法名常量
 
         define('MODULE_PATH',     APP_PATH. '/' . MODULE_NAME); //定义当前模块目录常量
-
         define('CONTROLLER_PATH', MODULE_PATH . '/controller'); //定义当前模块控制器目录常量
         define('MODEL_PATH',      MODULE_PATH . '/model'); //定义当前模块模型目录常量
         define('VIEW_PATH',       MODULE_PATH . '/view'); //定义当前模块视图目录常量
@@ -68,19 +65,13 @@ class route
     private function parse($uri)
     {
 
-        $module      = $this->config['default_module'];
-        $controller  = $this->config['default_controller'];
-        $action      = $this->config['default_action'];
+        $defaultModule      = $this->config['default_module']; // 默认模块
+        $defaultController  = $this->config['default_controller']; // 默认控制器名
+        $defaultAction      = $this->config['default_action']; // 默认方法名
 
-        if(!$uri){
-
-            return [
-                'module'     => $module,
-                'controller' => $controller,
-                'action'     => $action,
-            ];
-
-        }
+        $module     = $defaultModule;
+        $controller = $defaultController;
+        $action     = $defaultAction;
 
         // 获取所有模块
         $allowModule = dir::getDir(APP_PATH);
@@ -88,7 +79,9 @@ class route
         // 排除公共模块
         unset($allowModule[array_search("common", $allowModule)]);
 
-        $urlInfo = array_filter(explode( '/', explode('.', $uri)[0]));
+        $baseUri = explode('.', $uri)[0];
+
+        $urlInfo = array_filter(explode( '/', $baseUri));
 
         // 重建索引
         $urlInfo = array_values($urlInfo);
@@ -101,7 +94,7 @@ class route
 
             case 1:
 
-                if(in_array($urlInfo[0], $allowModule) && $urlInfo[0] != $module){
+                if(in_array($urlInfo[0], $allowModule) && $urlInfo[0] != $defaultModule){
 
                     $module     = $urlInfo[0];
 
@@ -115,7 +108,7 @@ class route
 
             case 2:
 
-                if(in_array($urlInfo[0], $allowModule) && $urlInfo[0] != $module){
+                if(in_array($urlInfo[0], $allowModule) && $urlInfo[0] != $defaultModule){
 
                     $module     = $urlInfo[0];
                     $controller = $urlInfo[1];
@@ -131,18 +124,19 @@ class route
 
             case 3:
 
-                if(in_array($urlInfo[0], $allowModule) && $urlInfo[0] != $module){
+                if(in_array($urlInfo[0], $allowModule) && $urlInfo[0] != $defaultModule){
 
                     $module     = $urlInfo[0];
                     $controller = $urlInfo[1];
                     $action     = $urlInfo[2];
+
                 }
 
                 break;
 
             default:
 
-                if(in_array($urlInfo[0], $allowModule) && $urlInfo[0] != $module){
+                if(in_array($urlInfo[0], $allowModule) && $urlInfo[0] != $defaultModule){
 
                     $module     = array_shift($urlInfo);
                     $action     = array_pop($urlInfo);
@@ -160,9 +154,9 @@ class route
         }
 
         return [
-            'module'     => $module ,
-            'controller' => $controller ,
-            'action'     => $action ,
+            'module'     => $module,
+            'controller' => $controller,
+            'action'     => $action,
         ];
 
     }
@@ -215,82 +209,95 @@ class route
     protected function url($uri = null, $arguments = [], $isAbsolute = false, $extension = null)
     {
 
-        if(!$uri){
-
-            return request::getUrl($isAbsolute);
-
-        }
+        $defaultModule     = $this->config['default_module'];
+        $defaultController = $this->config['default_controller'];
+        $defaultAction     = $this->config['default_action'];
 
         $uriInfo = array_filter(explode('/', $uri));
         $uriInfo = array_values($uriInfo);
 
         switch (count($uriInfo)) {
 
+            case 0:
+
+                break;
+
             case 1:
 
-                $moduleName     = MODULE_NAME;
-                $controllerName = CONTROLLER_NAME;
-                $actionName     = $uriInfo[0];
+                $module     = $defaultModule;
+                $controller = $uriInfo[0];
+                $action     = $defaultAction;
 
                 break;
 
             case 2:
 
-                $moduleName     = MODULE_NAME;
-                $controllerName = $uriInfo[0];
-                $actionName     = $uriInfo[1];
+                $module     = $defaultModule;
+                $controller = $uriInfo[0];
+                $action     = $uriInfo[1];
 
                 break;
 
             case 3:
 
-                $moduleName     = $uriInfo[0];
-                $controllerName = $uriInfo[1];
-                $actionName     = $uriInfo[2];
+                $module     = $uriInfo[0];
+                $controller = $uriInfo[1];
+                $action     = $uriInfo[2];
 
                 break;
 
         }
 
-        $defaultModule        = $this->config['default_module'];
-        $defaultController    = $this->config['default_controller'];
-        $defaultAction        = $this->config['default_action'];
+        $route = [
+            'module' => $module,
+            'controller' => $controller,
+            'action' => $action,
+        ];
 
         $siteUrl   = $isAbsolute ? SITE_ABSOLUTE_URL : SITE_RELATIVE_URL;
         $extension = $extension ? $extension : $this->config['default_extension'];
-
         $urlQuery  = http_build_query($arguments);
 
-        if($moduleName == $defaultModule){
+        if($module == $defaultModule){
 
-            $moduleName = '';
-
-        }
-
-        if($controllerName == $defaultController && $actionName == $defaultAction){
-
-            $controllerName = '';
+            unset($route['module']);
 
         }
 
-        if($actionName == $defaultAction){
+        if($action == $defaultAction){
 
-            $actionName = '';
+            unset($route['action']);
         }
 
-        $moduleName     = $moduleName ? '/' . $moduleName . '/' : '';
-        $controllerName = $controllerName ? $controllerName . '/' : '';
-        $actionName     = $actionName ? $actionName . '/' : '';
+        if ($controller == $defaultController && $action == $defaultAction) {
 
-        $uri = rtrim($siteUrl .$moduleName . $controllerName . $actionName, '/'). '.' . $extension;
+            unset($route['controller']);
 
-        if(strpos($uri, '?') !== false){
+        }
 
-            return $uri .'&'. $urlQuery;
+        if ($module == $defaultModule && $controller == $defaultController && $action == $defaultAction){
+
+            unset($route);
+
+        }
+
+        if($uri = implode('/', $route)){
+
+            $urlPath = $siteUrl .'/'. $uri . '.' . $extension;
 
         }else{
 
-            return $uri .'?'. $urlQuery;
+            $urlPath = $siteUrl;
+
+        }
+
+        if(strpos($urlPath, '?') !== false){
+
+            return $urlPath .'&'. $urlQuery;
+
+        }else{
+
+            return $urlPath .'?'. $urlQuery;
 
         }
 
