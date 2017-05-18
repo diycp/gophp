@@ -36,7 +36,7 @@
 3. 绑定域名
 
 
-    将域名绑定到`public`目录下
+    将域名绑定到`public`目录上
     
 
 4. 开启UrlRewrite来隐藏入口文件index.php
@@ -46,28 +46,28 @@
 
 #### 核心类库:
 
-* ##### db(数据库查询类)
-1. 查询单条数据:
+* ##### db(数据库操作类)
+1. 查询单条数据
 
 ```php
 db::table('user')->find(1); //返回主键ID为1的用户信息
 db::table('user')->where('id', '=', 1)->find('name'); //返回id等于1的用户姓名
 ```
 
-2. 查询多条数据:
+2. 查询多条数据
 
-3. 多表联查:
+3. 多表联查
 
-4. 聚合查询:
+4. 聚合查询
 
-5. 添加单条数据:
+5. 添加单条数据
 
 ```php
 $data = ['title' => '勾国印', 'sex' => '男', 'qq' => '245629560'];
 db::table('user')->add($data); //返回自增ID
 ```
 
-6. 添加多条数据:
+6. 添加多条数据
 
 ```php
 $data1 = ['title' => '勾国磊', 'sex' => '男', 'age' => 23];
@@ -75,34 +75,34 @@ $data2 = ['title' => '张雨康', 'sex' => '女', 'age' => 18];
 db::table('user')->addAll($data1, $data2); //返回影响行数
 ```
 
-7. 更新数据:
+7. 更新数据
 
 ```php
 $data = ['title' => '勾国印', 'sex' => '男', 'age' => 18];
 db::table('user')->where('id', '=', 1)->update($data); //更新id等于1的用户信息，返回影响行数
 ```
 
-8. 字段自增:
+8. 字段自增
 
 ```php
 db::table('user')->inc('age'); //将所有用户年龄自增1
 db::table('user')->where('id', '=', 1)->inc('age', 2); //将id等于1的用户年龄自增2
 ```
-9. 字段自减:
+9. 字段自减
 
 ```php
 db::table('user')->dec('age'); //将所有用户年龄自减1
 db::table('user')->where('id', '=', 1)->dec('age', 2); //将id等于1的用户年龄自减2
 ```
 
-10. 删除数据:
+10. 删除数据
 
 ```php
 db::table('user')->delete(1); //删除主键为1的用户，返回影响行数
 db::table('user')->where('id', '>', 100)->delete(); //删除id大于100的用户，返回影响行数
 ```
 
-11. 事务支持:
+11. 事务支持
 
 * ##### config(配置类)
 
