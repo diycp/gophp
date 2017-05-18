@@ -32,7 +32,9 @@ composer require "overtrue/wechat:~3.1" -vvv
 
 ## Usage
 
-核心类库:
+####核心类库:
+
+*db
 
 ```php
 <?php
