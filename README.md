@@ -10,7 +10,7 @@
  - 支持请求过滤器（中间件），使控制器专注于处理业务逻辑；
  - 提供大量的辅助函数、挂件来提高开发者的开发速度；
  - 核心类高度独立，最大程度的提高代码的复用性和最小程度的降低组件的耦合性；
- - 优雅的调用方式，既支持静态调用、动态调用以及静动态混合链式调用；
+ - 优雅的调用方式，支持静态调用、动态调用以及静动态混合链式调用；
  - 完美支持PHP7；
  — 内置验证机制；
  - 强大的缓存支持；
@@ -96,13 +96,13 @@ db::table('pdo')->where('id', '=', 1)->find('title'); //返回指定字段的值
 
 #### 系统函数:
 
-* dump($arg...)(友好的打印调试)
+* ##### dump($arg...)(友好的打印调试)
 
-* input($key, $default)(获取输入参数)
+* ##### input($key, $default)(获取输入参数)
 
-* config($name, $key)(获取配置信息)
+* ##### config($name, $key)(获取配置信息)
 
-* url($uri = null, $arguments = [], $isAbsolute = false, $extension = null)(生成优化的URL)
+* ##### url($uri = null, $arguments = [], $isAbsolute = false, $extension = null)(生成优化的URL)
 
 #### 助手类:
 
