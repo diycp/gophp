@@ -17,7 +17,7 @@ class index extends controller {
 
         //echo request::getDomain();
 
-        $a = route::url('aa/index',['id' => 1,'cat' => 3], true,'json');
+        $a = request::getClientIp();
 
         dump($a);
 
