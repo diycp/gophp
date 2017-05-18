@@ -34,7 +34,8 @@ composer require "overtrue/wechat:~3.1" -vvv
 
 #### 核心类库:
 
-* db
+* db(数据库查询类)
+1. 查询单条数据:
 
 ```php
 <?php
