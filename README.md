@@ -88,7 +88,7 @@ db::table('pdo')->where('id', '=', 1)->find('title'); //返回指定字段的值
 
 * view(视图类)
 
-* mail(邮件类
+* mail(邮件类)
 
 * crypt(加密解密类)
 
@@ -103,6 +103,18 @@ db::table('pdo')->where('id', '=', 1)->find('title'); //返回指定字段的值
 * config($name, $key)(获取配置信息)
 
 * url($uri = null, $arguments = [], $isAbsolute = false, $extension = null)(生成优化的URL)
+
+#### 助手类:
+
+* helper/str(字符串助手类)
+
+* helper/arr(函数助手类)
+
+* helper/dir(目录助手类)
+
+* helper/file(文件助手类)
+
+* helper/url(URL助手类)
 
 ## Documentation
 
