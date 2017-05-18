@@ -1,15 +1,6 @@
 <p align="center">
     <b>📦 GoPHP轻量级现代PHP框架</b>
-    <br><br>
-    <a href="https://www.yousails.com">
-      <img src="https://yousails.com/banners/brand.png" width=350>
-    </a>
-    <br><br>
-    <a href="https://laravist.com">
-      <img width="160" src="https://o0dpls1ru.qnssl.com/laravist.com-logo.png">
-    </a>
 </p>
-
 
 ## Feature
 
