@@ -42,7 +42,23 @@ db::table('pdo')->where('id', '=', 1)->find(); //返回所有字段数组
 db::table('pdo')->where('id', '=', 1)->find('title'); //返回指定字段的值
 ```
 
-更多请参考[http://easywechat.org/](http://easywechat.org/)。
+2. 查询多条数据:
+
+3. 多表联查:
+
+4. 聚合查询:
+
+5. 添加单条数据:
+
+6. 添加多条数据:
+
+7. 更新数据:
+
+8. 删除数据:
+
+9. 事务支持:
+
+#### 系统函数:
 
 ## Documentation
 
