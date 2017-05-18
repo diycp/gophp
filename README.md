@@ -33,7 +33,7 @@
 ## Requirement
 
 1. PHP >= 5.5.0
-2. **[composer](https://getcomposer.org/)**
+2. **[COMPOSER](https://getcomposer.org/)**
 3. PDO 拓展
 4. GD 拓展
 5. CURL 拓展
