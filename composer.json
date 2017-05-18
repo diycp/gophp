@@ -12,9 +12,7 @@
     ],
     "homepage": "http://www.gouguoyin.cn/",
     "require": {
-        "php": ">=5.4.0",
         "smarty/smarty": "~3.1",
-        "aliyuncs/oss-sdk-php": "^2.2",
         "phpmailer/phpmailer": "^5.2"
     },
     "autoload": {

@@ -248,9 +248,9 @@ class route
         }
 
         $route = [
-            'module' => $module,
+            'module'     => $module,
             'controller' => $controller,
-            'action' => $action,
+            'action'     => $action,
         ];
 
         $siteUrl   = $isAbsolute ? SITE_ABSOLUTE_URL : SITE_RELATIVE_URL;
