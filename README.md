@@ -58,41 +58,41 @@ db::table('pdo')->where('id', '=', 1)->find('title'); //返回指定字段的值
 
 9. 事务支持:
 
-* config(配置类)
+* ##### config(配置类)
 
-* cookie(COOKIE类)
+* ##### cookie(COOKIE类)
 
-* session(会话类)
+* ##### session(会话类)
 
-* filter(过滤器)
+* ##### filter(过滤器)
 
-* validate(验证类)
+* ##### validate(验证类)
 
-* request(请求类)
+* ##### request(请求类)
 
-* response(响应类)
+* ##### response(响应类)
 
-* route(路由类)
+* ##### route(路由类)
 
-* upload(上传类)
+* ##### upload(上传类)
 
-* controller(控制器基类)
+* ##### controller(控制器基类)
 
-* reflect(反射类)
+* ##### reflect(反射类)
 
-* cache(缓存类)
+* ##### cache(缓存类)
 
-* exception(异常基类)
+* ##### exception(异常基类)
 
-* log(日志类)
+* ##### log(日志类)
 
-* view(视图类)
+* ##### view(视图类)
 
-* mail(邮件类)
+* ##### mail(邮件类)
 
-* crypt(加密解密类)
+* ##### crypt(加密解密类)
 
-* captcha(验证码类)
+* ##### captcha(验证码类)
 
 #### 系统函数:
 
