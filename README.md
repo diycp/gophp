@@ -64,10 +64,16 @@ db::table('user')->where('id', '=', 1)->find('title'); //返回指定字段的�
 
 ```php
 $data = ['title' => '勾国印', 'sex' => '男', 'qq' => '245629560'];
-db::table('user')->add($data);
+db::table('user')->add($data); //返回自增ID
 ```
 
 6. 添加多条数据:
+
+```php
+$data1 = ['title' => '勾国印', 'sex' => '男', 'qq' => '245629560'];
+$data2 = ['title' => '勾国磊', 'sex' => '男', 'qq' => '314418388'];
+db::table('user')->addAll($data1, $data2); //返回自增ID
+```
 
 7. 更新数据:
 
