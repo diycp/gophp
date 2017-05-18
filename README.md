@@ -29,13 +29,14 @@
 1. 下载框架
 2. 设置目录权限
 
-```php
-public/upload、runtime目录给予可读可写权限
-```
+
+    public/upload、runtime目录给予可读可写权限
+
 3. 绑定域名
-```php
-将域名绑定到public目录下
-```
+
+
+    将域名绑定到public目录下
+
 4. 开启UrlRewrite来隐藏入口文件index.php
 5. 更改配置信息
 
