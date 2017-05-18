@@ -77,11 +77,16 @@ db::table('user')->addAll($data1, $data2); //返回影响行数
 
 7. 更新数据:
 
+```php
+$data = ['title' => '勾国印', 'sex' => '男', 'qq' => '245629560'];
+db::table('user')->where('id', '=', 1)->update($data); //更新id等于1的用户信息，返回影响行数
+```
+
 8. 删除数据:
 
 ```php
-db::table('user')->delete(1); //删除主键为1的用户
-db::table('user')->where('id', '>', 100)->delete(); //删除id大于100的用户
+db::table('user')->delete(1); //删除主键为1的用户，返回影响行数
+db::table('user')->where('id', '>', 100)->delete(); //删除id大于100的用户，返回影响行数
 ```
 
 9. 事务支持:
