@@ -136,14 +136,3 @@ db::table('pdo')->where('id', '=', 1)->find('title'); //返回指定字段的值
 - 作者博客：www.gouguoyin.cn
 - 官方QQ群：421537504
 
-## Integration
-
-[Laravel 5 拓展包: overtrue/laravel-wechat](https://github.com/overtrue/laravel-wechat)
-
-## Contribution
-
-[Contribution Guide](.github/CONTRIBUTING.md)
-
-## License
-
-MIT
