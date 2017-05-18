@@ -34,7 +34,7 @@ composer require "overtrue/wechat:~3.1" -vvv
 
 #### 核心类库:
 
-* db(数据库查询类)
+* ##### db(数据库查询类)
 1. 查询单条数据:
 
 ```php
@@ -106,15 +106,15 @@ db::table('pdo')->where('id', '=', 1)->find('title'); //返回指定字段的值
 
 #### 助手类:
 
-* helper/str(字符串助手类)
+* ##### helper/str(字符串助手类)
 
-* helper/arr(函数助手类)
+* ##### helper/arr(函数助手类)
 
-* helper/dir(目录助手类)
+* ##### helper/dir(目录助手类)
 
-* helper/file(文件助手类)
+* ##### helper/file(文件助手类)
 
-* helper/url(URL助手类)
+* ##### helper/url(URL助手类)
 
 ## Documentation
 
