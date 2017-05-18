@@ -26,9 +26,11 @@
 
 ## Installation
 
-```shell
-composer require "overtrue/wechat:~3.1" -vvv
-```
+1. 下载框架
+2. 设置目录权限
+3. 绑定域名
+4. 开启UrlRewrite来隐藏入口文件index.php
+4. 更改配置信息
 
 ## Usage
 
