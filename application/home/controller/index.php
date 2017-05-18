@@ -18,7 +18,7 @@ class index extends controller {
 
         //echo request::getDomain();
 
-        dump(str::quote('gou', str::back));
+        dump(str::quote('gou', str::comma));
 
         $a = request::getClientIp();
 
