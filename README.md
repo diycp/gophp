@@ -30,12 +30,14 @@
 2. 设置目录权限
 
 
-    public/upload、runtime目录给予可读可写权限
+    `public/upload`、`runtime`目录给予可读可写权限
+    
 
 3. 绑定域名
 
 
-    将域名绑定到public目录下
+    将域名绑定到`public`目录下
+    
 
 4. 开启UrlRewrite来隐藏入口文件index.php
 5. 更改配置信息
