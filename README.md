@@ -72,12 +72,17 @@ db::table('user')->add($data); //返回自增ID
 ```php
 $data1 = ['title' => '勾国印', 'sex' => '男', 'qq' => '245629560'];
 $data2 = ['title' => '勾国磊', 'sex' => '男', 'qq' => '314418388'];
-db::table('user')->addAll($data1, $data2); //返回自增ID
+db::table('user')->addAll($data1, $data2); //返回影响行数
 ```
 
 7. 更新数据:
 
 8. 删除数据:
+
+```php
+db::table('user')->delete(1); //删除主键为1的用户
+db::table('user')->where('id', '>', 100)->delete(); //删除id大于100的用户
+```
 
 9. 事务支持:
 
