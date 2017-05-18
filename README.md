@@ -50,8 +50,8 @@
 1. 查询单条数据:
 
 ```php
-db::table('user')->where('id', '=', 1)->find(); //返回所有字段数组
-db::table('user')->where('id', '=', 1)->find('title'); //返回指定字段的值
+db::table('user')->find(1); //返回主键ID为1的用户信息
+db::table('user')->where('id', '=', 1)->find('name'); //返回id等于1的用户姓名
 ```
 
 2. 查询多条数据:
