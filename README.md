@@ -60,6 +60,12 @@ db::table('pdo')->where('id', '=', 1)->find('title'); //返回指定字段的值
 
 #### 系统函数:
 
+* dump()(友好的打印调试)
+```php
+dump($string); //打印单个元素
+dump($str1, $str2, ...); //打印多个元素
+```
+
 ## Documentation
 
 - 如果您有任何疑问，或有好的意见和想法，请通过以下途径联系我
