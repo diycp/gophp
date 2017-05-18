@@ -139,35 +139,6 @@ class mysql extends contract
     }
 
     /**
-     * 查询单个字段值
-     * @param $field
-     * @return string|int
-     */
-    public function value($field)
-    {
-
-        if(!$field){
-
-            return '';
-        }
-
-        $this->option['limit'] = 1;
-
-        $this->sql  = "SELECT $field FROM " . $this->tableName . $this->option();
-
-        $this->stmt = $this->execute($this->bind);
-
-        if($this->chain['show']){
-
-            return $this->stmt;
-
-        }
-
-        return $this->stmt->fetch(PDO::FETCH_ASSOC)[$field];
-
-    }
-
-    /**
      * 更新数据
      * @param array $data
      * @return int|bool

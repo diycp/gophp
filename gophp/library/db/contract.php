@@ -20,8 +20,6 @@ abstract class contract
 
     abstract public function find($field);
 
-    abstract public function value($field);
-
     abstract public function findAll($field);
 
     abstract public function update(array $data);
