@@ -30,7 +30,7 @@
 2. 设置目录权限
 
 
-    `public/upload`、`runtime`目录给予可读可写权限
+    `public/upload`、`runtime`目录如果不存在则创建并给予可读可写权限
     
 
 3. 绑定域名
@@ -99,7 +99,7 @@ db::table('user')->where('id', '=', 1)->dec('age', 2); //将id等于1的用户�
 
 ```php
 db::table('user')->delete(1); //删除主键为1的用户，返回影响行数
-db::table('user')->where('id', '>', 100)->delete(); //删除id大于100的用户，返回影响行数
+db::table('user')->where('age', '>', 100)->delete(); //删除年龄大于100的用户，返回影响行数
 ```
 
 11. 事务支持
