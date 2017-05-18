@@ -66,6 +66,8 @@ db::table('pdo')->where('id', '=', 1)->find('title'); //返回指定字段的值
 
 * config($name, $key)(获取配置信息)
 
+* url($uri = null, $arguments = [], $isAbsolute = false, $extension = null)(生成优化的URL)
+
 ## Documentation
 
 - 如果您有任何疑问，或有好的意见和想法，请通过以下途径联系我
