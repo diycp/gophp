@@ -109,13 +109,13 @@ class str
 
             case 2:
 
-                $str = '\"' . $str . '\"';
+                $str = '"' . $str . '"';
 
                 break;
 
             case 3:
 
-                $str = '\`' . $str . '\`';
+                $str = '`' . $str . '`';
 
                 break;
 
