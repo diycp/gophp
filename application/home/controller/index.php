@@ -19,7 +19,7 @@ class index extends controller {
 
         echo '勾国磊';
 
-        $a = route::url('aa/indexs/index',['id' => 1,'cat' => 3], true,'json');
+        $a = route::url('aa/index',['id' => 1,'cat' => 3], true,'json');
 
         dump($a);
 
