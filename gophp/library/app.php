@@ -43,13 +43,6 @@ class app
         // 加载模块函数库文件
         file::load(MODULE_PATH . '/function/function.php');
 
-        // 创建缓存目录
-        if(!is_dir(RUNTIME_PATH)){
-
-            dir::create(RUNTIME_PATH, 755);
-
-        }
-
     }
 
     // 致命错误捕获
