@@ -1,5 +1,5 @@
 <p align="center">
-    <b>📦 It is probably the best SDK in the world for developing Wechat App.</b>
+    <b>📦 GoPHP轻量级现代PHP框架</b>
     <br><br>
     <a href="https://www.yousails.com">
       <img src="https://yousails.com/banners/brand.png" width=350>
