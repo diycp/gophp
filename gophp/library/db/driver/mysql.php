@@ -68,9 +68,9 @@ class mysql extends contract
     public function table($table, $prefix = '')
     {
 
-        $prefix          = isset($prefix) ? $prefix : $this->config['prefix'];
+        $this->tablePrefix = isset($prefix) ? $prefix : $this->config['prefix'];
 
-        $this->tableName = '`' . $prefix . $table . '`';
+        $this->tableName   = '`' . $prefix . $table . '`';
 
         return $this;
 
@@ -209,7 +209,7 @@ class mysql extends contract
 
         $this->option['set'] = $field . '=' . $field .'-'. $offset;
 
-        $this->sql = "UPDATE " . $this->tableName . $this->option();
+        $this->sql  = "UPDATE " . $this->tableName . $this->option();
 
         $this->stmt = $this->execute($this->bind);
 

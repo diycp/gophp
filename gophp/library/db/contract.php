@@ -9,6 +9,7 @@ abstract class contract
     protected $db;
     protected $stmt;
     protected $tableName;
+    protected $tablePrefix;
     protected $pk;
     protected $sql;
 
