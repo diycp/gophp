@@ -7,7 +7,8 @@ class str
 
     const single = 1; //单引号
     const double = 2; //双引号
-    const back  = 3; //反引号
+    const back   = 3; //反引号
+    const comma  = 4; //英文逗号
 
     /**
      * 截取指定长度字符串
@@ -116,6 +117,12 @@ class str
             case 3:
 
                 $str = '`' . $str . '`';
+
+                break;
+
+            case 4:
+
+                $str = ',' . $str . ',';
 
                 break;
 
