@@ -38,7 +38,8 @@ composer require "overtrue/wechat:~3.1" -vvv
 1. 查询单条数据:
 
 ```php
-db::table('pdo')->find();
+db::table('pdo')->where('id', '=', 1)->find(); //返回所有字段数组
+db::table('pdo')->where('id', '=', 1)->find('title'); //返回指定字段的值
 ```
 
 更多请参考[http://easywechat.org/](http://easywechat.org/)。
