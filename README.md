@@ -70,8 +70,7 @@ $server->serve()->send();
 ## Documentation
 
 - 如果您有任何疑问，或有好的意见和想法，请通过以下途径联系我
-- 官方网站：frame.gouguoyin.cn
-- 开源中国专页：www.oschina.net/p/gophp
+- 官方网站：frame.gouguoyin.cn(http://frame.gouguoyin.cn)
 - 使用手册：www.gouguoyin.cn/doc
 - 作者博客：www.gouguoyin.cn
 - 官方QQ群：421537504
