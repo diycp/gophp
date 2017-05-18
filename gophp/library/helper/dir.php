@@ -19,7 +19,7 @@ class dir
     public static function create($path, $chmod = 0775)
     {
 
-        if(validate::hasChinese($path) || is_dir($path)){
+        if(is_dir($path)){
 
             return false;
         }
