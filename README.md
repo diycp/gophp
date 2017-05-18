@@ -60,13 +60,14 @@ db::table('pdo')->where('id', '=', 1)->find('title'); //返回指定字段的值
 
 #### 系统函数:
 
-* dump()(友好的打印调试)
+* dump($arg...)(友好的打印调试)
+
 ```php
 dump($str); //打印单个字符串
 dump($str1, $str2, ...); //打印多个字符串
 dump($arr); //打印单个数组
 dump($arr1, $arr2, ...); //打印多个数组
-dump($str1, $arr2, ...); //打印混合元素
+dump($str1, $arr2, $obj, ...); //打印混合元素
 ```
 
 ## Documentation
