@@ -5,6 +5,10 @@ namespace gophp\helper;
 class str
 {
 
+    const single = 1; //单引号
+    const double = 2; //双引号
+    const back  = 3; //反引号
+
     /**
      * 截取指定长度字符串
      * @param $str
@@ -88,14 +92,36 @@ class str
     }
 
     /**
-     * 给字符串添加单引号
+     * 给字符串添加引号
      * @param $str
      * @return string
      */
-    public static function quote($str)
+    public static function quote($str, $type = 1)
     {
 
-        return '\'' . $str . '\'';
+        switch ($type) {
+
+            case 1:
+
+                $str = '\'' . $str . '\'';
+
+                break;
+
+            case 2:
+
+                $str = '\"' . $str . '\"';
+
+                break;
+
+            case 3:
+
+                $str = '\`' . $str . '\`';
+
+                break;
+
+        }
+
+        return $str;
 
     }
 
