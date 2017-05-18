@@ -70,26 +70,39 @@ db::table('user')->add($data); //返回自增ID
 6. 添加多条数据:
 
 ```php
-$data1 = ['title' => '勾国磊', 'sex' => '男', 'qq' => '245629560'];
-$data2 = ['title' => '张雨康', 'sex' => '女', 'qq' => '314418388'];
+$data1 = ['title' => '勾国磊', 'sex' => '男', 'age' => 23];
+$data2 = ['title' => '张雨康', 'sex' => '女', 'age' => 18];
 db::table('user')->addAll($data1, $data2); //返回影响行数
 ```
 
 7. 更新数据:
 
 ```php
-$data = ['title' => '勾国印', 'sex' => '男', 'qq' => '245629560'];
+$data = ['title' => '勾国印', 'sex' => '男', 'age' => 18];
 db::table('user')->where('id', '=', 1)->update($data); //更新id等于1的用户信息，返回影响行数
 ```
 
-8. 删除数据:
+8. 字段自增:
+
+```php
+db::table('user')->inc('age'); //将所有用户年龄自增1
+db::table('user')->where('id', '=', 1)->inc('age', 2); //将id等于1的用户年龄自增2
+```
+9. 字段自减:
+
+```php
+db::table('user')->dec('age'); //将所有用户年龄自减1
+db::table('user')->where('id', '=', 1)->dec('age', 2); //将id等于1的用户年龄自减2
+```
+
+10. 删除数据:
 
 ```php
 db::table('user')->delete(1); //删除主键为1的用户，返回影响行数
 db::table('user')->where('id', '>', 100)->delete(); //删除id大于100的用户，返回影响行数
 ```
 
-9. 事务支持:
+11. 事务支持:
 
 * ##### config(配置类)
 
