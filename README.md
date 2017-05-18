@@ -34,8 +34,8 @@ GoPHP
 
 1. PHP >= 5.5.0
 2. **[composer](https://getcomposer.org/)**
-3. openssl 拓展
-4. fileinfo 拓展（素材管理模块需要用到）
+3. PDO 拓展
+4. GD 拓展（图像处理和图片验证码需要用到）
 
 > SDK 对所使用的框架并无特别要求
 
