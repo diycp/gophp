@@ -1,6 +1,6 @@
 <p align="center">
-<a href="https://easywechat.org/">
-GoPHP
+<a href="http://www.gouguoyin.cn/">
+<img src="hhttp://frame.gouguoyin.cn/template/default/images/logo.png" alt="GoPHP Framework" width="210">
 </a>
 
 <p align="center">📦 It is probably the best SDK in the world for developing Wechat App.</p>
