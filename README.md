@@ -1,14 +1,5 @@
 <p align="center">
-<a href="http://www.gouguoyin.cn/">
-<img src="http://frame.gouguoyin.cn/template/default/images/logo.png" alt="GoPHP Framework" width="210">
-</a>
-
-<p align="center">📦 It is probably the best SDK in the world for developing Wechat App.</p>
-
-</div>
-
-<p align="center">
-    <b>Special thanks to the generous sponsorship by:</b>
+    <b>📦 It is probably the best SDK in the world for developing Wechat App.</b>
     <br><br>
     <a href="https://www.yousails.com">
       <img src="https://yousails.com/banners/brand.png" width=350>
