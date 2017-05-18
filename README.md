@@ -70,8 +70,8 @@ db::table('user')->add($data); //返回自增ID
 6. 添加多条数据:
 
 ```php
-$data1 = ['title' => '勾国印', 'sex' => '男', 'qq' => '245629560'];
-$data2 = ['title' => '勾国磊', 'sex' => '男', 'qq' => '314418388'];
+$data1 = ['title' => '勾国磊', 'sex' => '男', 'qq' => '245629560'];
+$data2 = ['title' => '张雨康', 'sex' => '女', 'qq' => '314418388'];
 db::table('user')->addAll($data1, $data2); //返回影响行数
 ```
 
