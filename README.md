@@ -69,12 +69,12 @@ $server->serve()->send();
 
 ## Documentation
 
-- Homepage: http://easywechat.org
-- Forum: https://forum.easywechat.org
-- 微信公众平台文档: https://mp.weixin.qq.com/wiki
-- WeChat Official Documentation: http://admin.wechat.com/wiki
-
-> 强烈建议看懂微信文档后再来使用本 SDK。
+- 如果您有任何疑问，或有好的意见和想法，请通过以下途径联系我
+- 官方网站：frame.gouguoyin.cn
+- 开源中国专页：www.oschina.net/p/gophp
+- 使用手册：www.gouguoyin.cn/doc
+- 作者博客：www.gouguoyin.cn
+- 官方QQ群：421537504
 
 ## Integration
 
