@@ -45,7 +45,7 @@
 
 ## Documentation
 
-- 核心类库: http://easywechat.org
+- [核心类库](https://github.com/gouguoyin/doc/blob/master/gophp/library.md)
 - 系统函数: https://forum.easywechat.org
 - 辅助类库: https://mp.weixin.qq.com/wiki
 
