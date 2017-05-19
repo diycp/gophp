@@ -47,65 +47,65 @@
 
 #### 核心类库:
 
-* ##### db(数据库操作类)
+* #### db(数据库操作类)
 
-* ##### config(配置类)
+* #### config(配置类)
 
-* ##### cookie(COOKIE类)
+* #### cookie(COOKIE类)
 
-* ##### session(会话类)
+* #### session(会话类)
 
-* ##### filter(过滤器)
+* #### filter(过滤器)
 
-* ##### validate(验证类)
+* #### validate(验证类)
 
-* ##### request(请求类)
+* #### request(请求类)
 
-* ##### response(响应类)
+* #### response(响应类)
 
-* ##### route(路由类)
+* #### route(路由类)
 
-* ##### upload(上传类)
+* #### upload(上传类)
 
-* ##### controller(控制器基类)
+* #### controller(控制器基类)
 
-* ##### reflect(反射类)
+* #### reflect(反射类)
 
-* ##### cache(缓存类)
+* #### cache(缓存类)
 
-* ##### exception(异常基类)
+* #### exception(异常基类)
 
-* ##### log(日志类)
+* #### log(日志类)
 
-* ##### view(视图类)
+* #### view(视图类)
 
-* ##### mail(邮件类)
+* #### mail(邮件类)
 
-* ##### crypt(加密解密类)
+* #### crypt(加密解密类)
 
-* ##### captcha(验证码类)
+* #### captcha(验证码类)
 
 #### 系统函数:
 
-* ##### dump($arg...)(友好的打印调试)
+* #### dump($arg...)(友好的打印调试)
 
-* ##### input($key, $default)(获取输入参数)
+* #### input($key, $default)(获取输入参数)
 
-* ##### config($name, $key)(获取配置信息)
+* #### config($name, $key)(获取配置信息)
 
-* ##### url($uri = null, $arguments = [], $isAbsolute = false, $extension = null)(生成优化的URL)
+* #### url($uri = null, $arguments = [], $isAbsolute = false, $extension = null)(生成优化的URL)
 
 #### 助手类:
 
-* ##### helper/str(字符串助手类)
+* #### helper/str(字符串助手类)
 
-* ##### helper/arr(数组助手类)
+* #### helper/arr(数组助手类)
 
-* ##### helper/dir(目录助手类)
+* #### helper/dir(目录助手类)
 
-* ##### helper/file(文件助手类)
+* #### helper/file(文件助手类)
 
-* ##### helper/url(URL助手类)
+* #### helper/url(URL助手类)
 
 ## Documentation
 
