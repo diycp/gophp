@@ -62,27 +62,29 @@
     </IfModule>
     ```
 
-  [**Apache**]
+  [**Nginx**]
   
     如果是部署在根目录下，在Nginx.conf中配置转发规则  
   
-```php
-location / { 
-   if (!-e $request_filename) {
-       rewrite  ^(.*)$  /index.php?r=$1  last;
-       break;
-   }
-}
-```
+    ```php
+    location / { 
+       if (!-e $request_filename) {
+           rewrite  ^(.*)$  /index.php?r=$1  last;
+           break;
+       }
+    }
+    ```
+    
     如果是部署在二级目录下，在Nginx.conf中配置转发规则
   
-```php
-location /youdomain/ {
-    if (!-e $request_filename){
-        rewrite  ^/youdomain/(.*)$  /youdomain/index.php?r=$1  last;
+    ```php
+    location /youdomain/ {
+        if (!-e $request_filename){
+            rewrite  ^/youdomain/(.*)$  /youdomain/index.php?r=$1  last;
+        }
     }
-}
-```    
+    ```  
+      
 - 更改配置信息
 
 ## Documentation
