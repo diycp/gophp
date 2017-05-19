@@ -27,20 +27,20 @@
 
 ## Installation
 
-- 下载框架
-- 设置目录权限
+1. 下载框架
+2. 设置目录权限
 
 
     `public/upload`、`runtime`目录给予可读可写权限(如果不存在则先创建目录)
     
 
-- 绑定域名
+3. 绑定域名
 
 
     将域名绑定到`public`目录上
     
 
-- 开启UrlRewrite来隐藏入口文件index.php(非必须，但是建议开启)
+4. 开启UrlRewrite来隐藏入口文件index.php(非必须，但是建议开启)
 
   [**Apache**]
   
@@ -83,7 +83,7 @@
     }
     ```  
       
-- 更改配置信息
+5. 更改配置信息
 
 ## Documentation
 
