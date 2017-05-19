@@ -39,7 +39,7 @@
     将域名绑定到`public`目录上
     
 
-4. 开启UrlRewrite来隐藏入口文件index.php
+4. 开启UrlRewrite来隐藏入口文件index.php(非必须，但是建议开启)
 5. 更改配置信息
 
 ## Usage
