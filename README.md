@@ -115,6 +115,12 @@ db::table('user')->where('age', '>', 100)->delete(); //删除年龄大于100的�
 
 * ##### config(配置类)
 
+ - 加载配置文件
+```php
+$data = ['title' => '勾国磊', 'sex' => '男', 'age' => 23];
+db::table('user')->add($data); //返回自增ID
+```
+
 * ##### cookie(COOKIE类)
 
 * ##### session(会话类)
