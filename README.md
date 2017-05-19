@@ -51,6 +51,7 @@
 - [核心类库](https://github.com/gouguoyin/doc/blob/master/gophp/library.md)
 - [系统函数](https://github.com/gouguoyin/doc/blob/master/gophp/function.md)
 - [辅助类库](https://github.com/gouguoyin/doc/blob/master/gophp/helper.md)
+- [系统常量](https://github.com/gouguoyin/doc/blob/master/gophp/const.md)
 
 
 ## Contaction
