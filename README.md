@@ -51,8 +51,9 @@
 1. 查询单条数据
 
 ```php
-db::table('user')->find(1); //返回主键ID为1的用户信息
-db::table('user')->where('id', '=', 1)->find('name'); //返回id等于1的用户姓名
+db::table('user')->find(1); //返回主键ID为1的用户信息，如果符合条件的有多条，只返回主键ID降序第一条数据；
+db::table('user')->where('id', '=', 1)->find('name'); //返回id等于1的用户姓名数组，如['name'=>'勾国磊']；
+db::table('user')->where('id', '=', 1)->find('name,age'); //返回id等于1的用户姓名数组，如['name'=>'勾国磊','age'=>23]；
 ```
 
 2. 查询多条数据
@@ -64,7 +65,7 @@ db::table('user')->where('id', '=', 1)->find('name'); //返回id等于1的用户
 5. 添加单条数据
 
 ```php
-$data = ['title' => '勾国印', 'sex' => '男', 'qq' => '245629560'];
+$data = ['title' => '勾国磊', 'sex' => '男', 'age' => 23];
 db::table('user')->add($data); //返回自增ID
 ```
 

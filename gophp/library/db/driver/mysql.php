@@ -79,18 +79,20 @@ class mysql extends contract
     /**
      * 查询单条数据
      * @param string $field
-     * @return mixed
+     * @return array
      */
     public function find($field = '*')
     {
+
+        $this->pk  = schema::getPK($this->tableName);
 
         $field = $field ? $field : '*';
 
         $this->option['limit'] = 1;
 
-        if(is_numeric($field)){
+        $this->option['order'] = $this->pk.' desc'; //主键ID降序
 
-            $this->pk  = schema::getPK($this->tableName);
+        if(is_numeric($field)){
 
             $this->where($this->pk, '=', $field);
 
@@ -111,6 +113,25 @@ class mysql extends contract
         }
 
         return $this->stmt->fetch(PDO::FETCH_ASSOC);
+
+    }
+
+    /**
+     * 查询单个字段值
+     * @param $field
+     * @return string
+     */
+    public function value($field)
+    {
+
+        if(!$field){
+
+            return '';
+        }
+
+        $result = $this->find($field);
+
+        return $result[$field];
 
     }
 
