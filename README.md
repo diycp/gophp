@@ -47,9 +47,9 @@
  
     httpd.conf配置文件中加载mod_rewrite.so模块
     
-    将AllowOverride None 改为 AllowOverride All
+    将`AllowOverride None` 改为 `AllowOverride All`
     
-    把下面的内容保存为.htaccess文件放到应用入口文件的同级目录下，默认放在`public`目录下
+    把下面的内容保存为`.htaccess`文件放到应用入口文件的同级目录下，默认放在`public`目录下
     
     ```php
     <IfModule mod_rewrite.c>
