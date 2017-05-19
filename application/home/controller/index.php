@@ -17,7 +17,6 @@ class index extends controller {
 
     public function index(){
 
-        echo CONFIG_PATH;
 
         $a = db::table('hy_yy')->join('dd_yy')->on("hy_yy.id = dd_yy.b11")->limit(10)->findAll();
 
