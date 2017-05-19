@@ -22,6 +22,7 @@ class index extends controller {
 
         dump($a);
 
+
         $this->display();
 
 
