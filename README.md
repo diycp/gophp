@@ -115,7 +115,7 @@ db::table('user')->where('age', '>', 100)->delete(); //删除年龄大于100的�
 
 * ##### config(配置类)
 
-1. 加载配置文件
+1. ###### 加载配置文件
 
 ```php
 config::load('/application/home/config/db.php'); //加载绝对路径配置文件
