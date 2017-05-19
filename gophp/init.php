@@ -1,6 +1,4 @@
 <?php
-ini_set("display_errors", "On");
-error_reporting(E_ALL & ~E_NOTICE);
 
 // 检测PHP版本
 version_compare( PHP_VERSION, '5.5.0', '>=' ) or die( 'PHP版本需要大于5.5.0,当前版本' . PHP_VERSION);

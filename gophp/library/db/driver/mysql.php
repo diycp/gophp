@@ -90,7 +90,7 @@ class mysql extends contract
 
         $this->option['limit'] = 1;
 
-        $this->option['order'] = $this->pk.' desc'; //主键ID降序
+        $this->option['order'] = $this->pk.' DESC'; //主键ID降序
 
         if(is_numeric($field)){
 

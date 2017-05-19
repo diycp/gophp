@@ -60,6 +60,13 @@ db::table('user')->where('id', '=', 1)->find('name,age'); //返回id等于1的�
 
 3. 多表联查
 
+```php
+db::table('user')->join('order')->on("user.id = order.user_id")->limit(10)->findAll(); //默认内联合
+db::table('user')->join('order', 'inner')->on("user.id = order.user_id")->limit(10)->findAll(); //内联合
+db::table('user')->join('order', 'left')->on("user.id = order.user_id")->limit(10)->findAll(); //左联合
+db::table('user')->join('order', 'right')->on("user.id = order.user_id")->limit(10)->findAll(); //右联合
+```
+
 4. 聚合查询
 
 5. 添加单条数据
