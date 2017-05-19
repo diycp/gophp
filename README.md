@@ -27,29 +27,34 @@
 
 ## Installation
 
-1. 下载框架
-2. 设置目录权限
+- 下载框架
+- 设置目录权限
 
 
     `public/upload`、`runtime`目录给予可读可写权限(如果不存在则先创建目录)
     
 
-3. 绑定域名
+- 绑定域名
 
 
     将域名绑定到`public`目录上
     
 
-4. 开启UrlRewrite来隐藏入口文件index.php(非必须，但是建议开启)
+- 开启UrlRewrite来隐藏入口文件index.php(非必须，但是建议开启)
 
-    [Apache]
+    [**Apache**]
 
+		1. httpd.conf配置文件中加载了mod_rewrite.so模块
+    	2. AllowOverride None 将None改为 All
+    	3. 把下面的内容保存为.htaccess文件放到应用入口文件的同级目录下
+    	
+    [**Nginx**]
 
-    httpd.conf配置文件中加载了mod_rewrite.so模块
-    AllowOverride None 将None改为 All
-    把下面的内容保存为.htaccess文件放到应用入口文件的同级目录下
+		1. httpd.conf配置文件中加载了mod_rewrite.so模块
+    	2. AllowOverride None 将None改为 All
+    	3. 把下面的内容保存为.htaccess文件放到应用入口文件的同级目录下
     
-5. 更改配置信息
+- 更改配置信息``
 
 ## Documentation
 
