@@ -118,7 +118,8 @@ db::table('user')->where('age', '>', 100)->delete(); //删除年龄大于100的�
 1. 加载配置文件
 
 ```php
-config::load($file);
+config::load('/application/home/config/db.php'); //加载绝对路径配置文件
+config::load('app'); //加载相对路径配置文件
 ```
 
 * ##### cookie(COOKIE类)
