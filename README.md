@@ -41,6 +41,9 @@
     
 
 4. 开启UrlRewrite来隐藏入口文件index.php(非必须，但是建议开启)
+
+    如果是Apache服务器，`public/.htaccess`已经帮你配置好了
+    
 5. 更改配置信息
 
 ## Documentation
