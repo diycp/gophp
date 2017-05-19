@@ -30,7 +30,7 @@
 2. 设置目录权限
 
 
-    `public/upload`、`runtime`目录给予可读可写权限(如果不存在则先创建)
+    `public/upload`、`runtime`目录给予可读可写权限(如果不存在则先创建目录)
     
 
 3. 绑定域名
