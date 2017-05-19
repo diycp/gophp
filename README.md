@@ -45,12 +45,12 @@
 
 ## Documentation
 
-- Homepage: http://easywechat.org
-- Forum: https://forum.easywechat.org
-- 微信公众平台文档: https://mp.weixin.qq.com/wiki
-- WeChat Official Documentation: http://admin.wechat.com/wiki
+- 核心类库: http://easywechat.org
+- 系统函数: https://forum.easywechat.org
+- 辅助类库: https://mp.weixin.qq.com/wiki
 
-## Documentation
+
+## Contaction
 
 - 如果您有任何疑问，或有好的意见和想法，请通过以下途径联系我
 - 官方网站：[frame.gouguoyin.cn](http://frame.gouguoyin.cn)
