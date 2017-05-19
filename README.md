@@ -47,7 +47,7 @@
 
 #### 核心类库:
 
-* #### db(数据库操作类)
+* #### [db(数据库操作类)](https://github.com/gouguoyin/doc/blob/master/gophp/db.md)
 
 * #### config(配置类)
 
