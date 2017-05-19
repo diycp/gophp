@@ -31,21 +31,16 @@
 - 下载框架
 - 设置目录权限
 
-
     `public/upload`、`runtime`目录给予可读可写权限(如果不存在则先创建目录)
     
-
 - 绑定域名
-
 
     将域名绑定到`public`目录上
     
-
 - 开启UrlRewrite来隐藏入口文件index.php(非必须，但是建议开启)
 
   [**Apache**]
   
- 
     httpd.conf配置文件中加载mod_rewrite.so模块
     
     将`AllowOverride None` 改为 `AllowOverride All`
