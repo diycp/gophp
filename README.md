@@ -42,7 +42,7 @@
 
 - 开启UrlRewrite来隐藏入口文件index.php(非必须，但是建议开启)
 
-[**Apache**]
+    [**Apache**]
 
 1. httpd.conf配置文件中加载了mod_rewrite.so模块
 2. AllowOverride None 将None改为 All
@@ -59,8 +59,9 @@ RewriteRule ^(.*)$ index.php?r=/$1 [QSA,PT,L]
 </IfModule>
 ```
 
-[**Nginx**]
-
+    [**Nginx**]
+    
+  
 1. httpd.conf配置文件中加载了mod_rewrite.so模块
 2. AllowOverride None 将None改为 All
 3. 把下面的内容保存为.htaccess文件放到应用入口文件的同级目录下
