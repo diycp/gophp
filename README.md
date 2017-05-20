@@ -29,6 +29,7 @@
 ## Installation
 
 - 下载框架
+
 - 设置目录权限
 
     `public/upload`、`runtime`目录给予可读可写权限(如果不存在则先创建目录)
