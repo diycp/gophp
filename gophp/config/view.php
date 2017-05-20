@@ -10,7 +10,7 @@ return [
     'debug_template'     => COMMON_VIEW . '/debug', //调试模板
 
     'smarty' => [
-        'template_suffix' => 'html', //模板文件后缀
+        'template_suffix' => 'html', //模板文件扩展名
         'left_delimiter'  => '{{', //左定界符
         'right_delimiter' => '}}', //右定界符
         'cache_enable'    => false, //是否缓存
