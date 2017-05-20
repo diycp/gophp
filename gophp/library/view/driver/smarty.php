@@ -15,7 +15,16 @@ class smarty extends contract
 
         $this->view = new \Smarty();
 
-        $this->view->template_dir    = VIEW_PATH;
+        if($this->theme = $this->config['theme']){
+
+            $this->view->template_dir    = VIEW_PATH . DS . $this->theme;
+
+        }else{
+
+            $this->view->template_dir    = VIEW_PATH;
+
+        }
+
         $this->view->cache_dir       = RUNTIME_PATH . '/cache';
         $this->view->compile_dir     = RUNTIME_PATH . '/compile';
         $this->view->left_delimiter  = $this->config['left_delimiter'];

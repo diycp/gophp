@@ -7,6 +7,7 @@ abstract class contract
 
     protected $config;
     protected $view;
+    protected $theme;
 
     abstract public function exists($viewFile);
 
@@ -26,7 +27,7 @@ abstract class contract
             $viewName = CONTROLLER_NAME . DS . ACTION_NAME;
             $viewFile = VIEW_PATH . DS . $viewName . '.' . $suffix;
 
-        }elseif(false === strpos($viewName, '.')){
+        }elseif($viewName && false === strpos($viewName, '.')){
 
             $viewFile = VIEW_PATH . DS . $viewName . '.' . $suffix;
 
