@@ -31,11 +31,11 @@ class route
 
         if($urlRewrite){
 
-            $siteUrl  = pathinfo(ROOT_URL, PATHINFO_DIRNAME);
+            $siteUrl  = pathinfo($_SERVER['PHP_SELF'], PATHINFO_DIRNAME);
 
         }else{
 
-            $siteUrl  = ROOT_URL . '?' . $uriParam . '=';
+            $siteUrl  = $_SERVER['PHP_SELF'] . '?' . $uriParam . '=';
 
         }
 
