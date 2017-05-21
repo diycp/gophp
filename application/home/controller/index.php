@@ -5,6 +5,7 @@ use gophp\controller;
 use app\home\model\user;
 use gophp\db;
 use gophp\helper\str;
+use gophp\page;
 use gophp\request;
 use gophp\route;
 
@@ -16,6 +17,10 @@ class index extends controller {
     }
 
     public function index(){
+
+
+        $page = new page(101, 10);
+
 
 
         $this->display();

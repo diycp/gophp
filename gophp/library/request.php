@@ -443,6 +443,12 @@ class request
     public static function get($name, $default = null)
     {
 
+        if(!$name){
+
+            return $_GET;
+
+        }
+
         $value = $_GET[$name];
 
         if(!isset($default)){

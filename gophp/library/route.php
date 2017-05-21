@@ -211,6 +211,11 @@ class route
         $defaultModule     = $this->config['default_module'];
         $defaultController = $this->config['default_controller'];
         $defaultAction     = $this->config['default_action'];
+        $uriParam = $this->config['uri_param'];
+
+        $arguments = array_merge(request::get(), $arguments);
+
+        unset($arguments[$uriParam]);
 
         $uriInfo = array_filter(explode('/', $uri));
         $uriInfo = array_values($uriInfo);
@@ -280,7 +285,11 @@ class route
 
         }
 
-        if($uri = implode('/', $route)){
+        if(!$uri){
+
+            $urlPath = request::getPath() . '.' . $extension;
+
+        }elseif($uri = implode('/', $route)){
 
             $urlPath = $siteUrl .'/'. $uri . '.' . $extension;
 
