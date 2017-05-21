@@ -9,10 +9,7 @@ class index extends controller{
 
     public function index(){
 
-        $a = db::table('pdo_yy')->show(false)->where('a1', 'like', '%磊%')->findAll();
-        dump($a);
-
-        $this->assign('name', '勾国磊');
+        echo '后台首页';
 
         $this->display();
 
