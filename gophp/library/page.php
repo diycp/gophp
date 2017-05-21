@@ -36,7 +36,7 @@ class page{
     public function url($page, $isAbsolute = false)
     {
 
-        $page = intval($page);
+        $page = $page >= $this->totalPages ? $this->totalPages : intval($page);
 
         if($page > 0){
 

@@ -21,6 +21,12 @@ class index extends controller {
 
         $page = new page(101, 10);
 
+        $a = $page->total();
+
+        $b = $page->url(12);
+
+        dump($b);
+
 
 
         $this->display();

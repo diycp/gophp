@@ -295,25 +295,37 @@ class route
 
         if(!$uri){
 
-            $urlPath = $siteUrl . request::getPath() . '.' . $extension;
+            $urlPath = request::getPath();
 
         }elseif($uri = implode('/', $route)){
 
-            $urlPath = $siteUrl .'/'. $uri . '.' . $extension;
+            $urlPath = $uri;
 
         }else{
 
-            $urlPath = $siteUrl;
+            $urlPath = '';
+
+        }
+
+        $urlPath = trim($urlPath, '/');
+
+        if($urlPath){
+
+            $url = $siteUrl . '/' . $urlPath . '.' . $extension;
+
+        }else{
+
+            $url = $siteUrl . '/';
 
         }
 
         if(strpos($urlPath, '?') !== false){
 
-            return $urlPath .'&'. $urlQuery;
+            return $url .'&'. $urlQuery;
 
         }else{
 
-            return $urlPath .'?'. $urlQuery;
+            return $url .'?'. $urlQuery;
 
         }
 
