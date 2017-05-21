@@ -32,20 +32,31 @@ class page{
 
     }
 
-    //生成链接
-    public function url($page)
+    //生成页码链接
+    public function url($page, $isAbsolute = false)
     {
 
-        $this->arguments = request::get();
+        $page = intval($page);
 
-        return route::url('', ['p' => $page]);
+        if($page > 0){
+
+            return route::url('', ['p' => $page], $isAbsolute);
+
+        }else{
+
+            return route::url('', '', $isAbsolute);
+
+
+        }
 
     }
 
     //当前页码
     public function now()
     {
+
         return $this->nowPage;
+
     }
     
     //上一页页码
