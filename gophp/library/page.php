@@ -9,15 +9,18 @@ class page{
     protected $totalPages; // 总页数
     protected $rollPage   = 10;// 分页栏每页显示的页数
     protected $nowPage = 1; // 当前页码
+    protected $pageParam; // 分页参数
     protected $arguments = []; // 附加参数
 
     public function __construct($totalRows, $pageRows, $arguments)
     {
 
-        $this->nowPage    = request::getParam('p', 1);
+        $this->pageParam = config::get('http', 'page_param');
 
-        $this->totalRows  = $totalRows; //设置总记录数
-        $this->pageRows   = $pageRows;  //设置每页显示行数
+        $this->nowPage   = request::getParam($this->pageParam, 1);
+
+        $this->totalRows = $totalRows; //设置总记录数
+        $this->pageRows  = $pageRows;  //设置每页显示行数
 
         // 计算总页数
         $this->totalPages = ceil($this->totalRows / $this->pageRows);
@@ -40,7 +43,7 @@ class page{
 
         if($page > 0){
 
-            return route::url('', ['p' => $page]);
+            return route::url('', [$this->pageParam => $page]);
 
         }else{
 
