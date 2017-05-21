@@ -6,9 +6,6 @@ define('ROOT_PATH', __DIR__ . '/..');
 // 定义应用目录
 define('APP_PATH', ROOT_PATH . '/application');
 
-// 定义根域名
-define('ROOT_URL', $_SERVER['PHP_SELF']);
-
 // 定义运行环境
 define('APP_ENV', isset($_SERVER['APP_ENV']) ? $_SERVER['APP_ENV'] : 'develop');
 
