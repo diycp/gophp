@@ -33,19 +33,18 @@ class page{
     }
 
     //生成页码链接
-    public function url($page, $isAbsolute = false)
+    public function url($page)
     {
 
         $page = $page >= $this->totalPages ? $this->totalPages : intval($page);
 
         if($page > 0){
 
-            return route::url('', ['p' => $page], $isAbsolute);
+            return route::url('', ['p' => $page]);
 
         }else{
 
-            return route::url('', '', $isAbsolute);
-
+            return route::url('', '');
 
         }
 
@@ -99,19 +98,59 @@ class page{
         return $this->totalPages;
 
     }
+
+    // 数字导航数组
+    public function numbers($length = 5)
+    {
+
+        $numbers = [];
+
+        $per = floor($length / 2);
+        $min = $this->nowPage - $per;
+
+        if ($length % 2) {
+
+            $max = $this->nowPage + ceil($length / 2) - 1;
+
+        } else {
+
+            $max = $this->nowPage + $per - 1;
+
+        }
+
+        if ($max > $this->totalPages) {
+
+            $min -= $max - $this->totalPages;
+
+        }
+
+        if ($min < 1) {
+
+            $max += 1 - $min;
+
+        }
+
+        $max > $this->totalPages && $max = $this->totalPages;
+
+        $min < 1 && $min = 1;
+
+        foreach ( range($min, $max) as $k => $v) {
+
+            $numbers[$k]['num'] = $v;
+            $numbers[$k]['url'] = $this->url($v);
+
+        }
+
+        return $numbers;
+
+    }
     
     //每页显示条数
     public function pageRows()
     {
+
         return $this->pageRows;
-    }
-    
 
-    //组装limit条件
-    public function limit()
-    {
-        return $this->firstRow.','.$this->listRows;
     }
-
 
 }

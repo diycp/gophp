@@ -9,6 +9,9 @@
 <body>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 这是首页
+{{foreach $page->numbers(59) as $v}}
+<a href="{{$v['url']}}">{{$v['num']}}</a>
+{{/foreach}}
 </body>
 
 </html>
