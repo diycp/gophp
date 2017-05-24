@@ -3,6 +3,9 @@ namespace app\home\controller;
 
 use gophp\controller;
 use app\home\model\user;
+use gophp\db;
+use gophp\helper\str;
+use gophp\page;
 use gophp\request;
 use gophp\route;
 
@@ -15,15 +18,13 @@ class index extends controller {
 
     public function index(){
 
-        //echo request::getDomain();
 
-        echo '勾国磊';
+        $page = new page(101, 10);
 
-        $a = route::url('aa/indexs/index',['id' => 1,'cat' => 3], true,'json');
-
-        dump($a);
+        $this->assign('page', $page);
 
         $this->display();
+
 
     }
 

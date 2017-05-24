@@ -31,11 +31,11 @@ class route
 
         if($urlRewrite){
 
-            $siteUrl  = pathinfo(ROOT_URL, PATHINFO_DIRNAME);
+            $siteUrl  = pathinfo($_SERVER['PHP_SELF'], PATHINFO_DIRNAME);
 
         }else{
 
-            $siteUrl  = ROOT_URL . '?' . $uriParam . '=';
+            $siteUrl  = $_SERVER['PHP_SELF'] . '?' . $uriParam . '=';
 
         }
 
@@ -212,6 +212,19 @@ class route
         $defaultModule     = $this->config['default_module'];
         $defaultController = $this->config['default_controller'];
         $defaultAction     = $this->config['default_action'];
+        $uriParam          = $this->config['uri_param'];
+
+        if($arguments){
+
+            $arguments = array_merge(request::get(), $arguments);
+
+        }else{
+
+            $arguments = request::get();
+
+        }
+
+        unset($arguments[$uriParam]);
 
         $uriInfo = array_filter(explode('/', $uri));
         $uriInfo = array_values($uriInfo);
@@ -249,9 +262,9 @@ class route
         }
 
         $route = [
-            'module' => $module,
+            'module'     => $module,
             'controller' => $controller,
-            'action' => $action,
+            'action'     => $action,
         ];
 
         $siteUrl   = $isAbsolute ? SITE_ABSOLUTE_URL : SITE_RELATIVE_URL;
@@ -281,23 +294,39 @@ class route
 
         }
 
-        if($uri = implode('/', $route)){
+        if(!$uri){
 
-            $urlPath = $siteUrl .'/'. $uri . '.' . $extension;
+            $urlPath = request::getPath();
+
+        }elseif($uri = implode('/', $route)){
+
+            $urlPath = $uri;
 
         }else{
 
-            $urlPath = $siteUrl;
+            $urlPath = '';
+
+        }
+
+        $urlPath = trim($urlPath, '/');
+
+        if($urlPath){
+
+            $url = $siteUrl . '/' . $urlPath . '.' . $extension;
+
+        }else{
+
+            $url = $siteUrl . '/';
 
         }
 
         if(strpos($urlPath, '?') !== false){
 
-            return $urlPath .'&'. $urlQuery;
+            return $url .'&'. $urlQuery;
 
         }else{
 
-            return $urlPath .'?'. $urlQuery;
+            return $url .'?'. $urlQuery;
 
         }
 

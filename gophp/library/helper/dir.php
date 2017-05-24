@@ -2,8 +2,6 @@
 
 namespace gophp\helper;
 
-use gophp\validate;
-
 class dir
 {
 
@@ -19,7 +17,7 @@ class dir
     public static function create($path, $chmod = 0775)
     {
 
-        if(validate::hasChinese($path) || is_dir($path)){
+        if(is_dir($path)){
 
             return false;
         }
@@ -38,9 +36,9 @@ class dir
 
         $extension = strtolower(trim($extension, '.'));
 
-        $handle = opendir($path);
+        $handler = opendir($path);
 
-        while(($file = readdir($handle)) !== false){
+        while(($file = readdir($handler)) !== false){
 
             if($file == "." || $file == "..") {
 
@@ -64,7 +62,7 @@ class dir
 
         }
 
-        closedir($handle);
+        closedir($handler);
 
         // 按照自然排序
         natsort($fileList);
@@ -83,9 +81,9 @@ class dir
 
         $extension = strtolower(trim($extension, '.'));
 
-        $handle = opendir($path);
+        $handler = opendir($path);
 
-        while(($file = readdir($handle)) !== false){
+        while(($file = readdir($handler)) !== false){
 
             if(!is_file($path. DS .$file)){
 
@@ -109,7 +107,7 @@ class dir
 
         }
 
-        closedir($handle);
+        closedir($handler);
 
         // 按照自然排序
         natsort($fileList);
@@ -126,9 +124,9 @@ class dir
 
         if(!self::exists($path)) return false;
 
-        $handle = opendir($path);
+        $handler = opendir($path);
 
-        while(($file = readdir($handle)) !== false){
+        while(($file = readdir($handler)) !== false){
 
             if(!is_dir($path. DS .$file)){
 
@@ -152,7 +150,7 @@ class dir
 
         }
 
-        closedir($handle);
+        closedir($handler);
 
         // 按照自然排序
         natsort($dirList);
@@ -162,14 +160,14 @@ class dir
     }
 
     // 删除目录下所有文件
-    public static function deleteFile($path, $extension = '')
+    public static function deleteFile($path)
     {
 
         if(!self::exists($path)) return false;
 
-        $handle = opendir($path);
+        $handler = opendir($path);
 
-        while(($file = readdir($handle)) !== false){
+        while(($file = readdir($handler)) !== false){
 
             if($file == "." || $file == "..") {
 
@@ -185,7 +183,7 @@ class dir
 
         }
 
-        closedir($handle);
+        closedir($handler);
 
     }
 
@@ -195,9 +193,9 @@ class dir
 
         if(!self::exists($path)) return false;
 
-        $handle = opendir($path);
+        $handler = opendir($path);
 
-        while(($file = readdir($handle)) !== false){
+        while(($file = readdir($handler)) !== false){
 
             if($file == "." || $file == "..") {
 
@@ -225,7 +223,7 @@ class dir
 
         }
 
-        closedir($handle);
+        closedir($handler);
 
     }
 

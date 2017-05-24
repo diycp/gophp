@@ -2,8 +2,6 @@
 
 namespace gophp;
 
-use gophp\helper\str;
-
 class reflect
 {
 

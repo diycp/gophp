@@ -68,9 +68,9 @@ class mysql extends contract
     public function table($table, $prefix = '')
     {
 
-        $prefix          = isset($prefix) ? $prefix : $this->config['prefix'];
+        $this->tablePrefix = isset($prefix) ? $prefix : $this->config['prefix'];
 
-        $this->tableName = '`' . $prefix . $table . '`';
+        $this->tableName   = '`' . $prefix . $table . '`';
 
         return $this;
 
@@ -79,18 +79,20 @@ class mysql extends contract
     /**
      * 查询单条数据
      * @param string $field
-     * @return mixed
+     * @return array
      */
     public function find($field = '*')
     {
+
+        $this->pk  = schema::getPK($this->tableName);
 
         $field = $field ? $field : '*';
 
         $this->option['limit'] = 1;
 
-        if(is_numeric($field)){
+        $this->option['order'] = $this->pk.' DESC'; //主键ID降序
 
-            $this->pk  = schema::getPK($this->tableName);
+        if(is_numeric($field)){
 
             $this->where($this->pk, '=', $field);
 
@@ -115,6 +117,25 @@ class mysql extends contract
     }
 
     /**
+     * 查询单个字段值
+     * @param $field
+     * @return string
+     */
+    public function value($field)
+    {
+
+        if(!$field){
+
+            return '';
+        }
+
+        $result = $this->find($field);
+
+        return $result[$field];
+
+    }
+
+    /**
      * 查询多条数据
      * @param string $field
      * @return array
@@ -135,35 +156,6 @@ class mysql extends contract
         }
 
         return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    }
-
-    /**
-     * 查询单个字段值
-     * @param $field
-     * @return string|int
-     */
-    public function value($field)
-    {
-
-        if(!$field){
-
-            return '';
-        }
-
-        $this->option['limit'] = 1;
-
-        $this->sql  = "SELECT $field FROM " . $this->tableName . $this->option();
-
-        $this->stmt = $this->execute($this->bind);
-
-        if($this->chain['show']){
-
-            return $this->stmt;
-
-        }
-
-        return $this->stmt->fetch(PDO::FETCH_ASSOC)[$field];
 
     }
 
@@ -238,7 +230,7 @@ class mysql extends contract
 
         $this->option['set'] = $field . '=' . $field .'-'. $offset;
 
-        $this->sql = "UPDATE " . $this->tableName . $this->option();
+        $this->sql  = "UPDATE " . $this->tableName . $this->option();
 
         $this->stmt = $this->execute($this->bind);
 

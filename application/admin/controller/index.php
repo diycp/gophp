@@ -3,16 +3,15 @@ namespace app\admin\controller;
 
 use gophp\controller;
 use gophp\db;
+use gophp\page;
+use gophp\request;
 
 class index extends controller{
 
 
     public function index(){
 
-        $a = db::table('pdo_yy')->show(false)->where('a1', 'like', '%磊%')->findAll();
-        dump($a);
-
-        $this->assign('name', '勾国磊');
+        echo '后台首页';
 
         $this->display();
 
@@ -20,7 +19,11 @@ class index extends controller{
 
     public function demo()
     {
-        echo 'admin-demo';
+
+        $page = new page(101, 10);
+
+
+        dump($page->url(9));
     }
 
     public function __call($name, $arguments)

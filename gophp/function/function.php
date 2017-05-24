@@ -87,4 +87,17 @@ if(!function_exists('load')){
 
 }
 
+/**
+ * 生成url
+ */
+if(!function_exists('url')){
+
+    function url($uri = null, $arguments = [], $isAbsolute = false, $extension = null){
+
+        return \gophp\route::url($uri, $arguments, $isAbsolute, $extension);
+
+    }
+
+}
+
 

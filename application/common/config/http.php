@@ -3,8 +3,10 @@
 return [
 
     'uri_param'          => 'r',
+    'page_param'         => 'p', // 分页参数
     'url_rewrite'        => true,  //是否开启url重写
     'default_module'     => DEFAULT_MODULE,  //默认模块
+    'module_alias'       => ['admin' => 'manage'],  //模块别名
     'default_controller' => 'index', //默认控制器
     'default_action'     => 'index', //默认方法
     'default_extension'  => 'html',  //默认后缀

@@ -9,6 +9,7 @@ abstract class contract
     protected $db;
     protected $stmt;
     protected $tableName;
+    protected $tablePrefix;
     protected $pk;
     protected $sql;
 
@@ -19,8 +20,6 @@ abstract class contract
     abstract public function table($table);
 
     abstract public function find($field);
-
-    abstract public function value($field);
 
     abstract public function findAll($field);
 
