@@ -26,6 +26,7 @@ class index extends controller {
         $this->display();
 
 
+
     }
 
     public function demo()
