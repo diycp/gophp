@@ -22,7 +22,7 @@ class page{
         $this->totalRows = $totalRows; //设置总记录数
         $this->pageRows  = $pageRows;  //设置每页显示行数
 
-        $this->firstRow  = $this->pageRows * ($this->nowPage - 1);
+        $this->firstRow  = $this->pageRows * ($this->nowPage - 1); // 设置起始行数
 
         // 计算总页数
         $this->totalPages = ceil($this->totalRows / $this->pageRows);
