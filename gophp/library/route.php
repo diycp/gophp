@@ -314,9 +314,13 @@ class route
 
             return $url .'&'. $urlQuery;
 
-        }else{
+        }elseif($urlQuery){
 
             return $url .'?'. $urlQuery;
+
+        }else{
+
+            return $url;
 
         }
 

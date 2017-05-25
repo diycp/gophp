@@ -19,7 +19,7 @@ class index extends controller {
 
     public function index(){
 
-        $a = log::delete('2017-05-25', '2017-05-25');
+        $a = route::url('demo/index/dee');
         dump($a);
 
         $this->display();
