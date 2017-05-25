@@ -1,5 +1,5 @@
 <center>
-    <h5>📦GoPHP——轻量级现代PHP框架</h5>
+    <b>📦GoPHP——轻量级现代PHP框架</b>
 </center>
 
 ## Feature
