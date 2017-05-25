@@ -501,7 +501,7 @@ class mysql extends contract
 
         if($page){
 
-            $firstRow = $pageRows * ( $page - 1 );
+            $firstRow  = $pageRows * ( $page - 1 );
 
         }else{
 
