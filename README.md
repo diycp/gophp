@@ -73,9 +73,9 @@
     如果是部署在二级目录下，在Nginx.conf中配置转发规则
   
     ```php
-    location /youdomain/ {
+    location /subdir/ {
         if (!-e $request_filename){
-            rewrite  ^/youdomain/(.*)$  /youdomain/index.php?r=$1  last;
+            rewrite  ^/subdir/(.*)$  /youdomain/index.php?r=$1  last;
         }
     }
     ```  
