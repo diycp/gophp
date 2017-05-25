@@ -4,6 +4,7 @@ namespace gophp;
 
 class page{
 
+    protected $firstRow; // 起始行数
     protected $totalRows; // 总行数
     protected $pageRows; // 列表每页显示行数
     protected $totalPages; // 总页数
@@ -20,6 +21,8 @@ class page{
 
         $this->totalRows = $totalRows; //设置总记录数
         $this->pageRows  = $pageRows;  //设置每页显示行数
+
+        $this->firstRow  = $this->pageRows * ($this->nowPage - 1);
 
         // 计算总页数
         $this->totalPages = ceil($this->totalRows / $this->pageRows);
@@ -144,6 +147,13 @@ class page{
         }
 
         return $numbers;
+
+    }
+
+    //组装limit条件
+    public function limit(){
+
+        return $this->firstRow.','.$this->pageRows;
 
     }
     

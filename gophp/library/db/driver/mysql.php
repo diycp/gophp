@@ -490,6 +490,19 @@ class mysql extends contract
     }
 
     /**
+     * @desc 分页查询
+     * @param $page 当前页面
+     * @param $listRows
+     * @return $this
+     */
+    public function page($page,$listRows) {
+
+
+
+        return $this;
+    }
+
+    /**
      * @desc 联合查询
      * @param $table
      * @param string $type
