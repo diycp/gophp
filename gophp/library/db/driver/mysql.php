@@ -673,31 +673,31 @@ class mysql extends contract
 
         if($this->option['set']){
 
-            $option = ' SET '. $this->option["set"];
+            $option = ' SET ' . $this->option["set"];
 
         }
 
         if($this->option['inner join']){
 
-            $option .= ' INNER JOIN '. $this->option["inner join"];
+            $option .= ' INNER JOIN ' . $this->option["inner join"];
 
         }
 
         if($this->option['left join']){
 
-            $option .= ' LEFT JOIN '. $this->option["left join"];
+            $option .= ' LEFT JOIN ' . $this->option["left join"];
 
         }
 
         if($this->option['right join']){
 
-            $option .= ' RIGHT JOIN '. $this->option["right join"];
+            $option .= ' RIGHT JOIN ' . $this->option["right join"];
 
         }
 
         if($this->option['full join']){
 
-            $option .= ' FULL JOIN '. $this->option["full join"];
+            $option .= ' FULL JOIN ' . $this->option["full join"];
 
         }
 
@@ -709,19 +709,19 @@ class mysql extends contract
 
         if($this->option['where']){
 
-            $option .= ' WHERE '. trim($this->option["where"], $this->chain['logic'] . ' ');
+            $option .= ' WHERE ' . trim($this->option["where"], $this->chain['logic'] . ' ');
 
         }
 
         if($this->option['order']){
 
-            $option .= ' ORDER BY '. $this->option["order"];
+            $option .= ' ORDER BY ' . $this->option["order"];
 
         }
 
         if($this->option['limit']){
 
-            $option .= ' LIMIT '. $this->option["limit"];
+            $option .= ' LIMIT ' . $this->option["limit"];
 
         }
 
