@@ -703,7 +703,7 @@ class mysql extends contract
 
         if($this->option['on']){
 
-            $option .= ' ON ('. $this->option["on"] . ')';
+            $option .= ' ON (' . $this->option["on"] . ')';
 
         }
 
