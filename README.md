@@ -1,6 +1,6 @@
-<p align="center">
+<center>
     <h5>📦GoPHP——轻量级现代PHP框架</h5>
-</p>
+</center>
 
 ## Feature
 
