@@ -23,6 +23,8 @@ abstract class contract
 
     abstract public function findAll($field);
 
+    abstract public function page($page,$listRows);
+
     abstract public function update(array $data);
 
     abstract public function inc($field, $offset = 1);

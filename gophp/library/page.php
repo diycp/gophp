@@ -7,7 +7,6 @@ class page{
     protected $totalRows; // 总行数
     protected $pageRows; // 列表每页显示行数
     protected $totalPages; // 总页数
-    protected $rollPage   = 10;// 分页栏每页显示的页数
     protected $nowPage = 1; // 当前页码
     protected $pageParam; // 分页参数
     protected $arguments = []; // 附加参数
