@@ -30,9 +30,9 @@
 
 - 下载框架
 
-```php
-git clone https://github.com/gouguoyin/GoPHP.git
-```
+    ```php
+    git clone https://github.com/gouguoyin/GoPHP.git
+    ```
 
 - 设置目录权限
 
