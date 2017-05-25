@@ -22,24 +22,15 @@ class route
 
         $this->config = config::get('http');
 
-        $urlRewrite   = $this->config['url_rewrite'];
         $uriParam     = $this->config['uri_param'];
 
         $urlParse     = $this->parse(request::get($uriParam, ''));
 
         $urlDomain    = request::getDomain();
 
-        if($urlRewrite){
+        $siteUrl  = pathinfo($_SERVER['PHP_SELF'], PATHINFO_DIRNAME);
 
-            $siteUrl  = pathinfo($_SERVER['PHP_SELF'], PATHINFO_DIRNAME);
-
-        }else{
-
-            $siteUrl  = $_SERVER['PHP_SELF'] . '?' . $uriParam . '=';
-
-        }
-
-        $siteUrl = rtrim($siteUrl, '/');
+        $siteUrl  = rtrim($siteUrl, '/');
 
         $this->module     = $urlParse['module'];
         $this->controller = $urlParse['controller'];

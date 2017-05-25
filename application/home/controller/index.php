@@ -21,6 +21,8 @@ class index extends controller {
 
         $page = new page(101, 10);
 
+        dump($page->limit());
+
         $this->assign('page', $page);
 
         $this->display();
