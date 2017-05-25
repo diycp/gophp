@@ -355,15 +355,13 @@ class mysql extends contract
     public function delete($id)
     {
 
-        if(is_array($id) && $id){
+        $pk = schema::getPK($this->tableName);
 
-            $pk = schema::getPK($this->tableName);
+        if(is_array($id) && $id){
 
             $this->where($pk, 'in', $id);
 
         }elseif($id){
-
-            $pk = schema::getPK($this->tableName);
 
             $this->where($pk, '=', $id);
 
