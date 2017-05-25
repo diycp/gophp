@@ -587,7 +587,8 @@ class mysql extends contract
      * @param $bind
      * @return \PDOStatement
      */
-    private function execute($bind){
+    private function execute($bind)
+    {
 
         $this->option = [];
         $this->bind   = [];
