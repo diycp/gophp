@@ -498,24 +498,17 @@ class mysql extends contract
     /**
      * @desc 分页查询
      * @param $pageRows 每页显示条数
+     * @param $page 当前页码
      * @return $this
      */
-    public function page($pageRows, $page = 0)
+    public function page($pageRows, $pageNo = null)
     {
 
-        if($page){
+        $pageParam = config::get('http', 'page_param');
 
-            $firstRow  = $pageRows * ( $page - 1 );
+        $pageNo    = $pageNo ? $pageNo : request::getParam($pageParam, 1);
 
-        }else{
-
-            $pageParam = config::get('http', 'page_param');
-
-            $page      = request::getParam($pageParam, 1);
-
-            $firstRow  = $pageRows * ( $page - 1 );
-
-        }
+        $firstRow  = $pageRows * ( $pageNo - 1 );
 
         $this->option["limit"] = $firstRow . ',' . $pageRows;
 

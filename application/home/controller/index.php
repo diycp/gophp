@@ -21,9 +21,9 @@ class index extends controller {
 
         $total = db::table('pdo_yy')->count();
 
-        $page = new page($total, 10);
+        $page = new page($total, 4);
 
-        $list = db::table('pdo_yy')->page($page->pageRows)->show(true)->findAll();
+        $list = db::table('pdo_yy')->page($page->pageRows)->show(false)->findAll();
 
         dump($list);
 
