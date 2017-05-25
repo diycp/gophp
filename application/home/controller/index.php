@@ -19,12 +19,10 @@ class index extends controller {
 
     public function index(){
 
-        $a = route::url('demo/index/dee');
+        $a = route::url('demo/index/dee', ['id' => 1], true, 'json');
         dump($a);
 
         $this->display();
-
-
 
     }
 
