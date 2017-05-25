@@ -19,9 +19,13 @@ class index extends controller {
     public function index(){
 
 
-        $page = new page(101, 10);
+        $total = db::table('pdo_yy')->count();
 
-        dump($page->limit());
+        $page = new page($total, 10);
+
+        $list = db::table('pdo_yy')->page($page->pageRows)->show(true)->findAll();
+
+        dump($list);
 
         $this->assign('page', $page);
 

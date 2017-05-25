@@ -4,13 +4,13 @@ namespace gophp;
 
 class page{
 
-    protected $firstRow; // 起始行数
-    protected $totalRows; // 总行数
-    protected $pageRows; // 列表每页显示行数
-    protected $totalPages; // 总页数
-    protected $nowPage = 1; // 当前页码
-    protected $pageParam; // 分页参数
-    protected $arguments = []; // 附加参数
+    public $firstRow; // 起始行数
+    public $totalRows; // 总行数
+    public $pageRows; // 列表每页显示行数
+    public $totalPages; // 总页数
+    public $nowPage = 1; // 当前页码
+    public $pageParam; // 分页参数
+    public $arguments = []; // 附加参数
 
     public function __construct($totalRows, $pageRows, $arguments)
     {
@@ -157,7 +157,7 @@ class page{
         return $this->firstRow . ',' . $this->pageRows;
 
     }
-    
+
     //每页显示条数
     public function pageRows()
     {

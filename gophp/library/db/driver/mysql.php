@@ -2,8 +2,11 @@
 
 namespace gophp\db\driver;
 
+use gophp\config;
 use gophp\db\contract;
 use gophp\exception;
+use gophp\page;
+use gophp\request;
 use gophp\schema;
 use PDO;
 
@@ -482,7 +485,7 @@ class mysql extends contract
 
         }else{
 
-            $this->option["limit"] = "$offset," . $rows;
+            $this->option["limit"] = $offset . ',' . $rows;
 
         }
 
@@ -491,15 +494,29 @@ class mysql extends contract
 
     /**
      * @desc 分页查询
-     * @param $page 当前页面
-     * @param $listRows
+     * @param $pageRows 每页显示条数
      * @return $this
      */
-    public function page($page,$listRows) {
+    public function page($pageRows, $page = 0) {
 
+        if($page){
 
+            $firstRow = $pageRows * ( $page - 1 );
+
+        }else{
+
+            $pageParam = config::get('http', 'page_param');
+
+            $page      = request::getParam($pageParam, 1);
+
+            $firstRow  = $pageRows * ( $page - 1 );
+
+        }
+
+        $this->option["limit"] = $firstRow . ',' . $pageRows;
 
         return $this;
+
     }
 
     /**
