@@ -508,7 +508,7 @@ class mysql extends contract
 
         $pageNo    = $pageNo ? $pageNo : request::getParam($pageParam, 1);
 
-        $firstRow  = $pageRows * ( $pageNo - 1 );
+        $firstRow  = $pageRows * ($pageNo - 1);
 
         $this->option["limit"] = $firstRow . ',' . $pageRows;
 
