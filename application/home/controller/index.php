@@ -5,6 +5,7 @@ use gophp\controller;
 use app\home\model\user;
 use gophp\db;
 use gophp\helper\str;
+use gophp\log;
 use gophp\page;
 use gophp\request;
 use gophp\route;
@@ -18,16 +19,8 @@ class index extends controller {
 
     public function index(){
 
-
-        $total = db::table('pdo_yy')->count();
-
-        $page = new page($total, 4);
-
-        $list = db::table('pdo_yy')->page($page->pageRows)->show(false)->findAll();
-
-        dump($list);
-
-        $this->assign('page', $page);
+        $a = log::delete('2017-05-25', '2017-05-25');
+        dump($a);
 
         $this->display();
 

@@ -92,4 +92,26 @@ class log {
 
     }
 
+    protected function delete($name, $format = null)
+    {
+
+        if($format){
+
+            $format = explode('-', $format);
+            $format = implode('/', $format);
+
+        }else{
+
+            $format = date('Y/m/d');
+
+        }
+
+        $path  = $this->config['save_path'] . DS . $format;
+
+        $file = $path . DS . $name . '.' . $this->extension;
+
+        return file::delete($file);
+
+    }
+
 }
