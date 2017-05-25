@@ -151,9 +151,10 @@ class page{
     }
 
     //组装limit条件
-    public function limit(){
+    public function limit()
+    {
 
-        return $this->firstRow.','.$this->pageRows;
+        return $this->firstRow . ',' . $this->pageRows;
 
     }
     
