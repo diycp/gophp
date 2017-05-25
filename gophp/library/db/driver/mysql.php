@@ -474,7 +474,8 @@ class mysql extends contract
      * @param int $rows
      * @return $this
      */
-    public function limit($offset,$rows = 0) {
+    public function limit($offset,$rows = 0)
+    {
 
         $offset = intval($offset);
         $rows   = intval($rows);
@@ -497,7 +498,8 @@ class mysql extends contract
      * @param $pageRows 每页显示条数
      * @return $this
      */
-    public function page($pageRows, $page = 0) {
+    public function page($pageRows, $page = 0)
+    {
 
         if($page){
 
