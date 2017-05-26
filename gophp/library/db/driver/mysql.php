@@ -419,6 +419,90 @@ class mysql extends contract
     }
 
     /**
+     * 查询最大值
+     * @param $field
+     * @return \PDOStatement|string
+     */
+    public function max($field)
+    {
+
+        $this->sql = "SELECT MAX(" . $field . ") FROM " . $this->tableName . $this->option();
+
+        $this->stmt = $this->execute($this->bind);
+
+        if($this->chain['show']){
+
+            return $this->stmt;
+
+        }
+
+        return $this->stmt->fetchColumn();
+    }
+
+    /**
+     * 查询最小值
+     * @param $field
+     * @return \PDOStatement|string
+     */
+    public function min($field)
+    {
+
+        $this->sql = "SELECT MIN(" . $field . ") FROM " . $this->tableName . $this->option();
+
+        $this->stmt = $this->execute($this->bind);
+
+        if($this->chain['show']){
+
+            return $this->stmt;
+
+        }
+
+        return $this->stmt->fetchColumn();
+    }
+
+    /**
+     * 查询平均值
+     * @param $field
+     * @return \PDOStatement|string
+     */
+    public function avg($field)
+    {
+
+        $this->sql = "SELECT AVG(" . $field . ") FROM " . $this->tableName . $this->option();
+
+        $this->stmt = $this->execute($this->bind);
+
+        if($this->chain['show']){
+
+            return $this->stmt;
+
+        }
+
+        return $this->stmt->fetchColumn();
+    }
+
+    /**
+     * 求和
+     * @param $field
+     * @return \PDOStatement|string
+     */
+    public function sum($field)
+    {
+
+        $this->sql = "SELECT SUM(" . $field . ") FROM " . $this->tableName . $this->option();
+
+        $this->stmt = $this->execute($this->bind);
+
+        if($this->chain['show']){
+
+            return $this->stmt;
+
+        }
+
+        return $this->stmt->fetchColumn();
+    }
+
+    /**
      * 操作条件
      * @param $field
      * @param $condition
