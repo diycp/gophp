@@ -15,9 +15,6 @@ defined('GOPHP_LIB') or define('GOPHP_LIB', GOPHP_PATH . DS . 'library');
 // 定义框架配置文件目录
 defined('GOPHP_CONFIG') or define('GOPHP_CONFIG', GOPHP_PATH . DS . 'config');
 
-// 定义框架插件目录
-defined('GOPHP_PLUG') or define('GOPHP_PLUG', GOPHP_PATH.'/plugin');
-
 // 定义根目录
 defined('ROOT_PATH') or define('ROOT_PATH', dirname(GOPHP_PATH));
 
