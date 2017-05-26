@@ -5,7 +5,6 @@ namespace gophp\db\driver;
 use gophp\config;
 use gophp\db\contract;
 use gophp\exception;
-use gophp\page;
 use gophp\request;
 use gophp\schema;
 use PDO;
