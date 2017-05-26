@@ -78,7 +78,7 @@
     ```php
     location /sub_dir/ {
         if (!-e $request_filename){
-            rewrite  ^/sub_dir/(.*)$  /youdomain/index.php?r=$1  last;
+            rewrite  ^/sub_dir/(.*)$  /sub_dir/index.php?r=$1  last;
         }
     }
     ```  
