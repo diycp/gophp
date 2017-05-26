@@ -39,6 +39,14 @@ abstract class contract
 
     abstract public function count($field);
 
+    abstract public function max($field);
+
+    abstract public function min($field);
+
+    abstract public function avg($field);
+
+    abstract public function sum($field);
+
     abstract public function where($field , $expression, $value, $logic = 'AND');
 
     abstract public function order($order);
