@@ -13,6 +13,11 @@ class local extends contract {
 
     }
 
+    /**
+     * 上传文件
+     * @param $inputName 上传框name
+     * @return bool|string
+     */
     public function file($inputName)
     {
 
@@ -96,33 +101,5 @@ class local extends contract {
         }
 
     }
-
-    private function error($errorNo) {
-
-        switch ($errorNo) {
-            case 1:
-                $this->error = '上传的文件超过了 php.ini 中 upload_max_filesize 选项限制的值！';
-                break;
-            case 2:
-                $this->error = '上传文件的大小超过了 HTML 表单中 MAX_FILE_SIZE 选项指定的值！';
-                break;
-            case 3:
-                $this->error = '文件只有部分被上传！';
-                break;
-            case 4:
-                $this->error = '没有文件被上传！';
-                break;
-            case 6:
-                $this->error = '找不到临时文件夹！';
-                break;
-            case 7:
-                $this->error = '文件写入失败！';
-                break;
-            default:
-                $this->error = '未知上传错误！';
-        }
-
-    }
-
 
 }
