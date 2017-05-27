@@ -9,7 +9,23 @@ abstract class contract
     protected $error;
     protected $info;
 
-    abstract function file($file);
+    abstract function file($inputName);
+
+    // 判断是否有文件上传
+    public function exist($inputName)
+    {
+
+        $uploadInfo = $_FILES[$inputName];
+
+        if(is_uploaded_file($uploadInfo['tmp_name'])){
+
+            return true;
+
+        }else{
+
+            return false;
+        }
+    }
 
     protected function check($info)
     {

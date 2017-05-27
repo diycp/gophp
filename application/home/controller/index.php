@@ -2,10 +2,7 @@
 namespace app\home\controller;
 
 use gophp\controller;
-
-use PHPSocketIO\SocketIO;
-use Workerman\Worker;
-
+use gophp\upload;
 
 class index extends controller {
 
@@ -15,6 +12,13 @@ class index extends controller {
     }
 
     public function index(){
+
+        if(upload::exist('fileUpload')){
+            $a = upload::file('fileUpload');
+            dump($a);
+        }
+
+
 
         $this->display();
 
