@@ -2,6 +2,8 @@
 
 namespace gophp\db;
 
+use gophp\page;
+
 abstract class contract
 {
 
@@ -23,7 +25,7 @@ abstract class contract
 
     abstract public function findAll($field);
 
-    abstract public function page($pageRows, $pageNo);
+    abstract public function page(page $page, $pageNo);
 
     abstract public function update(array $data);
 

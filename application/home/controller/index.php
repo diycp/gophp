@@ -2,6 +2,8 @@
 namespace app\home\controller;
 
 use gophp\controller;
+use gophp\db;
+use gophp\page;
 use gophp\upload;
 
 class index extends controller {
@@ -13,12 +15,18 @@ class index extends controller {
 
     public function index(){
 
-        if(upload::exist('fileUpload')){
-            $a = upload::file('fileUpload');
-            dump($a);
-        }
 
 
+
+        $total = db::table('pdo_yy')->count();
+
+        $page = new page($total, 10);
+
+        $list = db::table('pdo_yy')->page($page, 10)->show(true)->findAll();
+
+        dump($list);
+
+        $this->assign('page', $page);
 
         $this->display();
 

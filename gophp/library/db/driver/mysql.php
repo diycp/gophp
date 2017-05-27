@@ -5,6 +5,7 @@ namespace gophp\db\driver;
 use gophp\config;
 use gophp\db\contract;
 use gophp\exception;
+use gophp\page;
 use gophp\request;
 use gophp\schema;
 use PDO;
@@ -579,13 +580,15 @@ class mysql extends contract
     }
 
     /**
-     * @desc 分页查询
-     * @param $pageRows 每页显示条数
-     * @param $page 当前页码
+     * 数据分页
+     * @param page $page 分页类对象
+     * @param null $pageNo 当前页码
      * @return $this
      */
-    public function page($pageRows, $pageNo = null)
+    public function page(page $page, $pageNo = null)
     {
+
+        $pageRows = $page->pageRows;
 
         $pageParam = config::get('http', 'page_param');
 
