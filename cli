@@ -1,5 +1,6 @@
 <?php
 
+
 // 引入核心框架
 require __DIR__ . '/public/index.php';
 

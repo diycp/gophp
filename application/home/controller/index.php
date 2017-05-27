@@ -2,13 +2,10 @@
 namespace app\home\controller;
 
 use gophp\controller;
-use app\home\model\user;
-use gophp\db;
-use gophp\helper\str;
-use gophp\log;
-use gophp\page;
-use gophp\request;
-use gophp\route;
+
+use PHPSocketIO\SocketIO;
+use Workerman\Worker;
+
 
 class index extends controller {
 
@@ -18,9 +15,6 @@ class index extends controller {
     }
 
     public function index(){
-
-        $a = route::url('demo/index/dee', ['id' => 1], true, 'json');
-        dump($a);
 
         $this->display();
 
