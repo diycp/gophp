@@ -588,7 +588,7 @@ class mysql extends contract
     public function page(page $page, $pageNo = null)
     {
 
-        $pageRows = $page->pageRows;
+        $pageRows  = $page->pageRows;
 
         $pageParam = config::get('http', 'page_param');
 

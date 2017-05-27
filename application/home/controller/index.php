@@ -22,7 +22,7 @@ class index extends controller {
 
         $page = new page($total, 10);
 
-        $list = db::table('pdo_yy')->page($page, 10)->show(true)->findAll();
+        $list = db::table('pdo_yy')->page($page, 10)->show(true)->order('id desc')->findAll();
 
         dump($list);
 
