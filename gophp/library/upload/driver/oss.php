@@ -2,17 +2,18 @@
 
 namespace gophp\upload\driver;
 
-use gophp\traits\instance;
-use gophp\upload\driver;
+use gophp\config;
+use gophp\upload\contract;
 
-class oss extends driver {
+class oss extends contract {
 
-    use instance;
-
-    public function file($viewFile)
+    public function file($inputName)
     {
-        echo 'oss file';
-        // TODO: Implement file() method.
+
+        $this->config = config::get('oss', 'upload');
+
+        dump($this->config);
+
     }
 
     public function getError()
