@@ -10,7 +10,10 @@ return [
         'save_name'  => '',
     ],
     'ftp'          => [],
-    'oss'          => [],
+    'oss'          => [
+        'access_key_id'     => 'LTAIrnxN82nPDPMD',
+        'access_key_secret' => '3x5NjbjSqjtMRgGOT71cWr08Ht8HNs',
+    ],
     'qiniu'        => [],
 
 ];

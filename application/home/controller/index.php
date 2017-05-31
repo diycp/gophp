@@ -16,13 +16,22 @@ class index extends controller {
     public function index(){
 
 
+        if(upload::exist('fileUpload')){
+            $a = upload::file('fileUpload');
+            if($a){
+                dump($a);
+            }else{
+                dump(upload::getError());
+            }
+        }
+
 
 
         $total = db::table('pdo_yy')->count();
 
         $page = new page($total, 10);
 
-        $list = db::table('pdo_yy')->page($page, 10)->show(true)->order('id desc')->findAll();
+        $list = db::table('pdo_yy')->page($page, 2)->show(true)->order('id desc')->findAll();
 
         dump($list);
 
