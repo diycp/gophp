@@ -11,8 +11,9 @@ return [
     ],
     'ftp'          => [],
     'oss'          => [
-        'access_key_id'     => 'LTAIrnxN82nPDPMD',
-        'access_key_secret' => '3x5NjbjSqjtMRgGOT71cWr08Ht8HNs',
+        'oss_access_id'     => 'LTAIrnxN82nPDPMD',
+        'oss_access_secret' => '3x5NjbjSqjtMRgGOT71cWr08Ht8HNs',
+        'oss_endpoint'      => 'http://oss-cn-shanghai.aliyuncs.com/'
     ],
     'qiniu'        => [],
 
