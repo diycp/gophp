@@ -15,7 +15,7 @@ class index extends controller {
 
     public function index(){
 
-        $this->display('index');
+        $this->display();
 
     }
 

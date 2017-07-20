@@ -31,6 +31,11 @@ trait driver
 
         }
 
+        // 单例模式
+        if(!$this->handler){
+            $this->handler = new $handler($this->config);
+        }
+
          return $this->handler;
 
     }
