@@ -10,9 +10,12 @@ if(is_file($autoload_file = ROOT_PATH . '/vendor/autoload.php')){
 
 }else{
 
-    die('Please composer install first!');
+    die('Please run composer install first!');
 
 }
+
+// 默认关闭错误报告
+ini_set("display_errors", "Off");
 
 require __DIR__ . '/bootstrap/const.php';
 require __DIR__ . '/function/function.php';
