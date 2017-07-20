@@ -13,8 +13,6 @@ class smarty extends contract
 
         $this->config = $config['smarty'];
 
-        echo 'llll';
-
         $this->view = new \Smarty();
 
         $this->view->template_dir    = VIEW_PATH;
