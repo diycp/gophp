@@ -3,10 +3,9 @@
 return [
 
     'driver'             => 'smarty', //视图驱动
-    'error_template'     => COMMON_VIEW . '/error', //错误模板
     '404_template'     => COMMON_VIEW . '/404', //404模板
+    'error_template'     => COMMON_VIEW . '/error', //错误模板
     'success_template'   => COMMON_VIEW . '/success', //错误模板
-    'debug_template'     => COMMON_VIEW . '/debug', //调试模板
 
     'smarty' => [
         'template_suffix' => 'html', //模板文件扩展名
