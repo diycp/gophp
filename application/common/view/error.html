@@ -91,12 +91,16 @@
 </head>
 <body>
 <div id="container">
-    <h1>{$error.title}</h1>
+    <h1>{{$error.title}}</h1>
 
-    <div class='info'><span class="info-title">错误信息：{$error.message}</span></div>
+    <div class='info'><span class="info-title">错误信息：{{$error.message}}</span></div>
+    {{if $error.sql}}
+    <div class='info'><span class="info-title">错误SQL：{{$error.sql}} </span></div>
+    {{/if}}
+    <div class='info'><span class="info-title">错误位置：{{$error.file}} </span><span class="info-title">错误行数:{{$error.line}}</span></div>
 
-    <div class='info'><span class="info-title">错误位置：FILE:{$error.file} </span><span class="info-title">LINE:{$error.line}</span></div>
-    {if $error.trace}
+
+    {{if $error.trace}}
     <div class="info">
         <p><strong>PHP Trace</strong></p>
         <table cellpadding="5" cellspacing="1" width="100%" class="table">
@@ -108,23 +112,23 @@
                 <td>Function</td>
             </tr>
 
-            {foreach $error.trace as $key => $item}
-            {if $item.file}
+            {{foreach $error.trace as $key => $item}}
+            {{if $item.file}}
 
             <tr class="bg1">
-                <td>{$key+1}</td>
-                <td>{$item.file}</td>
-                <td>{$item.line}</td>
-                <td>{$item.function}</td>
+                <td>{{$key+1}}</td>
+                <td>{{$item.file}}</td>
+                <td>{{$item.line}}</td>
+                <td>{{$item.function}}</td>
             </tr>
 
-            {/if}
-            {/foreach}
+            {{/if}}
+            {{/foreach}}
 
             </tbody>
         </table>
     </div>
-    {/if}
+    {{/if}}
 
 
 </div>

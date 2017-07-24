@@ -131,7 +131,7 @@ class app
 
             case 'exception':
 
-                $viewFile = config::get('view', 'exception_template') . '.' . $suffix;
+                $viewFile = config::get('view', 'error_template') . '.' . $suffix;
 
                 break;
         }
