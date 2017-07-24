@@ -118,6 +118,10 @@ class app
     public function show()
     {
 
+        if(!APP_DEBUG){
+            exit('页面错误，请稍后再试!');
+        }
+
         $driver = config::get('view', 'driver');
 
         $suffix = config::get('view', $driver)['template_suffix'];
