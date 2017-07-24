@@ -24,7 +24,7 @@ require __DIR__ . '/function/function.php';
 if(APP_DEBUG){
 
     ini_set("display_errors", "On");
-    error_reporting(E_ALL | E_STRICT);
+    error_reporting(E_ALL & ~E_NOTICE);
 
 }
 
