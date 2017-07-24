@@ -17,6 +17,13 @@ if(is_file($autoload_file = ROOT_PATH . '/vendor/autoload.php')){
 // 默认关闭错误报告
 ini_set("display_errors", "Off");
 
+// DEBUG模式开启错误报告
+if(APP_DEBUG){
+
+    ini_set("display_errors", "On");
+
+}
+
 require __DIR__ . '/bootstrap/const.php';
 require __DIR__ . '/function/function.php';
 
