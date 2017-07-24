@@ -32,6 +32,7 @@ class app
         // 设置页面编码，这里需要优化下，cli模式下无需设置
         header("Content-type: text/html; charset=".self::$config['default_charset']);
 
+        //  设置X-Powered-By
         header('X-Powered-By:GoPHP V' . GOPHP_VERSION);
 
         // 路由分发
