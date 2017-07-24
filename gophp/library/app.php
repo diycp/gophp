@@ -64,7 +64,7 @@ class app
                     self::$error['line'] = $e['line'];
                     self::$error['message'] = $e['message'];
 
-                    self::show('exception');
+                    self::show();
 
                     break;
 
@@ -90,7 +90,7 @@ class app
                 self::$error['line']    = $errline;
                 self::$error['message'] = $errstr;
 
-                self::show('exception');
+                self::show();
 
                 break;
 
@@ -109,32 +109,19 @@ class app
         self::$error['sql']     =   $e->getSQL();
         self::$error['trace']   =   $e->getTrace();
 
-        self::show('exception');
+        self::show();
 
     }
 
     // 错误展示
-    public function show($type)
+    public function show()
     {
 
         $driver = config::get('view', 'driver');
 
         $suffix = config::get('view', $driver)['template_suffix'];
 
-        switch ($type) {
-
-            case 'error':
-
-                $viewFile = config::get('view', 'error_template') . '.' . $suffix;
-
-                break;
-
-            case 'exception':
-
-                $viewFile = config::get('view', 'error_template') . '.' . $suffix;
-
-                break;
-        }
+        $viewFile = config::get('view', 'error_template') . '.' . $suffix;
 
         self::$error['title'] or self::$error['title'] = config::get('app', 'error_message');
 
