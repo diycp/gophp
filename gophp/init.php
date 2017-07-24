@@ -20,13 +20,5 @@ ini_set("display_errors", "Off");
 require __DIR__ . '/bootstrap/const.php';
 require __DIR__ . '/function/function.php';
 
-// DEBUG模式开启错误报告
-if(APP_DEBUG){
-
-    ini_set("display_errors", "On");
-    error_reporting(E_ALL & ~E_NOTICE);
-
-}
-
 // 初始化核心框架
 \gophp\app::run();

@@ -5,7 +5,6 @@ return [
     'driver'             => 'smarty', //视图驱动
     'error_template'     => COMMON_VIEW . '/error', //错误模板
     'success_template'   => COMMON_VIEW . '/success', //错误模板
-    'exception_template' => COMMON_VIEW . '/exception', //异常模板
     'debug_template'     => COMMON_VIEW . '/debug', //调试模板
 
     'smarty' => [
