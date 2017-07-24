@@ -119,7 +119,7 @@ class app
     {
 
         if(!APP_DEBUG){
-            exit('页面错误，请稍后再试!');
+            exit('页面错误，请稍后再试！');
         }
 
         $driver = config::get('view', 'driver');
