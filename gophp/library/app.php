@@ -118,17 +118,19 @@ class app
     public function show()
     {
 
-        if(!APP_DEBUG){
-            $viewFile = COMMON_VIEW . '/404.html';
-            view::display($viewFile);
-            exit();
-        }
-
         $driver = config::get('view', 'driver');
 
         $suffix = config::get('view', $driver)['template_suffix'];
 
-        $viewFile = config::get('view', 'error_template') . '.' . $suffix;
+        if(APP_DEBUG){
+
+            $viewFile = config::get('view', 'error_template') . '.' . $suffix;
+
+        }else{
+
+            $viewFile = config::get('view', '404_template') . '.' . $suffix;
+
+        }
 
         self::$error['title'] or self::$error['title'] = config::get('app', 'error_message');
 
