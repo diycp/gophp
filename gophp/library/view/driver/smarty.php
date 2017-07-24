@@ -27,8 +27,6 @@ class smarty extends contract
 
         if(APP_DEBUG){
 
-            // 开启调试模式
-            $this->view->debugging     = true;
             // 强制编译
             $this->view->force_compile = true;
 

@@ -119,7 +119,9 @@ class app
     {
 
         if(!APP_DEBUG){
-            exit('页面错误，请稍后再试！');
+            $viewFile = COMMON_VIEW . '/404.html';
+            view::display($viewFile);
+            exit();
         }
 
         $driver = config::get('view', 'driver');
