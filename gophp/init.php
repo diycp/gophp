@@ -4,9 +4,9 @@
 version_compare( PHP_VERSION, '5.5.0', '>=' ) or die( 'PHP版本需要大于5.5.0,当前版本' . PHP_VERSION);
 
 // 引入composer自动加载文件
-if(is_file($autoload_file = ROOT_PATH . '/vendor/autoload.php')){
+if(is_file($autoloadFile = ROOT_PATH . '/vendor/autoload.php')){
 
-    require $autoload_file;
+    require $autoloadFile;
 
 }else{
 
