@@ -68,12 +68,12 @@ class mysql extends contract
      * @param string $prefix
      * @return $this
      */
-    public function table($table, $prefix = '')
+    public function table($table, $prefix = null)
     {
 
         $this->tablePrefix = isset($prefix) ? $prefix : $this->config['prefix'];
 
-        $this->tableName   = '`' . $prefix . $table . '`';
+        $this->tableName   = '`' . $this->tablePrefix . $table . '`';
 
         return $this;
 
