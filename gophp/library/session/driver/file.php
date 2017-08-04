@@ -11,7 +11,7 @@ class file extends contract
     public function set($key, $value, $expire = 0)
     {
 
-        $expire = $expire ? $expire : $this->config['prefix'];
+        $expire = $expire ? $expire : $this->config['expire'];
 
         $expire and setcookie(session_name(), session_id(), time() + $expire, "/");
 
