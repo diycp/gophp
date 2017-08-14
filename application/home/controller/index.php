@@ -12,7 +12,7 @@ class index extends controller {
 
     public function index(){
 
-        db::instance('kkk')->test();
+        db::instance('kkk', 'go_')->test();
 
 
         $this->display();
