@@ -9,11 +9,18 @@ class db
 
     use driver;
 
-    private function __construct()
+    private $table;
+
+    private function __construct($table, $prefix = null)
     {
 
-        return $this->handler(config::get('db'));
+        $this->table = $table;
 
+    }
+
+    public function test()
+    {
+        echo $this->table;
     }
 
 }
