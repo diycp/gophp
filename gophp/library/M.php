@@ -4,7 +4,7 @@ namespace gophp;
 
 use gophp\traits\driver;
 
-class M
+class db
 {
 
     use driver;
