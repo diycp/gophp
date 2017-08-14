@@ -3,6 +3,8 @@
 namespace app\home\controller;
 
 use gophp\controller;
+use gophp\cookie;
+use gophp\db;
 
 class index extends controller {
 
