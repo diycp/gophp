@@ -16,12 +16,15 @@ class db
 
         $this->config = config::get('db');
 
-        $this->table  = isset($prefix) ? $prefix : $this->config['prefix'] . $table;
+
 
     }
 
     public function table($table, $prefix = null)
     {
+
+        $this->table  = isset($prefix) ? $prefix : $this->config['prefix'] . $table;
+
         echo $this->table;
     }
 
