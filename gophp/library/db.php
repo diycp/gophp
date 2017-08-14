@@ -9,6 +9,7 @@ class db
 
     use instance;
 
+    private $prefix;
     private $table;
 
     private function __construct()
@@ -22,7 +23,8 @@ class db
     public function table($table, $prefix = null)
     {
 
-        $this->table  = isset($prefix) ? $prefix : $this->config['prefix'] . $table;
+        $this->prefix = isset($prefix) ? $prefix : $this->config['prefix'] . $table;
+        $this->table  = $this->prefix . $table;
 
         echo $this->table;
     }
