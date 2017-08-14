@@ -11,6 +11,7 @@ class db
 
     private $prefix;
     private $table;
+    private $driver;
 
     private function __construct()
     {
@@ -23,15 +24,18 @@ class db
     public function table($table, $prefix = null)
     {
 
-        $this->prefix = isset($prefix) ? $prefix : $this->config['prefix'] . $table;
+        $this->prefix = isset($prefix) ? $prefix : $this->config['prefix'];
         $this->table  = $this->prefix . $table;
 
-        echo $this->table;
+        return $this;
     }
 
     public function driver($driver = null)
     {
-        $this->driver = $driver;
+
+        $this->driver = isset($driver) ? $driver : $this->config['driver'];
+
+        return $this;
     }
 
 }
