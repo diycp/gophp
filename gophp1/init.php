@@ -23,4 +23,3 @@ require __DIR__ . '/function/function.php';
 // 初始化核心框架
 \gophp\app::run();
 
-echo 'gophp1';

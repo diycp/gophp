@@ -13,4 +13,4 @@ define('ROOT_URL', $_SERVER['PHP_SELF']);
 define('APP_ENV', isset($_SERVER['APP_ENV']) ? $_SERVER['APP_ENV'] : 'develop');
 
 // 引入核心框架
-require ROOT_PATH . '/gophp1/init.php';
+require ROOT_PATH . '/gophp/init.php';
