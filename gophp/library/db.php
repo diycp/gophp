@@ -2,7 +2,7 @@
 
 namespace gophp;
 
-use gophp\traits\driver;
+use gophp\traits\instance;
 
 class db
 {
