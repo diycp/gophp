@@ -25,6 +25,7 @@ class db
         $this->table  = isset($prefix) ? $prefix : $this->config['prefix'] . $table;
 
         echo $this->table;
+        echo 'lll';
     }
 
     public function driver($driver = null)
