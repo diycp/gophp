@@ -11,7 +11,7 @@ class db
 
     private $table;
 
-    private function __construct($table, $prefix = null)
+    private function __construct()
     {
 
         $this->config = config::get('db');
@@ -20,7 +20,7 @@ class db
 
     }
 
-    public function test()
+    public function table($table, $prefix = null)
     {
         echo $this->table;
     }
