@@ -11,9 +11,9 @@ trait instance
     final public static function instance($config)
     {
 
-        if (!(static::$instance instanceof self)) {
+        if (!(self::$instance instanceof self)) {
 
-            self::$instance = new static($config);
+            self::$instance = new self($config);
 
         }
 
