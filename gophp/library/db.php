@@ -19,6 +19,9 @@ class db
         $this->config = config::get('db');
 
 
+        echo 'pppp';
+
+
     }
 
     public function table($table, $prefix = null)
