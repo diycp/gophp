@@ -6,7 +6,6 @@ use gophp\config;
 use gophp\controller;
 use gophp\cookie;
 use gophp\db;
-use gophp\M;
 
 class index extends controller {
 
