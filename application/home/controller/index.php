@@ -14,7 +14,6 @@ class index extends controller {
 
         db::instance()->table();
 
-
         $this->display();
 
     }
