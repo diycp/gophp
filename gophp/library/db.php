@@ -7,7 +7,7 @@ use gophp\traits\driver;
 class db
 {
 
-    use driver;
+    use instance;
 
     private $table;
 
