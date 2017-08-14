@@ -17,7 +17,6 @@ class db
         $this->config = config::get('db');
 
 
-
     }
 
     public function table($table, $prefix = null)
