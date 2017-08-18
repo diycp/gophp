@@ -12,14 +12,5 @@ class index extends controller {
 
     }
 
-    public function demo()
-    {
-        echo 'demo';
-    }
-
-    public function __call($name, $arguments)
-    {
-        echo $name;
-    }
 
 }

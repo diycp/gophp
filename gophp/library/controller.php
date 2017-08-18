@@ -28,7 +28,7 @@ class controller
     public function display($viewName = null)
     {
 
-        view::display($viewName);
+        view::driver('php')->display($viewName);
 
     }
 

@@ -10,7 +10,7 @@
         "email": "phper@gouguoyin.cn"
       }
     ],
-    "homepage": "http://www.gouguoyin.cn/",
+    "homepage": "http://www.gocmf.com/",
     "require": {
         "smarty/smarty": "~3.1",
         "phpmailer/phpmailer": "^5.2",

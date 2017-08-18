@@ -88,6 +88,39 @@ if(!function_exists('load')){
 }
 
 /**
+ * session方法封装
+ */
+if(!function_exists('session')){
+
+    function session($key, $value, $expire = 0){
+
+        if(!$value){
+
+            $value = \gophp\session::get($key);
+
+            if(is_array($value)){
+
+                return (object) $value;
+            }
+
+            return  $value;
+
+        }elseif(is_null($value)){
+
+            \gophp\session::delete($key);
+
+        }else{
+
+            \gophp\session::set($key, $value, $expire);
+
+        }
+
+    }
+
+}
+
+
+/**
  * 生成url
  */
 if(!function_exists('url')){
@@ -100,5 +133,38 @@ if(!function_exists('url')){
 
 }
 
+/**
+ * 数组转对象
+ * @param $array
+ * @return StdClass
+ */
+function array2object($array) {
+    if (is_array($array)) {
+        $obj = new StdClass();
+        foreach ($array as $key => $val){
+            $obj->$key = $val;
+        }
+    }
+    else { $obj = $array; }
+    return $obj;
+}
 
+/**
+ * 对象转数组
+ * @param $object
+ * @return mixed
+ */
+function object2array($object) {
+
+    if (is_object($object)) {
+        foreach ($object as $key => $value) {
+            $array[$key] = $value;
+        }
+    }
+    else {
+        $array = $object;
+    }
+
+    return $array;
+}
 

@@ -107,7 +107,7 @@ class gd extends contract
 
     }
 
-    public function show($name = null)
+    public function show($name)
     {
 
         if(isset($name)){
@@ -230,7 +230,7 @@ class gd extends contract
 
         }
 
-        return true;
+        return ['code' => 200, 'msg' => '验证通过'];
 
     }
 

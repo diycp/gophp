@@ -65,7 +65,7 @@ class schema
     protected function getPK($table)
     {
 
-        $pk = 'id';
+        $pk  = 'id';
 
         $sql = "DESC $table";
 
