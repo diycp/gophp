@@ -2,15 +2,14 @@
 
 namespace gophp;
 
-use gophp\traits\driver;
 use gophp\view\contract;
+use gophp\traits\driver;
 
 class view extends contract
 {
 
     public $config;
     public $driver;
-    public $handler;
 
     use driver;
 

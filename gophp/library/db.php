@@ -3,9 +3,8 @@
 namespace gophp;
 
 use gophp\db\contract;
-use gophp\helper\str;
 use gophp\traits\driver;
-use gophp\traits\instance;
+use gophp\helper\str;
 
 class db extends contract
 {
