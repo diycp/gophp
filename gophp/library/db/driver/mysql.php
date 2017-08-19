@@ -13,6 +13,14 @@ use PDO;
 class mysql extends contract
 {
 
+    protected $config;
+    protected $db;
+    protected $stmt;
+    protected $tableName;
+    protected $tablePrefix;
+    protected $pk;
+    protected $sql;
+
     private $bind   = [];
     private $option = ['where' => '', 'set' => '', 'join' => '', 'on' => '', 'order' => '', 'limit' => ''];
     private $chain  = ['show' => '', 'lock' => '','count' => '', 'logic' => ''];
@@ -664,7 +672,7 @@ class mysql extends contract
 
         if(!$host || !$port || !$name){
 
-            throw new exception("DSN Error", "Required DSN parameter is missing");
+            throw new exception( "Required DSN parameter is missing");
 
         }
 
@@ -697,7 +705,7 @@ class mysql extends contract
 
         }catch(\PDOException $e) {
 
-            throw new exception('SQL Execute Error', $e->getMessage(), $this->sql);
+            throw new exception($e->getMessage(), $this->sql);
 
         }
 

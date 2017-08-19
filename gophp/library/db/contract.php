@@ -7,14 +7,6 @@ use gophp\page;
 abstract class contract
 {
 
-    protected $config;
-    protected $db;
-    protected $stmt;
-    protected $tableName;
-    protected $tablePrefix;
-    protected $pk;
-    protected $sql;
-
     abstract public function __construct($config);
 
     abstract public function connect();
