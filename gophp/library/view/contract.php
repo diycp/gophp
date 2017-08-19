@@ -5,10 +5,6 @@ namespace gophp\view;
 abstract class contract
 {
 
-    protected $config;
-    protected $view;
-    protected $theme;
-
     abstract public function exists($viewFile);
 
     abstract public function assign($name, $value);

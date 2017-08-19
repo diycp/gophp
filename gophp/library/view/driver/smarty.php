@@ -8,6 +8,9 @@ use gophp\view\contract;
 class smarty extends contract
 {
 
+    protected $config;
+    protected $view;
+
     public function __construct($config)
     {
 

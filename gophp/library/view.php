@@ -3,8 +3,9 @@
 namespace gophp;
 
 use gophp\traits\driver;
+use gophp\view\contract;
 
-class view
+class view extends contract
 {
 
     public $config;
