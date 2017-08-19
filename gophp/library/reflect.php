@@ -15,7 +15,7 @@ class reflect
 
         if(!$reflectionClass->isInstantiable()) {
 
-            throw new exception('Reflect error', 'Access to non-public constructor');
+            throw new exception('Access to non-public constructor');
 
         }
 
@@ -35,7 +35,7 @@ class reflect
 
         if(!class_exists($class)){
 
-            throw new exception('Reflect error', 'Class ' . $class .'  does not exist');
+            throw new exception('Class ' . $class .'  does not exist');
 
         }
 
@@ -112,7 +112,7 @@ class reflect
 
         if($methodAccess !== 'public'){
 
-            throw new exception('Reflect Error', 'Class ' . $class . ' '. $methodAccess . ' method ' . $method . '  not allow access');
+            throw new exception( 'Class ' . $class . ' '. $methodAccess . ' method ' . $method . '  not allow access');
 
         }
 

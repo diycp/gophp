@@ -7,11 +7,9 @@ use gophp\page;
 abstract class contract
 {
 
-    abstract public function __construct($config);
-
     abstract public function connect();
 
-    abstract public function table($table);
+    abstract public function table($table, $prefix);
 
     abstract public function find($field);
 
@@ -45,7 +43,7 @@ abstract class contract
 
     abstract public function order($order);
 
-    abstract public function limit($offset,$rows = 0);
+    abstract public function limit($offset, $rows = 0);
 
     abstract public function join($join);
 

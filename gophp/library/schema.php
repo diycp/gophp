@@ -17,7 +17,7 @@ class schema
     private function __construct()
     {
 
-        $this->db      = db::connect();
+        $this->db      = db::instance()->connect();
 
         $this->config  = config::get('db');
 
