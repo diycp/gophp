@@ -6,11 +6,14 @@ use gophp\cache;
 use gophp\controller;
 use gophp\db;
 
-class index extends controller {
+class demo extends controller {
 
     public function index(){
 
-        cache::instance()->set('demo', 11, 5);
+
+        $a = cache::instance()->get('demo');
+
+        dump($a);
 
         $this->display();
 

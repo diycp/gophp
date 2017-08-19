@@ -6,6 +6,10 @@ use gophp\cache\contract;
 
 class redis extends contract {
 
+    public $config;
+    public $driver;
+    public $cache;
+
     public function __construct($config)
     {
 
