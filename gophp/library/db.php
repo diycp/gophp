@@ -4,6 +4,7 @@ namespace gophp;
 
 use gophp\db\contract;
 use gophp\helper\str;
+use gophp\traits\driver;
 use gophp\traits\instance;
 
 class db extends contract
@@ -13,7 +14,7 @@ class db extends contract
     public $driver;
     public $handler;
 
-    use instance;
+    use driver;
 
     private function __construct()
     {
@@ -21,30 +22,6 @@ class db extends contract
         $this->config = config::get('db');
 
         $this->driver = $this->config['driver'];
-
-    }
-
-    private function handler()
-    {
-
-        $driver = self::class . '\\driver\\' . $this->driver;
-
-        if(!class_exists($driver)){
-
-            $className = reflect::getName(self::class);
-
-            throw new exception( ucfirst($className) . ' driver ' . str::quote($this->driver) . ' not exist');
-
-        }
-
-        // 单例模式
-        if(!$this->handler){
-
-            $this->handler = new $driver($this->config);
-
-        }
-
-        return $this->handler;
 
     }
 
@@ -64,15 +41,6 @@ class db extends contract
         $this->handler = $this->handler();
 
         return $this->handler->connect();
-
-    }
-
-    public function driver($driver)
-    {
-
-        isset($driver) && $this->driver = $driver;
-
-        return $this;
 
     }
 

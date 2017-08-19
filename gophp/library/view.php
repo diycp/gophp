@@ -2,7 +2,7 @@
 
 namespace gophp;
 
-use gophp\traits\instance;
+use gophp\traits\driver;
 
 class view
 {
@@ -11,7 +11,7 @@ class view
     public $driver;
     public $handler;
 
-    use instance;
+    use driver;
 
     private function __construct()
     {
@@ -19,39 +19,6 @@ class view
         $this->config = config::get('view');
 
         $this->driver = $this->config['driver'];
-
-    }
-
-    public function driver($driver)
-    {
-
-        isset($driver) && $this->driver = $driver;
-
-        return $this;
-
-    }
-
-    private function handler()
-    {
-
-        $driver = self::class . '\\driver\\' . $this->driver;
-
-        if(!class_exists($driver)){
-
-            $className = reflect::getName(self::class);
-
-            throw new exception( ucfirst($className) . ' driver ' . str::quote($this->driver) . ' not exist');
-
-        }
-
-        // 单例模式
-        if(!$this->handler){
-
-            $this->handler = new $driver($this->config);
-
-        }
-
-        return $this->handler;
 
     }
 
@@ -76,11 +43,9 @@ class view
     public function display($viewName)
     {
 
-        $this->handler = $this->handler();
-
         $method = __FUNCTION__;
 
-        return $this->handler->$method($viewName);
+        return $this->handler()->$method($viewName);
     }
 
 }

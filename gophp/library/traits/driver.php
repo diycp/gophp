@@ -9,60 +9,42 @@ use gophp\reflect;
 trait driver
 {
 
-    private $config  = [];
-    private $handler = null;
+    public $config;
+    public $driver;
+    public $handler;
 
     use instance;
 
-    final private function handler(array $config)
+    public function driver($driver)
     {
 
-        $this->config = $config;
+        isset($driver) && $this->driver = $driver;
 
-        $driver  = $this->config['driver'];
+        return $this;
 
-        $handler = self::class . '\\driver\\' . $driver;
+    }
 
-        if(!class_exists($handler)){
+    private function handler()
+    {
+
+        $driver = self::class . '\\driver\\' . $this->driver;
+
+        if(!class_exists($driver)){
 
             $className = reflect::getName(self::class);
 
-            throw new exception( ucfirst($className) . ' driver ' . str::quote($driver) . ' not exist');
+            throw new exception( ucfirst($className) . ' driver ' . str::quote($this->driver) . ' not exist');
 
         }
 
         // 单例模式
         if(!$this->handler){
-            $this->handler = new $handler($this->config);
+
+            $this->handler = new $driver($this->config);
+
         }
 
-         return $this->handler;
-
-    }
-
-    // 设置驱动
-    final protected function driver($driver)
-    {
-
-        isset($driver) and $this->config['driver'] = $driver;
-
-        $this->handler = $this->handler($this->config);
-
         return $this->handler;
-
-    }
-
-    final public function __call($method, $arguments)
-    {
-
-        return call_user_func_array([$this->handler, $method], $arguments);
-
-    }
-
-    final public static function __callStatic($method, $arguments)
-    {
-
-        return call_user_func_array([self::instance(), $method], $arguments);
 
     }
 

@@ -8,12 +8,12 @@ trait instance
     private static $instance = null;
 
     // 获取单例
-    final public static function instance($config)
+    final public static function instance()
     {
 
         if (!(self::$instance instanceof self)) {
 
-            self::$instance = new static($config);
+            self::$instance = new static();
 
         }
 
