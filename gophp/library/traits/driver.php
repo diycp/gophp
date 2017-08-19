@@ -27,7 +27,7 @@ trait driver
 
             $className = reflect::getName(self::class);
 
-            throw new exception('Driver not found', ucfirst($className) . ' driver ' . str::quote($driver) . ' not exist');
+            throw new exception( ucfirst($className) . ' driver ' . str::quote($driver) . ' not exist');
 
         }
 

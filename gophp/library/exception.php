@@ -13,20 +13,12 @@ class exception extends \Exception
     protected $title;
     protected $sql;
 
-    public function __construct($title, $message, $sql, $code)
+    public function __construct($message, $sql, $code)
     {
 
         parent::__construct($message, $code);
 
-        $this->title = $title;
         $this->sql   = $sql;
-
-    }
-
-    public function getTitle()
-    {
-
-        return $this->title;
 
     }
 

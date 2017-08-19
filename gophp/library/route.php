@@ -148,24 +148,24 @@ class route
     {
 
         // 拼装完整控制器类名
-        $controllerClass = app::$namespace. '\\' . $this->module . '\\' . 'controller\\' . $this->controller;
+        $fullController  = app::$namespace. '\\' . $this->module . '\\' . 'controller\\' . $this->controller;
 
         // 拼装完整空控制器类名
-        $emptyClass      = app::$namespace. '\\' . $this->module . '\\' . 'controller\\call';
+        $emptyController = app::$namespace. '\\' . $this->module . '\\' . 'controller\\call';
 
-        if(!class_exists($controllerClass) && class_exists($emptyClass)){
+        if(!class_exists($fullController) && class_exists($emptyController)){
 
-            $controllerClass = $emptyClass;
+            $fullController = $emptyController;
 
-        }elseif(!class_exists($controllerClass)){
+        }elseif(!class_exists($fullController)){
 
-            throw new exception('Controller Error', 'Controller ' . $controllerClass . ' not exist');
+            throw new exception('Controller ' . $fullController . ' not exist');
 
         }
 
-        if(!method_exists($controllerClass, $this->action) && !method_exists($controllerClass, '__call')){
+        if(!method_exists($fullController, $this->action) && !method_exists($fullController, '__call')){
 
-            throw new exception('Method Error', 'Method ' . $this->action . ' not exist');
+            throw new exception( 'Method ' . $this->action . ' not exist');
 
         }
 
@@ -178,7 +178,7 @@ class route
         // 单例模式实例化控制器
         if (!($this->handler)) {
 
-            $this->handler = new $controllerClass();
+            $this->handler = new $fullController();
 
         }
 

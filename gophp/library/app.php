@@ -106,7 +106,7 @@ class app
         self::$error['file']    =   $e->getFile();
         self::$error['line']    =   $e->getLine ();
         self::$error['message'] =   $e->getMessage();
-//        self::$error['sql']     =   $e->getSQL();
+        self::$error['sql']     =   $e->getSQL();
         self::$error['trace']   =   $e->getTrace();
 
         self::show();
