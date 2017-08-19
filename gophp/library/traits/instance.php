@@ -13,7 +13,7 @@ trait instance
 
         if (!(self::$instance instanceof self)) {
 
-            self::$instance = new self($config);
+            self::$instance = new static($config);
 
         }
 
