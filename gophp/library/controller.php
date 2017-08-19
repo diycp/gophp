@@ -17,7 +17,7 @@ class controller
     public function assign($name, $value)
     {
 
-        view::assign($name, $value);
+        view::instance()->assign($name, $value);
 
     }
 
@@ -28,7 +28,7 @@ class controller
     public function display($viewName = null)
     {
 
-        view::display($viewName);
+        view::instance()->display($viewName);
 
     }
 

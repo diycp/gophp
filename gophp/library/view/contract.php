@@ -13,8 +13,6 @@ abstract class contract
 
     abstract public function assign($name, $value);
 
-    abstract public function fetch($viewName);
-
     abstract public function display($viewName);
 
     public function getViewFile($viewName = null)

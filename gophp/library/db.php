@@ -9,11 +9,11 @@ use gophp\traits\instance;
 class db extends contract
 {
 
-    use instance;
-
     public $config;
     public $driver;
     public $handler;
+
+    use instance;
 
     private function __construct()
     {
@@ -24,7 +24,7 @@ class db extends contract
 
     }
 
-    public function connect()
+    private function handler()
     {
 
         $driver = self::class . '\\driver\\' . $this->driver;
@@ -43,6 +43,25 @@ class db extends contract
             $this->handler = new $driver($this->config);
 
         }
+
+        return $this->handler;
+
+    }
+
+    public function connect()
+    {
+
+        $driver = self::class . '\\driver\\' . $this->driver;
+
+        if(!class_exists($driver)){
+
+            $className = reflect::getName(self::class);
+
+            throw new exception( ucfirst($className) . ' driver ' . str::quote($this->driver) . ' not exist');
+
+        }
+
+        $this->handler = $this->handler();
 
         return $this->handler->connect();
 
