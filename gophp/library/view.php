@@ -22,6 +22,10 @@ class view extends contract
 
     }
 
+    /**
+     * @param $viewFile 不带后缀的模板名
+     * @return mixed
+     */
     public function exists($viewFile)
     {
 
@@ -46,6 +50,7 @@ class view extends contract
         $method = __FUNCTION__;
 
         return $this->handler()->$method($viewName);
+
     }
 
 }
