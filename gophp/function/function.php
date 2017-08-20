@@ -3,9 +3,11 @@
 /**
  * 友好的打印调试
  */
-if (!function_exists('dump')){
+if (!function_exists('dump'))
+{
 
-    function dump() {
+    function dump()
+    {
 
         if(func_num_args() < 1){
 
@@ -51,9 +53,11 @@ if (!function_exists('dump')){
 /**
  * 获取输入参数
  */
-if(!function_exists('input')){
+if(!function_exists('input'))
+{
 
-    function input($key, $default){
+    function input($key, $default)
+    {
 
         return \gophp\request::getParam($key, $default);
 
@@ -64,9 +68,11 @@ if(!function_exists('input')){
 /**
  * 获取配置信息
  */
-if(!function_exists('config')){
+if(!function_exists('config'))
+{
 
-    function config($name, $key){
+    function config($name, $key)
+    {
 
         return \gophp\config::get($name, $key);
 
@@ -77,9 +83,11 @@ if(!function_exists('config')){
 /**
  * 优化的文件加载(只会加载一次)
  */
-if(!function_exists('load')){
+if(!function_exists('load'))
+{
 
-    function load($file, $data){
+    function load($file, $data)
+    {
 
         return \gophp\helper\file::load($file, $data);
 
@@ -90,9 +98,11 @@ if(!function_exists('load')){
 /**
  * session方法封装
  */
-if(!function_exists('session')){
+if(!function_exists('session'))
+{
 
-    function session($key, $value, $expire = 0){
+    function session($key, $value, $expire = 0)
+    {
 
         if(!$value){
 
@@ -123,9 +133,11 @@ if(!function_exists('session')){
 /**
  * 生成url
  */
-if(!function_exists('url')){
+if(!function_exists('url'))
+{
 
-    function url($uri = null, $arguments = [], $isAbsolute = false, $extension = null){
+    function url($uri = null, $arguments = [], $isAbsolute = false, $extension = null)
+    {
 
         return \gophp\route::url($uri, $arguments, $isAbsolute, $extension);
 
@@ -134,37 +146,17 @@ if(!function_exists('url')){
 }
 
 /**
- * 数组转对象
- * @param $array
- * @return StdClass
+ * 实例化db类
  */
-function array2object($array) {
-    if (is_array($array)) {
-        $obj = new StdClass();
-        foreach ($array as $key => $val){
-            $obj->$key = $val;
-        }
-    }
-    else { $obj = $array; }
-    return $obj;
-}
+if(!function_exists('M'))
+{
 
-/**
- * 对象转数组
- * @param $object
- * @return mixed
- */
-function object2array($object) {
+    function M($table, $preffix = null, $driver = null)
+    {
 
-    if (is_object($object)) {
-        foreach ($object as $key => $value) {
-            $array[$key] = $value;
-        }
-    }
-    else {
-        $array = $object;
+        return \gophp\db::instance()->driver($driver)->table($table, $preffix);
+
     }
 
-    return $array;
 }
 

@@ -11,7 +11,9 @@ class index extends controller {
 
     public function index(){
 
-        $this->error('错了');
+        $a = M('pdo_yy')->find();
+
+        dump($a);
 
         $this->display();
 
