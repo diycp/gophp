@@ -48,12 +48,33 @@ class controller
     public function success($message, $url, $time = 1)
     {
 
-        $this->display();
+        $suffix = view::instance()->suffix;
+
+        $viewFile = config::get('view', 'success_template') . '.' . $suffix;
+
+        $this->assign('type', 'sucess');
+        $this->assign('message', $message);
+        $this->assign('url', $url);
+        $this->assign('time', $time);
+
+        $this->display($viewFile);
+
     }
 
     //请求失败时跳转
-    public function error()
+    public function error($message, $url, $time = 3)
     {
+
+        $suffix = view::instance()->suffix;
+
+        $viewFile = config::get('view', 'error_template') . '.' . $suffix;
+
+        $this->assign('type', 'error');
+        $this->assign('message', $message);
+        $this->assign('url', $url);
+        $this->assign('time', $time);
+
+        $this->display($viewFile);
 
     }
 
