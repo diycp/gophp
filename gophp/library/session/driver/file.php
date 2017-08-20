@@ -17,7 +17,7 @@ class file extends contract
 
     }
 
-    public function set($key, $value, $expire = 0)
+    public function set($name, $value, $expire = 0)
     {
 
         $expire = $expire ? $expire : $this->config['expire'];
@@ -35,12 +35,21 @@ class file extends contract
 
         }
 
-        $_SESSION[$key]= serialize($value);
+        $_SESSION[$name]= serialize($value);
 
     }
 
-    public function get($key)
+    public function get($name)
     {
+
+        if(strpos($name, '.') > 0){
+
+            $key = explode('.', $name)[0];
+
+        }else{
+
+            $key = $name;
+        }
 
         if($this->has($key)){
 
@@ -48,7 +57,15 @@ class file extends contract
 
             if(is_array($value)){
 
-                return array_map([$this, 'decrypt'], $value);
+                $value  = array_map([$this, 'decrypt'], $value);
+
+                if($key = explode('.', $name)[1]){
+
+                    return $value[$key];
+
+                }
+
+                return $value;
 
             }else{
 

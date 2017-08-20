@@ -26,42 +26,40 @@ class session extends contract
 
         $this->driver = $this->config['driver'];
 
-        echo $this->driver;
-
     }
 
-    public function set($key, $value, $expire = null)
+    public function set($name, $value, $expire = null)
     {
 
         $method = __FUNCTION__;
 
-        return $this->handler()->$method($key, $value, $expire);
+        return $this->handler()->$method($name, $value, $expire);
 
     }
 
-    public function has($key)
+    public function has($name)
     {
         $method = __FUNCTION__;
 
-        return $this->handler()->$method($key);
+        return $this->handler()->$method($name);
 
     }
 
-    public function get($key)
-    {
-
-        $method = __FUNCTION__;
-
-        return $this->handler()->$method($key);
-
-    }
-
-    public function delete($key)
+    public function get($name)
     {
 
         $method = __FUNCTION__;
 
-        return $this->handler()->$method($key);
+        return $this->handler()->$method($name);
+
+    }
+
+    public function delete($name)
+    {
+
+        $method = __FUNCTION__;
+
+        return $this->handler()->$method($name);
 
     }
 

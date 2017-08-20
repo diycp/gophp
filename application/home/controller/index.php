@@ -10,7 +10,7 @@ class index extends controller {
 
     public function index(){
 
-        cookie::instance()->set('cookie', 99, 3);
+        session::instance()->set('cookie', ['demo' => 'jjjjjj'], 300);
 
         $this->display();
 
