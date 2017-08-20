@@ -10,7 +10,6 @@ class crypt extends contract
 
     public $config;
     public $driver;
-    public $handler;
 
     use driver;
 

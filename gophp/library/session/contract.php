@@ -6,15 +6,15 @@ abstract class contract
 {
 
 
-    abstract function set($key, $value, $expire = null);
+    abstract public function set($key, $value, $expire = null);
 
-    abstract function has($key);
+    abstract public function has($key);
 
-    abstract function get($key);
+    abstract public function get($key);
 
-    abstract function delete($key);
+    abstract public function delete($key);
 
-    abstract function clean();
+    abstract public function clean();
 
 
 }

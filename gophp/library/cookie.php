@@ -18,13 +18,6 @@ class cookie
 
     }
 
-    private function key($key)
-    {
-
-        return $this->config['prefix'] . $key;
-
-    }
-
     // 设置cookie
     public function set($key, $value, $expire = null, $path = null, $domain = null, $secure = null)
     {
@@ -55,7 +48,7 @@ class cookie
 
         if($this->has($key)){
 
-            $value = unserialize($_COOKIE[$this->key($key)]);
+            $value = unserialize($_COOKIE[$key]);
 
             if(is_array($value)){
 
@@ -69,7 +62,7 @@ class cookie
 
         }
 
-        return '';
+        return null;
 
     }
 

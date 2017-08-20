@@ -24,7 +24,18 @@ class file extends contract
 
         $expire and setcookie(session_name(), session_id(), time() + $expire, "/");
 
-        $_SESSION[$key]= $this->encrypt(serialize($value));
+        // 如果是数组，对数组的每个元素加密
+        if(is_array($value)){
+
+            $value = array_map([$this, 'encrypt'], $value);
+
+        }else{
+
+            $value = $this->encrypt($value);
+
+        }
+
+        $_SESSION[$key]= serialize($value);
 
     }
 
@@ -33,7 +44,17 @@ class file extends contract
 
         if($this->has($key)){
 
-            return unserialize($this->decrypt($_SESSION[$key]));
+            $value = unserialize($_SESSION[$key]);
+
+            if(is_array($value)){
+
+                return array_map([$this, 'decrypt'], $value);
+
+            }else{
+
+                return $this->decrypt($value);
+
+            }
 
         }
 
@@ -64,14 +85,14 @@ class file extends contract
     private function encrypt($value)
     {
 
-        return crypt::encrypt($value);
+        return crypt::instance()->encrypt($value);
 
     }
 
     private function decrypt($value)
     {
 
-        return crypt::decrypt($value);
+        return crypt::instance()->decrypt($value);
 
     }
 

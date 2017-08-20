@@ -2,10 +2,14 @@
 
 namespace gophp;
 
+use gophp\session\contract;
 use gophp\traits\driver;
 
-class session
+class session extends contract
 {
+
+    public $config;
+    public $driver;
 
     use driver;
 
@@ -18,12 +22,60 @@ class session
 
         }
 
-        return $this->handler(config::get('session'));
+        $this->config = config::get('session');
+
+        $this->driver = $this->config['driver'];
+
+        echo $this->driver;
+
+    }
+
+    public function set($key, $value, $expire = null)
+    {
+
+        $method = __FUNCTION__;
+
+        return $this->handler()->$method($key, $value, $expire);
+
+    }
+
+    public function has($key)
+    {
+        $method = __FUNCTION__;
+
+        return $this->handler()->$method($key);
+
+    }
+
+    public function get($key)
+    {
+
+        $method = __FUNCTION__;
+
+        return $this->handler()->$method($key);
+
+    }
+
+    public function delete($key)
+    {
+
+        $method = __FUNCTION__;
+
+        return $this->handler()->$method($key);
+
+    }
+
+    public function clean()
+    {
+
+        $method = __FUNCTION__;
+
+        return $this->handler()->$method();
 
     }
 
     // SESSION是否是激活状态
-    protected function isActive()
+    private function isActive()
     {
 
         return session_status() === PHP_SESSION_ACTIVE ? true : false;

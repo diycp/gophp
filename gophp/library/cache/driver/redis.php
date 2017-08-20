@@ -26,12 +26,10 @@ class redis extends contract {
 
     }
 
-    public function get($key, $default = null)
+    public function get($key)
     {
 
-        $value = $this->cache->get($key);
-
-        return $value ? $value : $default;
+        return $this->cache->get($key);
 
     }
 

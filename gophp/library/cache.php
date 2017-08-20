@@ -31,12 +31,12 @@ class cache extends contract
 
     }
 
-    public function get($key, $default = null)
+    public function get($key)
     {
 
         $method = __FUNCTION__;
 
-        return $this->handler()->$method($key, $default);
+        return $this->handler()->$method($key);
 
     }
 

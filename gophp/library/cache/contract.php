@@ -20,7 +20,7 @@ abstract class contract
      * @param null $default
      * @return mixed
      */
-    abstract public function get($key, $default = null);
+    abstract public function get($key);
 
     /**
      * 设置指定键的值
