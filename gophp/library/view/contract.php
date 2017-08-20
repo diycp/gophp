@@ -21,8 +21,8 @@ abstract class contract
             $viewName = CONTROLLER_NAME . DS . ACTION_NAME;
             $viewFile = VIEW_PATH . DS . $viewName . '.' . $suffix;
 
-        }elseif($viewName && false === strpos($viewName, '.')){
-
+        }elseif($viewName && false === strpos(end(explode('/', $viewName)), '.')){
+            // 防止$viewName路径里带有/../等
             $viewFile = VIEW_PATH . DS . $viewName . '.' . $suffix;
 
         }else{
