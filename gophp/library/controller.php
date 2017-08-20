@@ -45,14 +45,22 @@ class controller
     }
 
     // 请求成功时跳转
-    public function success()
+    public function success($message, $url, $time = 1)
     {
 
+        $this->display();
     }
 
     //请求失败时跳转
     public function error()
     {
+
+    }
+
+    public function ajaxReturn(array $data, $type)
+    {
+
+        response::ajax($data, $type);
 
     }
 

@@ -39,7 +39,7 @@ class filter
 
         if (!method_exists($handler, 'run')) {
 
-            throw new exception('Filter error', 'Filter ' . $filter . ' must has run method');
+            throw new exception('Filter ' . $filter . ' must has run method');
 
         }
 
@@ -57,7 +57,7 @@ class filter
 
         if($result !== true){
 
-            throw new exception('Filter error', $result);
+            throw new exception( $result);
 
         }
 
@@ -144,7 +144,7 @@ class filter
 
             if (!method_exists($handler, 'run')) {
 
-                throw new exception('Filter error', 'Filter ' . $filter . ' must has run method');
+                throw new exception('Filter ' . $filter . ' must has run method');
 
             }
 
@@ -152,7 +152,7 @@ class filter
 
             if($result !== true){
 
-                throw new exception('Filter error', $result);
+                throw new exception($result);
 
                 break;
 

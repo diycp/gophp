@@ -117,9 +117,10 @@ class app
     public function show()
     {
 
-        $driver = config::get('view', 'driver');
+        $view = view::instance();
 
-        $suffix = config::get('view', $driver)['template_suffix'];
+        // 获取模板后缀
+        $suffix = $view->suffix;
 
         if(APP_DEBUG){
 
@@ -138,9 +139,10 @@ class app
 
         log::write($message, log::ERROR);
 
-        view::assign('error', self::$error);
+        // 展示错误信息
+        $view->assign('error', self::$error);
 
-        view::display($viewFile);
+        $view->display($viewFile);
 
     }
 

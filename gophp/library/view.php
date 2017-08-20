@@ -10,6 +10,7 @@ class view extends contract
 
     public $config;
     public $driver;
+    public $suffix;
 
     use driver;
 
@@ -19,6 +20,8 @@ class view extends contract
         $this->config = config::get('view');
 
         $this->driver = $this->config['driver'];
+
+        $this->suffix = $this->config[$this->driver]['template_suffix'];
 
     }
 
