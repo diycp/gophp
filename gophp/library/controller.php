@@ -44,7 +44,12 @@ class controller
 
     }
 
-    // 请求成功时跳转
+    /**
+     * @desc 成功
+     * @param $message 提示信息
+     * @param $url 跳转url
+     * @param int $time 延迟跳转时间，单位秒
+     */
     public function success($message, $url, $time = 1)
     {
 
@@ -67,7 +72,12 @@ class controller
 
     }
 
-    //请求失败时跳转
+    /**
+     * @desc 失败
+     * @param $message 提示信息
+     * @param $url 跳转url
+     * @param int $time 延迟跳转时间，单位秒
+     */
     public function error($message, $url, $time = 3)
     {
 
@@ -90,6 +100,11 @@ class controller
 
     }
 
+    /**
+     * @desc ajax返回
+     * @param array $data
+     * @param $type
+     */
     public function ajaxReturn(array $data, $type)
     {
 
