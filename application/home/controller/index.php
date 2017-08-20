@@ -12,6 +12,8 @@ class index extends controller {
 
     public function index(){
 
+        echo url('index', '', true);
+
         $this->display();
 
     }
