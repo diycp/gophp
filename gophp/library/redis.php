@@ -94,6 +94,12 @@ class redis
 
         $value = $this->redis->get($key);
 
+        if(!$value){
+
+            return '';
+
+        }
+
         return is_numeric($value) ? $value : unserialize($value);
 
     }
