@@ -42,36 +42,26 @@ class file extends contract
     public function get($name)
     {
 
-        if(strpos($name, '.') > 0){
-
-            $key = explode('.', $name)[0];
-
-        }else{
-
-            $key = $name;
-        }
+        $key = $this->key($name)[0];
 
         if($this->has($key)){
 
             $value = unserialize($_SESSION[$key]);
 
-            if(is_array($value)){
-
-                $value  = array_map([$this, 'decrypt'], $value);
-
-                if($key = explode('.', $name)[1]){
-
-                    return $value[$key];
-
-                }
-
-                return $value;
-
-            }else{
+            if(!is_array($value)){
 
                 return $this->decrypt($value);
+            }
+
+            $value  = array_map([$this, 'decrypt'], $value);
+
+            if($key = $this->key($name)[1]){
+
+                return $value[$key];
 
             }
+
+            return $value;
 
         }
 
@@ -98,6 +88,13 @@ class file extends contract
 
         $_SESSION = [];
         session_destroy();
+
+    }
+
+    private function key($name)
+    {
+
+        return explode('.', $name);
 
     }
 

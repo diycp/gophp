@@ -19,7 +19,7 @@ class cookie
     }
 
     // 设置cookie
-    public function set($key, $value, $expire = null, $path = null, $domain = null, $secure = null)
+    public function set($name, $value, $expire = null, $path = null, $domain = null, $secure = null)
     {
 
         $expire = $expire ? $expire : $this->config['expire'];
@@ -38,27 +38,34 @@ class cookie
 
         }
 
-        return setcookie($key, serialize($value), time()+$expire, $path, $domain, $secure);
+        return setcookie($name, serialize($value), time()+$expire, $path, $domain, $secure);
 
     }
 
     // 获取cookie
-    public function get($key)
+    public function get($name)
     {
+
+        $key = $this->key($name)[0];
 
         if($this->has($key)){
 
             $value = unserialize($_COOKIE[$key]);
 
-            if(is_array($value)){
-
-                return array_map([$this, 'decrypt'], $value);
-
-            }else{
+            if(!is_array($value)){
 
                 return $this->decrypt($value);
+            }
+
+            $value  = array_map([$this, 'decrypt'], $value);
+
+            if($key = $this->key($name)[1]){
+
+                return $value[$key];
 
             }
+
+            return $value;
 
         }
 
@@ -67,18 +74,18 @@ class cookie
     }
 
     // 是否存在cookie
-    public function has($key)
+    public function has($name)
     {
 
-        return isset($_COOKIE[$key]);
+        return isset($_COOKIE[$name]);
 
     }
 
     // 删除指定cookie
-    public function delete($key)
+    public function delete($name)
     {
 
-        return $this->set($key, '', -1);
+        return $this->set($name, '', -1);
 
     }
 
@@ -91,6 +98,13 @@ class cookie
             setcookie($key, '', -1, '/');
 
         }
+
+    }
+
+    private function key($name)
+    {
+
+        return explode('.', $name);
 
     }
 
