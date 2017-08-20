@@ -2,14 +2,14 @@
 
 namespace gophp;
 
-use gophp\traits\call;
+use gophp\traits\instance;
 
 class cookie
 {
 
     private $config;
 
-    use call;
+    use instance;
 
     public function __construct()
     {
@@ -26,7 +26,7 @@ class cookie
     }
 
     // 设置cookie
-    protected function set($key, $value, $expire = null, $path = null, $domain = null, $secure = null)
+    public function set($key, $value, $expire = null, $path = null, $domain = null, $secure = null)
     {
 
         $expire = $expire ? $expire : $this->config['expire'];
@@ -34,17 +34,38 @@ class cookie
         $domain = $domain ? $domain : $this->config['domain'];
         $secure = $secure ? $secure : $this->config['secure'];
 
-        return setcookie($this->key($key), $this->encrypt($value), time()+$expire, $path, $domain, $secure);
+        // 如果是数组，对数组的每个元素加密
+        if(is_array($value)){
+
+            $value = array_map([$this, 'encrypt'], $value);
+
+        }else{
+
+            $value = $this->encrypt($value);
+
+        }
+
+        return setcookie($this->key($key), serialize($value), time()+$expire, $path, $domain, $secure);
 
     }
 
     // 获取cookie
-    protected function get($key)
+    public function get($key)
     {
 
         if($this->has($key)){
 
-            return $this->decrypt($_COOKIE[$this->key($key)]);
+            $value = unserialize($_COOKIE[$this->key($key)]);
+
+            if(is_array($value)){
+
+                return array_map([$this, 'decrypt'], $value);
+
+            }else{
+
+                return $this->decrypt($value);
+
+            }
 
         }
 
@@ -53,7 +74,7 @@ class cookie
     }
 
     // 是否存在cookie
-    protected function has($key)
+    public function has($key)
     {
 
         return isset($_COOKIE[$this->key($key)]);
@@ -61,7 +82,7 @@ class cookie
     }
 
     // 删除指定cookie
-    protected function delete($key)
+    public function delete($key)
     {
 
         return $this->set($key, '', -1);
@@ -69,7 +90,7 @@ class cookie
     }
 
     // 清除全部cookie
-    protected function clean()
+    public function clean()
     {
 
         foreach ($_COOKIE as $key => $val) {
@@ -84,7 +105,7 @@ class cookie
     private function encrypt($value)
     {
 
-        return crypt::encrypt($value);
+        return crypt::instance()->encrypt($value);
 
     }
 
@@ -92,7 +113,7 @@ class cookie
     private function decrypt($value)
     {
 
-        return crypt::decrypt($value);
+        return crypt::instance()->decrypt($value);
 
     }
 

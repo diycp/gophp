@@ -8,6 +8,8 @@ use gophp\session\contract;
 class file extends contract
 {
 
+    protected $config;
+
     public function __construct($config)
     {
 

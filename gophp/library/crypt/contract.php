@@ -14,13 +14,13 @@ abstract class contract
      * @param $str
      * @return mixed
      */
-    abstract function encrypt($str);
+    abstract public function encrypt($str);
 
     /**
      * 解密
      * @param $str
      * @return mixed
      */
-    abstract function decrypt($str);
+    abstract public function decrypt($str);
 
 }

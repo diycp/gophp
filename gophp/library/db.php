@@ -62,9 +62,11 @@ class db extends contract
 
     public function order($order)
     {
+
         $method = __FUNCTION__;
 
         return $this->handler->$method($order);
+
     }
 
     public function limit($offset, $rows = 0)

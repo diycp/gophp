@@ -5,7 +5,6 @@ namespace gophp\session;
 abstract class contract
 {
 
-    protected $config;
 
     abstract function set($key, $value, $expire = null);
 
