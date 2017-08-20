@@ -58,6 +58,8 @@ class file extends contract
 
         }
 
+        return null;
+
     }
 
     public function has($key)

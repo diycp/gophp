@@ -38,7 +38,7 @@ class cookie
 
         }
 
-        return setcookie($this->key($key), serialize($value), time()+$expire, $path, $domain, $secure);
+        return setcookie($key, serialize($value), time()+$expire, $path, $domain, $secure);
 
     }
 
@@ -70,7 +70,7 @@ class cookie
     public function has($key)
     {
 
-        return isset($_COOKIE[$this->key($key)]);
+        return isset($_COOKIE[$key]);
 
     }
 

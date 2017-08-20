@@ -13,7 +13,7 @@ class demo extends controller {
     public function index(){
 
 
-        $a = session::instance()->get('cookie');
+        $a = cookie::instance()->get('cookie');
 
         dump($a);
 
