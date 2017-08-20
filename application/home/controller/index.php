@@ -12,7 +12,7 @@ class index extends controller {
 
     public function index(){
 
-        \cache()->set('demo', 'test');
+        cache()->set('demo', 'test');
 
         $this->display();
 

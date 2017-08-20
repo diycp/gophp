@@ -56,7 +56,7 @@ class route
         $action     = $defaultAction;
 
         // 获取所有模块
-        $allowModule = dir::getDir(APP_PATH);
+        $allowModule = dir::getSubDir(APP_PATH);
 
         // 排除公共模块
         unset($allowModule[array_search("common", $allowModule)]);

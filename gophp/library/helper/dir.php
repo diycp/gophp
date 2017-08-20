@@ -72,7 +72,7 @@ class dir
     }
 
     // 获取目录下所有文件
-    public static function getFile($path, $extension = '', $showInvisibleFile = false)
+    public static function getSubFile($path, $extension = '', $showInvisibleFile = false)
     {
 
         $fileList  = [];
@@ -117,7 +117,7 @@ class dir
     }
 
     // 获取目录下所有子目录
-    public static function getDir($path, $showInvisibleFile = false)
+    public static function getSubDir($path, $showInvisibleFile = false)
     {
 
         $dirList = [];
@@ -160,7 +160,7 @@ class dir
     }
 
     // 删除目录下所有文件
-    public static function deleteFile($path)
+    public static function deleteSubFile($path)
     {
 
         if(!self::exists($path)) return false;
@@ -188,7 +188,7 @@ class dir
     }
 
     // 删除目录下所有子目录
-    public static function deleteDir($path, $self = false)
+    public static function deleteSubDir($path, $self = false)
     {
 
         if(!self::exists($path)) return false;
