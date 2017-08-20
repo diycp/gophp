@@ -2,17 +2,16 @@
 
 namespace app\home\controller;
 
-use gophp\cache;
 use gophp\controller;
-use gophp\db;
-use gophp\log;
-use gophp\view;
+use gophp\helper\url;
 
 class index extends controller {
 
     public function index(){
 
-        cache()->set('demo', 'test');
+        echo url::base64_encode('http://gophp.juzifenqi.com/?debug=true');
+
+        echo url::base64_decode('aHR0cDovL2dvcGhwLmp1emlmZW5xaS5jb20vP2RlYnVnPXRydWU');
 
         $this->display();
 

@@ -37,7 +37,7 @@ class config
 
         }else{
 
-            throw new exception('Config Error', 'Config file '. $name . ' no exist');
+            throw new exception( 'Config file '. $name . ' no exist');
 
         }
 
