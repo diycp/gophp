@@ -98,11 +98,18 @@ class redis
 
             return '';
 
+        }elseif(is_numeric($value)){
+
+            return $value;
+
+        }else{
+
+            return unserialize($value);
+
         }
 
-        return is_numeric($value) ? $value : unserialize($value);
-
     }
+
     // 删除指定元素
     protected function delete($key)
     {
