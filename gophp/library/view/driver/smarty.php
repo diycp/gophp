@@ -60,19 +60,6 @@ class smarty extends contract
 
     }
 
-    public function fetch($viewName)
-    {
-
-        $viewFile = $this->getViewFile($viewName);
-
-        if($this->exists($viewFile)){
-
-            return $this->view->fetch($viewFile);
-
-        }
-
-    }
-
     public function display($viewName = null)
     {
 
@@ -84,7 +71,7 @@ class smarty extends contract
 
         }else{
 
-            throw new exception('View Error', 'Template file '. $viewFile . ' not exist');
+            throw new exception( 'Template file '. $viewFile . ' not exist');
 
         }
 
