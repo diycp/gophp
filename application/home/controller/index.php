@@ -11,6 +11,8 @@ class index extends controller {
 
     public function index(){
 
+        $this->error('错了');
+
         $this->display();
 
     }

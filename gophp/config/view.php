@@ -4,9 +4,9 @@ return [
 
     'driver'             => 'smarty', //视图驱动
     '404_template'       => COMMON_VIEW . '/404', //404模板
-    'error_template'     => COMMON_VIEW . '/error', //错误消息模板
-    'success_template'   => COMMON_VIEW . '/success', //成功消息模板
-    'exception_template'   => COMMON_VIEW . '/exception', //异常模板
+    'error_template'     => COMMON_VIEW . '/message', //错误消息模板
+    'success_template'   => COMMON_VIEW . '/message', //成功消息模板
+    'exception_template' => COMMON_VIEW . '/exception', //异常模板
 
     'smarty' => [
         'template_suffix' => 'html', //模板文件扩展名
