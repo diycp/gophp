@@ -131,25 +131,11 @@ if(!function_exists('session'))
 
 if(!function_exists('cache'))
 {
-    /**
-     * 缓存
-     * @param $key 键
-     * @param null $value 值
-     * @param $expire 过期时间
-     * @return mixed
-     */
-    function cache($key, $value = null, $expire)
+
+    function cache($driver)
     {
 
-        if($value){
-
-            return \gophp\cache::instance()->set($key, $value, $expire);
-
-        }else{
-
-            return \gophp\cache::instance()->get($key);
-
-        }
+        return \gophp\cache::instance()->driver($driver);
 
     }
 

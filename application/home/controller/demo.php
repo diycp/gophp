@@ -11,7 +11,7 @@ class demo extends controller {
     public function index(){
 
 
-        $a = \cache('demo');
+        $a = cache()->get('demo');
 
         dump($a);
 
