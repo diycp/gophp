@@ -12,7 +12,7 @@ class index extends controller {
 
     public function index(){
 
-        echo url('index', '', true);
+        echo url('index', ['id'=>1,'name'=>'kk'], true);
 
         $this->display();
 

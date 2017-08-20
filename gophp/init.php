@@ -10,7 +10,7 @@ if(is_file($autoloadFile = ROOT_PATH . '/vendor/autoload.php')){
 
 }else{
 
-    die('Please run composer install first!');
+    die('Please install composer first!');
 
 }
 
