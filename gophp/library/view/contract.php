@@ -22,7 +22,8 @@ abstract class contract
             $viewFile = VIEW_PATH . DS . $viewName . '.' . $suffix;
 
         }elseif($viewName && false === strpos(end(explode('/', $viewName)), '.')){
-            // 防止$viewName路径里带有/../等
+
+            // end(explode('/', $viewName)防止$viewName路径里带有/../等
             $viewFile = VIEW_PATH . DS . $viewName . '.' . $suffix;
 
         }else{
