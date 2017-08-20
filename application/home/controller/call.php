@@ -1,8 +1,8 @@
 <?php
+
 namespace app\home\controller;
 
 use gophp\controller;
-use app\home\model\user;
 
 class call extends controller {
 
