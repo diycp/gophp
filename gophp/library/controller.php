@@ -52,6 +52,12 @@ class controller
 
         $viewFile = config::get('view', 'success_template') . '.' . $suffix;
 
+        if(!$url){
+
+            $url = request::getReffer();
+
+        }
+
         $this->assign('type', 'sucess');
         $this->assign('message', $message);
         $this->assign('url', $url);
@@ -68,6 +74,12 @@ class controller
         $suffix = view::instance()->suffix;
 
         $viewFile = config::get('view', 'error_template') . '.' . $suffix;
+
+        if(!$url){
+
+            $url = request::getReffer();
+
+        }
 
         $this->assign('type', 'error');
         $this->assign('message', $message);
