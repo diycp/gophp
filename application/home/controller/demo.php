@@ -11,11 +11,9 @@ class demo extends controller {
     public function index(){
 
 
-        $a = cache::instance()->get('demo');
+        $a = cache::instance()->get('demo', []);
 
         dump($a);
-
-        $this->display();
 
     }
 
