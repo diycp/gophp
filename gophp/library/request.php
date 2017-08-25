@@ -538,22 +538,23 @@ class request
 
         }
 
-        if($headers && is_array($headers)){
+        // 判断是否设置header
+        if(is_array($headers) && $headers){
 
             foreach ($headers as $key => $value) {
 
                 $header[] = $key . ':' . $value;
 
                 if($value == 'application/x-www-form-urlencoded'){
+
                     $data = http_build_query($data);
+
                 }
 
             }
 
-        }
-
-        if($header){
             curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
+
         }
 
         // 采用https方式调用，必须使用下面2行代码打开ssl安全校验。
