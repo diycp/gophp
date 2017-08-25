@@ -516,7 +516,7 @@ class request
      * @return mixed|string
      * @throws exception
      */
-    public static function curl($url, $method, $data = null, $headers = null, $time_out = 20)
+    public static function curl($url, $method, $data = null, $headers = [], $time_out = 20)
     {
 
         if(!extension_loaded('curl'))
@@ -530,7 +530,7 @@ class request
 
         $method = strtoupper($method);
 
-        if($method === 'GET' && is_array($data)){
+        if($method === 'GET' && $data && is_array($data)){
 
             $query = http_build_query($data);
 
@@ -538,10 +538,22 @@ class request
 
         }
 
-        if(is_array($headers)){
+        if($headers && is_array($headers)){
 
-            curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+            foreach ($headers as $key => $value) {
 
+                $header[] = $key . ':' . $value;
+
+                if($value == 'application/x-www-form-urlencoded'){
+                    $data = http_build_query($data);
+                }
+
+            }
+
+        }
+
+        if($header){
+            curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
         }
 
         curl_setopt($curl, CURLOPT_URL, $url); //设置请求的URL
