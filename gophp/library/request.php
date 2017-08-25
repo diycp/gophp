@@ -556,10 +556,17 @@ class request
             curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
         }
 
-        curl_setopt($curl, CURLOPT_URL, $url); //设置请求的URL
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true); //将输出结果返回
-        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method); //设置请求方式
+        // 采用https方式调用，必须使用下面2行代码打开ssl安全校验。
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, true);
+        // 设置请求的URL
+        curl_setopt($curl, CURLOPT_URL, $url);
+        // 只将结果返回，不自动输出任何内容。
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
         curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+
+        // 设置连接超时时间
         curl_setopt($curl, CURLOPT_TIMEOUT, $time_out);
 
         $output     = curl_exec($curl);
