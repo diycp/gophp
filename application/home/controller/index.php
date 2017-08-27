@@ -11,15 +11,12 @@ class index extends controller {
 
     public function index(){
 
-        $url = 'http://47.93.48.39:8081/rest/binCodeService/getBinCodeById';
+        $a = $_FILES;
+        $b = $_POST;
 
-        $a = request::curl($url, 'post', ['binNo' => '6214850116292548'], ['Content-type' => 'application/x-www-form-urlencoded']);
+        $this->ajaxReturn(['code'=>200,'url' => 'http://wx1.sinaimg.cn/mw690/4b4d632fgy1fieobgb1ftj209c08cjse.jpg', 'post'=>$b]);
 
-        dump($a);
-
-        cookie::instance()->set('cookie', ['name' => 'lll'], 300);
-
-        $this->display();
+        $this->ajaxReturn(['code'=>200,'file' => $a, 'post'=>$b]);
 
     }
 
