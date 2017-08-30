@@ -5,21 +5,16 @@ namespace gophp\mail;
 abstract class contract
 {
 
-    protected $config;
-    protected $mail;
+    abstract public function from($from, $name);
 
-    abstract function __construct($config);
+    abstract public function to($to, $name);
 
-    abstract function from($from, $name);
+    abstract public function attachment($path, $name);
 
-    abstract function to($to, $name);
+    abstract public function title($title);
 
-    abstract function attachment($path, $name);
+    abstract public function body($body);
 
-    abstract function title($title);
-
-    abstract function body($body);
-
-    abstract function send();
+    abstract public function send();
 
 }
