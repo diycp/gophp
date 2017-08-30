@@ -2,7 +2,6 @@
 
 namespace app\home\controller;
 
-use gophp\config;
 use gophp\controller;
 use gophp\db;
 use gophp\mail;
@@ -13,6 +12,8 @@ use gophp\route;
 class index extends controller {
 
     public function index(){
+
+        $mail = config('mail' );
 
         $a = new mail\driver\phpmailer();
 
