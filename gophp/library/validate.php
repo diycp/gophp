@@ -78,7 +78,7 @@ class validate
 
     }
 
-    // 验证是否是合法数字
+    // 验证是否包含合法数字
     public static function hasNumber($number)
     {
 

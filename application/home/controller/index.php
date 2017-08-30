@@ -13,7 +13,6 @@ class index extends controller {
 
     public function index(){
 
-        $a = config::get('db','mysql');
 
 
         dump($a);
