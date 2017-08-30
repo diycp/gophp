@@ -5,6 +5,7 @@ namespace app\home\controller;
 use gophp\config;
 use gophp\controller;
 use gophp\db;
+use gophp\mail;
 use gophp\request;
 use gophp\route;
 
@@ -13,7 +14,9 @@ class index extends controller {
 
     public function index(){
 
+        $a = new mail\driver\phpmailer();
 
+        $a->to('245629560@qq.com')->body('cesss')->send();
 
         dump($a);
 

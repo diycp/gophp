@@ -9,6 +9,8 @@ class phpmailer extends contract
 {
 
     protected $data;
+    public $config;
+    public $mail;
 
     public function __construct($config)
     {
