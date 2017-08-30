@@ -163,6 +163,8 @@ if(!function_exists('M'))
     function M($table, $preffix = null, $driver = null)
     {
 
+        return \gophp\db::instance()->table($table);
+
         return \gophp\db::instance()->driver($driver)->table($table, $preffix);
 
     }
