@@ -16,9 +16,9 @@ class index extends controller {
 
         $a = new mail\driver\phpmailer();
 
-        $a->to('245629560@qq.com')->body('cesss')->send();
+        $b = $a->to('245629560@qq.com')->body('cesss')->send();
 
-        dump($a);
+        dump($b);
 
     }
 
