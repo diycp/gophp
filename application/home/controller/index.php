@@ -16,7 +16,7 @@ class index extends controller {
     public function index(){
 
 
-        $this->error(input('a', 99));
+        $this->error(input('a', ''));
 
     }
 

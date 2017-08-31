@@ -205,6 +205,12 @@ class request
     public static function getParam($name, $default = null)
     {
 
+        if(!$name){
+
+            return null;
+
+        }
+
         if(self::isCLI()){
 
             $params = array_filter($_SERVER['argv']);
@@ -217,40 +223,34 @@ class request
 
             }
 
-            return $value ? $value : $default;
+        }else{
+
+            $method = strtoupper(self::getMethod());
+
+            switch ($method) {
+
+                case 'GET':
+
+                    $input = $_GET;
+
+                    break;
+
+                case 'POST':
+
+                    $input = $_POST;
+
+                    break;
+
+                default:
+
+                    return null;
+
+                    break;
+            }
+
+            $value = $input[$name];
 
         }
-
-        if(!$name){
-
-            return null;
-
-        }
-
-        $method = strtoupper(self::getMethod());
-
-        switch ($method) {
-
-            case 'GET':
-
-                $input = $_GET;
-
-                break;
-
-            case 'POST':
-
-                $input = $_POST;
-
-                break;
-
-            default:
-
-                return null;
-
-                break;
-        }
-
-        $value = $input[$name];
 
         if(!isset($default)){
 
@@ -261,7 +261,7 @@ class request
         // 强制类型转化
         gettype($default) == 'unknown type' or settype($value, gettype($default));
 
-        return $value ? $value : $default;
+        return isset($value) ? $value : $default;
 
     }
 
