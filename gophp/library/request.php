@@ -205,6 +205,22 @@ class request
     public static function getParam($name, $default = null)
     {
 
+        if(self::isCLI()){
+
+            $params = array_filter($_SERVER['argv']);
+
+            foreach ($params as $k=>$param){
+
+                if($k%2 == 0 && $param[0] == '-' && $param[1] == $name){
+                    $value = $params[$k+1];
+                }
+
+            }
+
+            return $value ? $value : $default;
+
+        }
+
         if(!$name){
 
             return null;

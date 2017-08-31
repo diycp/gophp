@@ -30,6 +30,11 @@ class route
         $this->controller = $urlParse['controller'];
         $this->action     = $urlParse['action'];
 
+        if(request::isCLI()){
+
+            $urlParse = explode('/', $_SERVER['argv'][1]);
+        }
+
         define('MODULE_NAME',     $urlParse['module']); //定义当前模块名常量
         define('CONTROLLER_NAME', $urlParse['controller']); //定义当前控制器名常量
         define('ACTION_NAME',     $urlParse['action']); //定义当前方法名常量

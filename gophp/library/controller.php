@@ -53,6 +53,10 @@ class controller
     public function success($message, $url, $time = 1)
     {
 
+        if(request::isCLI()){
+            die( "\033[;32m $message \x1B[0m\n" );
+        }
+
         $suffix = view::instance()->suffix;
 
         $viewFile = config::get('view', 'success_template') . '.' . $suffix;
@@ -80,6 +84,10 @@ class controller
      */
     public function error($message, $url, $time = 3)
     {
+
+        if(request::isCLI()){
+            die( "\033[;36m $message \x1B[0m\n" );
+        }
 
         $suffix = view::instance()->suffix;
 

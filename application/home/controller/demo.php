@@ -13,9 +13,7 @@ class demo extends controller {
     public function index(){
 
 
-        $a = cookie::instance()->get('cookie.name');
-
-        dump($a);
+        echo 'lll';
 
     }
 
