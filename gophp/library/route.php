@@ -34,7 +34,7 @@ class route
 
         }else{
 
-            $urlParse     = $this->parse(request::get($uriParam, ''));
+            $urlParse = $this->parse(request::get($uriParam, ''));
 
         }
 
@@ -45,7 +45,7 @@ class route
 
         }else{
 
-            $this->module     = $urlParse['module'];
+            $this->module = $urlParse['module'];
 
             define('MODULE_NAME', $this->module);
 

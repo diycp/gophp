@@ -13,7 +13,7 @@ class demo extends controller {
     public function index(){
 
 
-        echo 'demo';
+        print_r(input());
 
     }
 
