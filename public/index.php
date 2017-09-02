@@ -6,6 +6,11 @@ define('ROOT_PATH', __DIR__ . '/..');
 // 定义根域名
 define('ROOT_URL', dirname($_SERVER['REQUEST_URI']));
 
+
+define('MODULE_NAME', 'home' );
+define('CONTROLLER_NAME', 'demo' );
+define('ACTION_NAME', 'index' );
+
 // 定义应用目录
 define('APP_PATH', ROOT_PATH . '/application');
 

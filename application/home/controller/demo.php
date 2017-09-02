@@ -13,6 +13,8 @@ class demo extends controller {
     public function index(){
 
 
+        echo 'ppp';
+
         print_r(input());
 
     }
