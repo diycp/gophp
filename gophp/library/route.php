@@ -59,9 +59,9 @@ class route
     private function parse($uri)
     {
 
-        $defaultModule      = $this->config['default_module']; // 默认模块
-        $defaultController  = $this->config['default_controller']; // 默认控制器名
-        $defaultAction      = $this->config['default_action']; // 默认方法名
+        $defaultModule     = $this->config['default_module']; // 默认模块
+        $defaultController = $this->config['default_controller']; // 默认控制器名
+        $defaultAction     = $this->config['default_action']; // 默认方法名
 
         $module     = $defaultModule;
         $controller = $defaultController;
