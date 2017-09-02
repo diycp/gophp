@@ -14,7 +14,7 @@ use Workerman\Worker;
 class index extends controller {
 
     public function index(){
-        echo 'aaa';
+        echo GOPHP_PATH;
 
     }
 
