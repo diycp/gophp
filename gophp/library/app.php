@@ -150,8 +150,6 @@ class app
             $view->display($viewFile);
         }
 
-
-
     }
 
 }

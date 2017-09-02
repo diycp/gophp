@@ -16,7 +16,7 @@ class index extends controller {
     public function index(){
 
 
-        print_r(input());
+        print_r(input1());
 
 
         $this->error('aaa', 'jsonp');
