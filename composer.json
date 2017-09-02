@@ -1,12 +1,12 @@
 {
     "name": "gouguoyin/gophp",
     "description": "The GoPHP Framework.",
-    "keywords": ["framework", "gophp"],
+    "keywords": ["php framework", "gophp framework"],
     "license": "MIT",
     "type": "project",
     "authors": [
       {
-        "name": "勾国印",
+        "name": "gouguoyin",
         "email": "phper@gouguoyin.cn"
       }
     ],
