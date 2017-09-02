@@ -208,19 +208,31 @@ class response
 
         switch ( $type ) {
 
-            case "HTML" :
+            case "XML" :
 
-            case "TEXT" :
+                header('Content-Type:text/xml; charset=utf-8');
 
-                $ouput = $data;
+                $ouput = xml_encode($data);
 
                 break;
 
-            default :
+            case "JSON" :
 
                 header('Content-Type:application/json; charset=utf-8');
 
                 $ouput = json_encode($data, JSON_UNESCAPED_UNICODE);
+
+                break;
+
+            case "JSONP" :
+
+                header('Content-Type:application/json; charset=utf-8');
+
+                $callback = request::get('callback');
+
+                $ouput = $callback."(".json_encode($data, JSON_UNESCAPED_UNICODE).");";
+
+                break;
 
         }
 
