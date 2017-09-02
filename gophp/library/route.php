@@ -63,9 +63,9 @@ class route
         $defaultController = $this->config['default_controller']; // 默认控制器名
         $defaultAction     = $this->config['default_action']; // 默认方法名
 
-        $module     = $defaultModule;
-        $controller = $defaultController;
-        $action     = $defaultAction;
+        $module      = $defaultModule;
+        $controller  = $defaultController;
+        $action      = $defaultAction;
 
         // 获取所有模块
         $allowModule = dir::getSubDir(APP_PATH);
