@@ -559,8 +559,7 @@ class request
     public static function curl($url, $method, $data = null, $headers = [], $time_out = 20)
     {
 
-        if(!extension_loaded('curl'))
-        {
+        if(!extension_loaded('curl')) {
 
             throw new exception('Curl Error', 'Curl extension not install');
 
