@@ -43,6 +43,7 @@
 
     `public/upload`、`runtime`目录给予可读可写权限(如果不存在则先创建目录)
     
+    
 - 开启UrlRewrite来隐藏入口文件index.php
 
   [**Apache**]
