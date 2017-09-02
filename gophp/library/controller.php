@@ -53,12 +53,6 @@ class controller
     public function success($message, $url, $time = 1)
     {
 
-        if(request::isCLI()){
-
-            response::cli($message, 'success');
-
-        }
-
         $suffix = view::instance()->suffix;
 
         $viewFile = config::get('view', 'success_template') . '.' . $suffix;
@@ -86,12 +80,6 @@ class controller
      */
     public function error($message, $url, $time = 3)
     {
-
-        if(request::isCLI()){
-
-            response::cli($message, 'error');
-
-        }
 
         $suffix = view::instance()->suffix;
 
@@ -121,6 +109,18 @@ class controller
     {
 
         response::ajax($data, $type);
+
+    }
+
+    /**
+     * @desc cli命令行返回
+     * @param string $message
+     * @param $type
+     */
+    public function cliReturn($message, $type)
+    {
+
+        response::cli($message, $type);
 
     }
 
