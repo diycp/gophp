@@ -21,5 +21,16 @@ ini_set("display_errors", "Off");
 require __DIR__ . '/bootstrap/const.php';
 require __DIR__ . '/function/function.php';
 
+// 定义调试开关
+if('true' === input(DEBUG_PARAM)){
+
+    defined('APP_DEBUG') or define('APP_DEBUG', true);
+
+}else{
+
+    defined('APP_DEBUG') or define('APP_DEBUG', false);
+
+}
+
 // 初始化核心框架
 \gophp\app::run();

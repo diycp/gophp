@@ -66,14 +66,4 @@ defined('CACHE_PARAM') or define('CACHE_PARAM', 'cache');
 // 定义默认模块
 defined('DEFAULT_MODULE') or define('DEFAULT_MODULE', 'home');
 
-// 定义调试开关
-if('true' === $_GET[DEBUG_PARAM]){
-
-    defined('APP_DEBUG') or define('APP_DEBUG', true);
-
-}else{
-
-    defined('APP_DEBUG') or define('APP_DEBUG', false);
-
-}
 

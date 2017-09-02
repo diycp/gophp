@@ -15,8 +15,7 @@ class index extends controller {
 
     public function index(){
 
-        $value = input();
-        print_r($value);
+        $this->success1(ROOT_PATH);
 
     }
 
