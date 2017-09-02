@@ -462,12 +462,6 @@ class request
     public static function get($name, $default = null)
     {
 
-        if(!$name){
-
-            return null;
-
-        }
-
         // 判断是否是cli命令行模式
         if(self::isCLI()){
 
@@ -475,9 +469,9 @@ class request
 
             foreach ($params as $k=>$param){
 
-                if($param[0] == '-' && $param[1] == $name && $k%2 == 0){
+                if($param[0] == '-' &&  $k%2 == 0){
 
-                    $value = $params[$k+1];
+                    $input[$params[$k][1]] = $params[$k+1];
 
                 }
 
@@ -485,9 +479,17 @@ class request
 
         }else{
 
-            $value = $_GET[$name];
+            $input = $_GET;
 
         }
+
+        if(!$name){
+
+            return $input;
+
+        }
+
+        $value = $input[$name];
 
         if(!isset($default)){
 
