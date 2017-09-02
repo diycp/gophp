@@ -24,15 +24,54 @@ class route
 
         $uriParam     = $this->config['uri_param'];
 
-        $urlParse     = $this->parse(request::get($uriParam, ''));
-        
-        $this->module     = $urlParse['module'];
-        $this->controller = $urlParse['controller'];
-        $this->action     = $urlParse['action'];
+        if(request::isCLI()){
 
-        define('MODULE_NAME',     $urlParse['module']); //定义当前模块名常量
-        define('CONTROLLER_NAME', $urlParse['controller']); //定义当前控制器名常量
-        define('ACTION_NAME',     $urlParse['action']); //定义当前方法名常量
+            $urlParse     = $this->parse(request::get($uriParam, ''));
+
+        }else{
+
+            $urlParse     = $this->parse(request::get($uriParam, ''));
+
+        }
+
+        // 定义当前模块名常量
+        if(defined('MODULE_NAME')){
+
+            $this->module = MODULE_NAME;
+
+        }else{
+
+            $this->module     = $urlParse['module'];
+
+            define('MODULE_NAME', $this->module);
+
+        }
+
+        // 定义当前控制器名常量
+        if(defined('CONTROLLER_NAME')){
+
+            $this->controller = CONTROLLER_NAME;
+
+        }else{
+
+            $this->controller = $urlParse['controller'];
+
+            define('CONTROLLER_NAME', $this->controller);
+
+        }
+
+        // 定义当前方法名常量
+        if(defined('ACTION_NAME')){
+
+            $this->action = ACTION_NAME;
+
+        }else{
+
+            $this->action = $urlParse['action'];
+
+            define('ACTION_NAME', $this->action);
+
+        }
 
         define('MODULE_PATH',     APP_PATH. '/' . MODULE_NAME); //定义当前模块目录常量
         define('CONTROLLER_PATH', MODULE_PATH . '/controller'); //定义当前模块控制器目录常量

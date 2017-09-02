@@ -14,8 +14,7 @@ use Workerman\Worker;
 class index extends controller {
 
     public function index(){
-
-        $this->error('aaa', 'jsonp');
+        echo 'aaa';
 
     }
 
