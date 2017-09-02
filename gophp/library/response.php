@@ -252,6 +252,8 @@ class response
 
                 $ouput =  "\033[;36m $message \x1B[0m\n";
 
+                break;
+
             case "error" :
 
                 $ouput =  "\033[;31m $message \x1B[0m\n";

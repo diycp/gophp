@@ -56,7 +56,7 @@ if (!function_exists('dump'))
 if(!function_exists('input'))
 {
 
-    function input($key, $default)
+    function input($key, $default = null)
     {
 
         return \gophp\request::getParam($key, $default);
@@ -71,7 +71,7 @@ if(!function_exists('input'))
 if(!function_exists('config'))
 {
 
-    function config($name, $key)
+    function config($name, $key = null)
     {
 
         return \gophp\config::get($name, $key);

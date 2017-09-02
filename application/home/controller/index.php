@@ -15,7 +15,9 @@ class index extends controller {
 
     public function index(){
 
-        $this->ajaxReturn('aaa', 'jsonp');
+
+
+        $this->error('aaa', 'jsonp');
 
     }
 
