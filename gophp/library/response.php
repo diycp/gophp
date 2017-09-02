@@ -246,7 +246,7 @@ class response
 
         $type = strtolower( $type );
 
-        switch ( $type ) {
+        switch ($type) {
 
             case "success" : // 成功绿色
 
@@ -271,6 +271,7 @@ class response
                 $ouput =  "\033[;34m $message \x1B[0m\n";
 
                 break;
+
         }
 
         exit($ouput);
