@@ -241,34 +241,51 @@ class response
     }
 
     // cli输出
-    public static function cli($message, $type = 'success')
+    public static function cli($message, $type = null)
     {
 
-        $type = strtolower( $type );
+        $type = strtolower( trim($type) );
 
         switch ($type) {
 
             case "success" : // 成功绿色
 
-                $ouput =  "\033[;36m $message \x1B[0m\n";
+                $message = '【success】' . $message;
+
+
+                $ouput  =  "\033[;36m $message \x1B[0m\n";
 
                 break;
 
             case "error" : // 错误红色
 
-                $ouput =  "\033[;31m $message \x1B[0m\n";
+                $message = '【error】' . $message;
+
+                $ouput   =  "\033[;31m $message \x1B[0m\n";
 
                 break;
 
             case "warning" : // 警告黄色
 
-                $ouput =  "\033[;33m $message \x1B[0m\n";
+                $message = '【warning】' . $message;
+
+                $ouput   =  "\033[;33m $message \x1B[0m\n";
 
                 break;
 
             case "notice" : // 提示蓝色
 
-                $ouput =  "\033[;34m $message \x1B[0m\n";
+                $message = '【notice】' . $message;
+
+                $ouput   =  "\033[;34m $message \x1B[0m\n";
+
+                break;
+
+            default :
+
+                $message = '【error】response::cli($message, $type)方法type参数缺失或错误';
+
+                $ouput   =  "\033[;31m $message \x1B[0m\n";
 
                 break;
 

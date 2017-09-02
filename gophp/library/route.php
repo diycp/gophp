@@ -26,7 +26,11 @@ class route
 
         if(request::isCLI()){
 
-            $urlParse     = $this->parse(request::get($uriParam, ''));
+            if(!defined('CONTROLLER_NAME') || !defined('CONTROLLER_NAME') || !defined('CONTROLLER_NAME')){
+
+                response::cli('cli模式必须绑定模块、控制器和方法','error');
+
+            }
 
         }else{
 
