@@ -252,7 +252,6 @@ class response
 
                 $message = '【success】' . $message;
 
-
                 $ouput  =  "\033[;36m $message \x1B[0m\n";
 
                 break;
