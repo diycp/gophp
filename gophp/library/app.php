@@ -139,10 +139,18 @@ class app
 
         log::write($message, log::ERROR);
 
-        // 展示错误信息
-        $view->assign('error', self::$error);
+        if(request::isCLI()){
 
-        $view->display($viewFile);
+            response::cli($message, 'error');
+
+        }else{
+            // 展示错误信息
+            $view->assign('error', self::$error);
+
+            $view->display($viewFile);
+        }
+
+
 
     }
 

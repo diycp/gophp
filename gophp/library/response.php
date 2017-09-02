@@ -228,4 +228,39 @@ class response
 
     }
 
+    // cli输出
+    public static function cli($message, $type = 'success')
+    {
+
+        $type = strtolower( $type );
+
+        switch ( $type ) {
+
+            case "success" :
+
+                $ouput =  "\033[;36m $message \x1B[0m\n";
+
+            case "error" :
+
+                $ouput =  "\033[;31m $message \x1B[0m\n";
+
+                break;
+
+            case "warning" :
+
+                $ouput =  "\033[;33m $message \x1B[0m\n";
+
+                break;
+
+            case "notice" :
+
+                $ouput =  "\033[;34m $message \x1B[0m\n";
+
+                break;
+        }
+
+        exit($ouput);
+
+    }
+
 }

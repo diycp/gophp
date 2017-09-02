@@ -54,7 +54,9 @@ class controller
     {
 
         if(request::isCLI()){
-            die( "\033[;36m $message \x1B[0m\n" );
+
+            response::cli($message, 'success');
+
         }
 
         $suffix = view::instance()->suffix;
@@ -86,7 +88,9 @@ class controller
     {
 
         if(request::isCLI()){
-            die( "\033[;31m $message \x1B[0m\n" );
+
+            response::cli($message, 'error');
+
         }
 
         $suffix = view::instance()->suffix;
