@@ -248,25 +248,25 @@ class response
 
         switch ( $type ) {
 
-            case "success" :
+            case "success" : // 成功绿色
 
                 $ouput =  "\033[;36m $message \x1B[0m\n";
 
                 break;
 
-            case "error" :
+            case "error" : // 错误红色
 
                 $ouput =  "\033[;31m $message \x1B[0m\n";
 
                 break;
 
-            case "warning" :
+            case "warning" : // 警告黄色
 
                 $ouput =  "\033[;33m $message \x1B[0m\n";
 
                 break;
 
-            case "notice" :
+            case "notice" : // 提示蓝色
 
                 $ouput =  "\033[;34m $message \x1B[0m\n";
 
