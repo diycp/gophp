@@ -124,7 +124,7 @@ class app
 
         if(APP_DEBUG){
 
-            $viewFile = config::get('view', 'exception_template') . '.' . $suffix;
+            $viewFile = config::get('view', 'debug_template') . '.' . $suffix;
 
         }else{
 
