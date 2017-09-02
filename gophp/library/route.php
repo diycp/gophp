@@ -25,15 +25,10 @@ class route
         $uriParam     = $this->config['uri_param'];
 
         $urlParse     = $this->parse(request::get($uriParam, ''));
-
+        
         $this->module     = $urlParse['module'];
         $this->controller = $urlParse['controller'];
         $this->action     = $urlParse['action'];
-
-        if(request::isCLI()){
-
-            $urlParse = explode('/', $_SERVER['argv'][1]);
-        }
 
         define('MODULE_NAME',     $urlParse['module']); //定义当前模块名常量
         define('CONTROLLER_NAME', $urlParse['controller']); //定义当前控制器名常量

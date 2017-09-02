@@ -205,20 +205,17 @@ class request
     public static function getParam($name, $default = null)
     {
 
-        if(!$name){
-
-            return null;
-
-        }
-
+        // 判断是否是cli命令行模式
         if(self::isCLI()){
 
             $params = array_filter($_SERVER['argv']);
 
             foreach ($params as $k=>$param){
 
-                if($k%2 == 0 && $param[0] == '-' && $param[1] == $name){
-                    $value = $params[$k+1];
+                if($param[0] == '-' &&  $k%2 == 0){
+
+                    $input[$params[$k][1]] = $params[$k+1];
+
                 }
 
             }
@@ -248,9 +245,15 @@ class request
                     break;
             }
 
-            $value = $input[$name];
+        }
+
+        if(!$name){
+
+            return $input;
 
         }
+
+        $value = $input[$name];
 
         if(!isset($default)){
 
@@ -461,11 +464,30 @@ class request
 
         if(!$name){
 
-            return $_GET;
+            return null;
 
         }
 
-        $value = $_GET[$name];
+        // 判断是否是cli命令行模式
+        if(self::isCLI()){
+
+            $params = array_filter($_SERVER['argv']);
+
+            foreach ($params as $k=>$param){
+
+                if($param[0] == '-' && $param[1] == $name && $k%2 == 0){
+
+                    $value = $params[$k+1];
+
+                }
+
+            }
+
+        }else{
+
+            $value = $_GET[$name];
+
+        }
 
         if(!isset($default)){
 

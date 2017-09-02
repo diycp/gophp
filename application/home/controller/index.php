@@ -15,8 +15,8 @@ class index extends controller {
 
     public function index(){
 
-
-        $this->error(input('a', ''));
+        $value = input();
+        print_r($value);
 
     }
 
