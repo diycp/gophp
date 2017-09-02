@@ -208,7 +208,7 @@ class request
         // 判断是否是cli命令行模式
         if(self::isCLI()){
 
-            $params = array_filter($_SERVER['argv']);
+            $params = $_SERVER['argv'];
 
             foreach ($params as $k=>$param){
 
