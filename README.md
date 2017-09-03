@@ -6,6 +6,9 @@
  - 基于 MVC 体系架构，确保了清晰分离逻辑层和表现层；
  - 基于命名空间和trait、yield、静态类延迟绑定等现代PHP新特性；
  - 遵循PSR-2、PSR-4规范，Composer及单元测试支持；
+ - 完美支持PHP7；
+ - 友好的IDE智能提示和类方法追踪；
+ - 完善的CLI模式支持;
  - 惰性加载，仅在需要时再加载，并且只会加载一次；
  - 支持请求过滤器（中间件），使控制器专注于处理业务逻辑；
  - 核心类高度独立，最大程度的提高复用性和最小程度的降低耦合性；
@@ -13,8 +16,7 @@
  - 内置验证机制，囊括常用的使用场景；
  - 强大的缓存支持，提供了包括文件、Xcache、Redis等多种类型的缓存支持；
  - 强安全策略，自动防止跨站脚本、SQL注入攻击等；
- - 完美支持PHP7；
- - 完美支持IDE代码智能提示；
+ 
 
 ## Requirement
 
@@ -33,14 +35,14 @@
     ```php
     git clone https://github.com/gouguoyin/GoPHP.git
     ```
+- 绑定域名
 
+    将域名绑定到`public`目录上(非必须，但是建议)
+    
 - 设置目录权限
 
     `public/upload`、`runtime`目录给予可读可写权限(如果不存在则先创建目录)
     
-- 绑定域名
-
-    将域名绑定到`public`目录上
     
 - 开启UrlRewrite来隐藏入口文件index.php
 
@@ -101,5 +103,3 @@
 - 使用手册：www.gouguoyin.cn/doc
 - 作者博客：www.gouguoyin.cn
 - 官方QQ群：421537504 <a style="margin-left:10px" target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=d49826b55d1759513ce5d68253b3f0589b227587edf87059aa08125e620b73c0"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="GoPHP官方交流群" title="GoPHP官方交流群"></a>
-
-
