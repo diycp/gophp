@@ -83,7 +83,7 @@
         }
     }
     ```  
-      
+    
 - 更改配置信息
 
 ## Documentation
@@ -92,7 +92,7 @@
 - [系统函数](https://github.com/gouguoyin/doc/blob/master/gophp/function.md)
 - [辅助类库](https://github.com/gouguoyin/doc/blob/master/gophp/helper.md)
 - [系统常量](https://github.com/gouguoyin/doc/blob/master/gophp/const.md)
-
+- [配置参考](https://github.com/gouguoyin/doc/blob/master/gophp/config.md)
 
 ## Contaction
 
