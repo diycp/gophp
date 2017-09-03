@@ -99,6 +99,7 @@
     >
     application/common/config/db.php>
     ``` 
+    >完整配置参数请参考[配置参考](https://github.com/gouguoyin/doc/blob/master/gophp/config.md)
 
 ## Documentation
 
