@@ -89,15 +89,15 @@
     
 - 更改配置信息
 
-  application/common/config目录下的配置文件全局有效，模块目录下的config目录下的配置文件仅对该模块有效，如果有相同配置项，那么模块环境目录(如home/config/develop)下的配置文件优先级大于模块配置文件(如home/config)大于公共环境目录(如common/config/develop)下的配置文件大于公共环境目录(如common/config)下的配置文件，即
+  application/common/config目录下的配置文件全局有效，模块目录下的config目录下的配置文件仅对该模块有效，如果有相同配置项，那么模块环境目录(如home/config/develop)下的配置文件优先级大于模块配置文件(如home/config)大于公共环境目录(如common/config/develop)下的配置文件大于公共环境目录(如common/config)下的配置文件，如
   
     ```php
     application/home/config/develop/db.php
-    >
+    优先
     application/home/config/db.php
-    >
+    优先
     application/common/config/develop/db.php
-    >
+    优先
     application/common/config/db.php>
     ``` 
     >完整配置参数请查看[配置参考](https://github.com/gouguoyin/doc/blob/master/gophp/config.md)
