@@ -79,12 +79,13 @@
     如果是部署在二级目录下，在Nginx.conf中配置转发规则
   
     ```php
-    location /sub_dir/ {
+    location /SUB_DIR/ {
         if (!-e $request_filename){
-            rewrite  ^/sub_dir/(.*)$  /sub_dir/index.php?r=$1  last;
+            rewrite  ^/SUB_DIR/(.*)$  /sub_dir/index.php?r=$1  last;
         }
     }
     ```  
+    >SUB_DIR换成自己的目录
     
 - 更改配置信息
 
