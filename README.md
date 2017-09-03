@@ -93,11 +93,11 @@
   
     ```php
     application/home/config/develop/db.php
-    优先
+    优先于
     application/home/config/db.php
-    优先
+    优先于
     application/common/config/develop/db.php
-    优先
+    优先于
     application/common/config/db.php>
     ``` 
     >完整配置参数请查看[配置参考](https://github.com/gouguoyin/doc/blob/master/gophp/config.md)
