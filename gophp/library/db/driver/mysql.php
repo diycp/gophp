@@ -744,9 +744,6 @@ class mysql extends contract
      */
     private function set($data)
     {
-
-        $this->bind = [];
-
         $bindString = '';
 
         foreach ($data as $field => $value) {
