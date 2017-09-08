@@ -750,6 +750,12 @@ class mysql extends contract
         $bindString = '';
 
         foreach ($data as $field => $value) {
+            
+            if(is_string($value)){
+
+                $value = '"' . $value . '"';
+
+            }
 
             if($this->chain['show']){
 
