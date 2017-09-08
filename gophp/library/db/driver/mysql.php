@@ -142,6 +142,12 @@ class mysql extends contract
 
         $result = $this->find($field);
 
+        if($this->chain['show']){
+
+            return $result;
+
+        }
+
         return $result[$field];
 
     }
