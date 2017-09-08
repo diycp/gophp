@@ -204,7 +204,7 @@ class response
     public static function ajax($data, $type = 'json')
     {
 
-        $type = strtoupper( $type );
+        $type = isset($type) ? strtoupper( $type ) : 'json';
 
         switch ( $type ) {
 
@@ -231,6 +231,14 @@ class response
                 $callback = request::get('callback');
 
                 $ouput = $callback."(".json_encode($data, JSON_UNESCAPED_UNICODE).");";
+
+                break;
+
+            default:
+
+                header('Content-Type:application/json; charset=utf-8');
+
+                $ouput = json_encode($data, JSON_UNESCAPED_UNICODE);
 
                 break;
 

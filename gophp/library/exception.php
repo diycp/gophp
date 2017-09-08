@@ -22,6 +22,7 @@ class exception extends \Exception
 
     }
 
+
     public function getSQL()
     {
 

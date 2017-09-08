@@ -53,6 +53,21 @@ if (!function_exists('dump'))
 /**
  * 获取输入参数
  */
+if(!function_exists('redirect'))
+{
+
+    function redirect($uri, $refresh = 0)
+    {
+
+        \gophp\response::redirect($uri, $refresh);
+
+    }
+
+}
+
+/**
+ * 获取输入参数
+ */
 if(!function_exists('input'))
 {
 
@@ -60,6 +75,36 @@ if(!function_exists('input'))
     {
 
         return \gophp\request::getParam($key, $default);
+
+    }
+
+}
+
+/**
+ * 获取输入GET参数
+ */
+if(!function_exists('get'))
+{
+
+    function get($key, $default = null)
+    {
+
+        return \gophp\request::get($key, $default);
+
+    }
+
+}
+
+/**
+ * 获取输入POST参数
+ */
+if(!function_exists('post'))
+{
+
+    function post($key, $default = null)
+    {
+
+        return \gophp\request::post($key, $default);
 
     }
 
@@ -96,52 +141,8 @@ if(!function_exists('load'))
 }
 
 /**
- * session方法封装
+ * 生成url
  */
-if(!function_exists('session'))
-{
-
-    function session($key, $value, $expire = 0)
-    {
-
-        if(!$value){
-
-            $value = \gophp\session::get($key);
-
-            if(is_array($value)){
-
-                return (object) $value;
-            }
-
-            return  $value;
-
-        }elseif(is_null($value)){
-
-            \gophp\session::delete($key);
-
-        }else{
-
-            \gophp\session::set($key, $value, $expire);
-
-        }
-
-    }
-
-}
-
-if(!function_exists('cache'))
-{
-
-    function cache($driver)
-    {
-
-        return \gophp\cache::instance()->driver($driver);
-
-    }
-
-}
-
-
 if(!function_exists('url'))
 {
 
@@ -157,17 +158,138 @@ if(!function_exists('url'))
 /**
  * 实例化db类
  */
-if(!function_exists('M'))
+if(!function_exists('db'))
 {
 
-    function M($table, $preffix = null, $driver = null)
+    function db($table, $driver)
     {
 
-        return \gophp\db::instance()->table($table);
+        $db = \gophp\db::instance();
 
-        return \gophp\db::instance()->driver($driver)->table($table, $preffix);
+        return $db->driver($driver)->table($table);
 
     }
 
 }
 
+/**
+ * cacehe类封装
+ */
+if(!function_exists('cache'))
+{
+
+    function cache($name, $value)
+    {
+
+        $cache = \gophp\cache::instance();
+
+        if(is_null($value)){
+
+            $cache->delete($name);
+
+        }elseif(isset($value)){
+
+            $cache->set($name, $value);
+
+        }else{
+
+            return $cache->get($name);
+
+        }
+
+
+    }
+
+}
+
+/**
+ * session类封装
+ */
+if(!function_exists('session'))
+{
+
+    function session($name, $value)
+    {
+
+        $session = \gophp\session::instance();
+
+        if(isset($value) && !is_null($value)){
+
+            $session->set($name, $value);
+
+        }elseif(isset($value) && is_null($value)){
+
+            $session->delete($name);
+
+        }else{
+
+            return $session->get($name);
+
+        }
+
+    }
+
+}
+
+/**
+ * cookie类封装
+ */
+if(!function_exists('cookie'))
+{
+
+    function cookie($name, $value)
+    {
+
+        $cookie = \gophp\cookie::instance();
+
+        if(is_null($value)){
+
+            $cookie->delete($name);
+
+        }elseif(isset($value)){
+
+            $cookie->set($name, $value);
+
+        }else{
+
+            return $cookie->get($name);
+
+        }
+
+    }
+
+}
+
+/**
+ * 加密类封装
+ */
+if(!function_exists('encrypt'))
+{
+
+    function encrypt($str)
+    {
+
+        $crypt = \gophp\crypt::instance();
+
+        return $crypt->encrypt($str);
+
+    }
+
+}
+
+/**
+ * 解密类封装
+ */
+if(!function_exists('decrypt'))
+{
+
+    function decrypt($str)
+    {
+
+        $crypt = \gophp\crypt::instance();
+
+        return $crypt->decrypt($str);
+
+    }
+
+}

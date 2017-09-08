@@ -58,6 +58,12 @@ class db extends contract
     public function where($field , $expression, $value, $logic = 'AND')
     {
 
+        $method = __FUNCTION__;
+
+        $this->handler->$method($field , $expression, $value, $logic);
+
+        return $this;
+
     }
 
     public function order($order)
@@ -78,12 +84,12 @@ class db extends contract
 
     }
 
-    public function join($join)
+    public function join($join, $type)
     {
 
         $method = __FUNCTION__;
 
-        return $this->handler->$method($join);
+        return $this->handler->$method($join, $type);
 
     }
 
@@ -114,7 +120,25 @@ class db extends contract
 
     }
 
+    public function value($field)
+    {
+
+        $method = __FUNCTION__;
+
+        return $this->handler->$method($field);
+
+    }
+
     public function findAll($field)
+    {
+
+        $method = __FUNCTION__;
+
+        return $this->handler->$method($field);
+
+    }
+
+    public function select($field)
     {
 
         $method = __FUNCTION__;

@@ -6,7 +6,6 @@ return [
     'port'     => 6379, // 端口号
     'password' => 'YVWHR2ckmcSnyw', // 密码
     'database' => 0,
-    'expire'   => 30 // 过期时间
 
 ];
 

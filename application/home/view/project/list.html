@@ -1,0 +1,401 @@
+{{include_file name='public/header' title='选择项目'}}
+
+    <style>
+        .panel-body {
+            height: 80px;
+            overflow: hidden;
+        }
+        .project-add,.project-search {
+            height: 180px;
+            overflow: hidden;
+            text-align:center;
+            line-height:140px;
+            font-size: 36px;
+        }
+
+        .panel:hover  {
+            background-color:#EFEFEF;
+            cursor: pointer;
+            solid;background:#fff;color:#333;
+            filter:progid:DXImageTransform.Microsoft.Shadow(color=#909090,direction=120,strength=4);/*ie*/
+            -moz-box-shadow: 2px 2px 10px #909090;/*firefox*/
+            -webkit-box-shadow: 2px 2px 10px #909090;/*safari或chrome*/
+            box-shadow:2px 2px 10px #909090;/*opera或ie9*/
+        }
+        .head-btn {
+            float: right;
+        }
+        .head-btn a {
+            text-decoration : none;
+            margin: 0 0 0 10px;
+        }
+
+        #page-wrapper {
+            position: inherit;
+            margin: 0;
+            padding: 0 30px;
+            border-left: 1px solid #e7e7e7;
+        }
+
+        .picked-box,.picking-box {
+            float: left;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    {{include_file name='public/nav' has_sidebar=0}}
+    <!-- Page Content -->
+    <div id="page-wrapper" style="min-height: 635px;">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">我创建的项目</h1>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            {{foreach $create_projects as $create_project}}
+            <div class="col-lg-3 js_project" data-url="{{url("project/{{$create_project.id}}")}}">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <span class="head-title">{{$create_project.title}}</span>
+                        <span class="head-btn">
+                                <a class="fa fa-pencil js_addProject" title="编辑" data-id="{{$create_project.id}}"></a>
+                                <a class="fa fa-trash-o js_deleteProject" title="删除" data-id="{{$create_project.id}}"></a>
+                            </span>
+                    </div>
+                    <div class="panel-body">
+                        <p>{{$create_project.intro}}</p>
+                    </div>
+                    <div class="panel-footer">
+                        创 建 人(勾国印 245629560@qq.com)
+                        <br>
+                        创建时间({{$create_project.add_time}})
+                    </div>
+                </div>
+            </div>
+            {{/foreach}}
+
+            <!-- /.col-lg-4 -->
+
+            <!-- /.col-lg-4 -->
+            <div class="col-lg-3 js_addProject" data-id="0">
+                <div class="panel panel-default">
+
+                    <div class="panel-body project-add">
+                        <p class="fa fa-plus">添加项目</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">我加入的项目</h1>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            {{foreach $join_projects as $join_project}}
+            <div class="col-lg-3 js_project" data-id="{{$join_project.project_id}}">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        {{$join_project.title}}
+                        <span class="head-btn">
+                                <a class="fa fa-sign-out js_quit" title="退出该项目" data-project_id="24"></a>
+                            </span>
+                    </div>
+                    <div class="panel-body">
+                        <p>{{$join_project.intro}}</p>
+                    </div>
+                    <div class="panel-footer">
+                        创 建 人(勾国印 245629560@qq.com)
+                        <br>
+                        加入时间({{$join_project.join_time}})
+                    </div>
+                </div>
+            </div>
+            {{/foreach}}
+
+            <div class="col-lg-3 js_search">
+                <div class="panel panel-default">
+
+                    <div class="panel-body project-search">
+                        <p class="fa fa-search js_search">寻找项目</p>
+                    </div>
+
+                </div>
+            </div>
+            <!-- /.col-lg-4 -->
+
+
+            <!-- /#page-wrapper -->
+
+        </div>
+
+        <hr>
+        <p class="text-center"> Copyright © 2016 APIDOC版权所有</p>
+
+        <!-- /#wrapper -->
+        <!-- 添加/编辑项目模态框 -->
+        <div class="modal fade" id="js_addProject" tabindex="1" role="dialog" aria-labelledby="exampleModalLabel">
+            <div class="modal-dialog" role="document">
+
+                <form role="form">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">编辑项目</h4>
+                    </div>
+                    <div class="modal-body">
+                            <div class="form-group">
+                                <label for="recipient-name" class="control-label">项目名称:</label>
+                                <input type="text" name="title" class="form-control" id="recipient-name" placeholder="必填" datatype="*" nullmsg="请输入项目名称!" errormsg="请输入项目名称!">
+                                <span class="Validform_checktip"></span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="message-text" class="control-label">项目描述:</label>
+                                <textarea name="desc" class="form-control" id="message-text" placeholder="必填" datatype="*" nullmsg="请输入项目描述!" errormsg="请输入项目描述!"></textarea>
+                                <span class="Validform_checktip"></span>
+
+                            </div>
+
+                            <div class="form-group">
+                                <label for="" class="control-label">项目成员:</label>
+                                <div class="pick-box">
+                                    <div class="picked-box">
+
+                                    </div>
+
+                                    <div class="picking-box">
+
+                                    </div>
+
+                                    <input class="form-control accounts-inputer js_addUser" data-id="5" autocomplete="off" placeholder="添加项目成员">
+
+                                    <div class="accounts-con"></div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="recipient-name" class="control-label">是否允许被搜索到:</label>
+                                <div class="form-group">
+                                <label class="radio-inline">
+                                    <input type="radio" name="allow_search" checked value="1"> 允许
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="allow_search" value="0"> 禁止
+                                </label>
+                                </div>
+                            </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary js_submit">提交</button>
+                    </div>
+
+                </div>
+                </form>
+
+            </div>
+
+        </div>
+        <!-- 删除项目模态框 -->
+        <div class="modal fade" id="js_deleteProject" tabindex="2" role="dialog">
+            <div class="modal-dialog" role="document">
+                <form role="form" action="{{url('project/delete')}}" method="post">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">确定删除此项目吗？</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>项目删除后，所有接口也将被立刻删除，不可恢复，请谨慎操作！</p>
+                        <form>
+                            <div class="form-group">
+                                <input name="project_id" type="hidden" class="form-control">
+                                <input name="password" type="text" class="form-control" placeholder="重要操作，请输入密码" datatype="s2-10" nullmsg="请输入登录密码!" errormsg="请输入请输入登录密码!">
+                                <span class="Validform_checktip"></span>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-danger js_submit">删除</button>
+                    </div>
+                </div><!-- /.modal-content -->
+                </form>
+            </div><!-- /.modal-dialog -->
+        </div>
+
+
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<script src="{{STATIC_URL}}/plugins/bootstrap/js/bootstrap3-typeahead.min.js"></script>
+
+<script>
+    $(function(){
+
+        //表单合法性验证
+        $("#js_deleteProject form, #js_addProject form").Validform({
+
+            tiptype:function(msg,o,cssctl){
+
+                if(!o.obj.is("form")){
+
+                    var objtip=o.obj.siblings(".Validform_checktip");
+
+                    cssctl(objtip,o.type);
+
+                    objtip.text(msg);
+
+                }
+
+            },
+
+            label:"label",
+
+            ajaxPost:true,
+
+            btnSubmit:".js_submit",
+
+            beforeSubmit:function(){
+
+                $(".js_submit").attr("disabled", "disabled").text('提交中..');
+
+            },
+
+            callback:function(json){
+
+                if(json.code == 200){
+
+                    $(".js_submit").attr("disabled", "disabled").text('提交成功');
+
+                    alert(json.msg, 500, function () {
+                        window.location.href = "{{url('project')}}";
+                    });
+
+                }else{
+
+                    alert(json.msg, 2000);
+
+                    $(".js_submit").text('重新提交').removeAttr("disabled");
+
+                }
+
+            }
+
+        });
+
+        //添加/编辑项目
+        $(".js_addProject").click(function(event){
+            // 阻止事件冒泡
+            event.stopPropagation();
+            var id = $(this).data("id");
+            var url = "{{url('project/add')}}?id=" + id;
+
+            $.post(url, { 'id':id }, function(json){
+
+                if(json === false){
+
+                    $('#js_addProject .modal-title').text('添加项目');
+
+                    // 清空表单默认值
+                    $('#js_addProject input[name=title]').val('');
+                    $('#js_addProject textarea[name=desc]').val('');
+                    $('#js_addProject .picked-box').html('');
+
+                }else{
+
+                    $('#js_addProject .modal-title').text('编辑项目');
+                    $('#js_addProject input[name=title]').val(json.title);
+                    $('#js_addProject textarea[name=desc]').val(json.desc);
+//                    $('#js_addProject .pick-box').html(json.users);
+
+                    if(json.allow_search === 1){
+
+                        $('#js_addProject input[name=allow_search]').removeProp('checked');
+
+                    }else{
+
+                        $('#js_addProject input[name=allow_search]').prop('checked', 'checked');
+
+                    }
+                }
+
+                $('#js_addProject').modal('show');
+
+            }, 'json');
+
+        });
+
+        //添加成员
+        $('.js_addUser').typeahead({
+            source: function (query, process) {//query是输入值
+
+                var id  = $(".js_addUser").data('id');
+                var url = "{{url('user/pick')}}";
+                $.getJSON(url, { "name": query,"id": id }, function (data) {
+                    process(data);
+                });
+            },
+
+            afterSelect: function (item) {//选择项之后的时间，item是当前选中的项
+                $(".js_addUser").val('');
+                var pickedUser = "<span class='picking-user' data-id="+item.id+" data-name='"+item.name+"' data-email='"+item.email+"'>"+item.name+"<i title='点击删除' class='fa fa-times js_deleteUser'></i></span>";
+                $(".picking-box").append(pickedUser);
+            },
+            items: 8, //显示8条
+            delay: 500 //延迟时间
+        });
+
+
+        //删除用户
+        $("body").on('click', '.js_deleteUser',function () {
+            // 阻止事件冒泡
+            event.stopPropagation();
+            $(this).parent('span').remove();
+
+        });
+
+        //搜索项目
+        $(".js_search").click(function(){
+            window.location.href = "/project/index";
+        });
+
+        //点击项目
+        $(".js_project").click(function () {
+            var url = $(this).data('url');
+            window.location.href = url;
+        });
+
+        //删除项目
+        $('.js_deleteProject').click(function(event){
+            // 阻止事件冒泡
+            event.stopPropagation();
+            var id = $(this).data('id');
+            $('#js_deleteProject input[name=project_id]').val(id);
+            $('#js_deleteProject').modal('show');
+        });
+
+    });
+</script>
+
+{{include_file name='public/footer'}}

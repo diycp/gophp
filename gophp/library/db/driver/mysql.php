@@ -79,9 +79,13 @@ class mysql extends contract
     public function table($table, $prefix = null)
     {
 
-        $this->tablePrefix = isset($prefix) ? $prefix : $this->config['prefix'];
+        if($table){
 
-        $this->tableName   = '`' . $this->tablePrefix . $table . '`';
+            $this->tablePrefix = isset($prefix) ? $prefix : $this->config['prefix'];
+
+            $this->tableName   = $this->tablePrefix . $table;
+        }
+
 
         return $this;
 
@@ -119,7 +123,7 @@ class mysql extends contract
 
         if($this->chain['show']){
 
-            return $this->stmt;
+            return $this->sql;
 
         }
 
@@ -142,6 +146,12 @@ class mysql extends contract
 
         $result = $this->find($field);
 
+        if($this->chain['show']){
+
+            return $result;
+
+        }
+
         return $result[$field];
 
     }
@@ -154,7 +164,54 @@ class mysql extends contract
     public function findAll($field = '*')
     {
 
-        $field = $field ? $field : '*';
+        $arguments = explode(',', $field);
+
+        $prefix    = $this->tablePrefix;
+
+        foreach ($arguments as $argument) {
+
+            if(strpos($argument, '.') != false){
+
+                $data[] = $prefix . trim($argument);
+
+            }else{
+
+                $data[] = trim($argument);
+
+            }
+
+        }
+
+        $field = implode(',', $data);
+
+        $this->sql  = "SELECT $field FROM " . $this->tableName . $this->option();
+
+        $this->stmt = $this->execute($this->bind);
+
+        if($this->chain['show']){
+
+            return $this->stmt;
+
+        }
+
+        return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    }
+
+    public function select($field = '*')
+    {
+
+        $arguments = explode(',', $field);
+
+        $prefix    = $this->tablePrefix;
+
+        foreach ($arguments as $argument) {
+
+            $data[] = $prefix . trim($argument);
+
+        }
+
+        $field = implode(',', $data);
 
         $this->sql  = "SELECT $field FROM " . $this->tableName . $this->option();
 
@@ -619,7 +676,7 @@ class mysql extends contract
     public function join($table, $type = 'inner')
     {
 
-        $this->option[strtolower($type).' join'] = '`' . $this->tablePrefix . $table . '`';
+        $this->option[strtolower($type).' join'] = $this->tablePrefix . $table;
 
         return $this;
 
@@ -639,7 +696,7 @@ class mysql extends contract
 
         }
 
-        $this->option['on'] = implode('=', $data);
+        $this->option['on'] = implode(' = ', $data);
 
         return $this;
 

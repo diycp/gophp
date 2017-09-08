@@ -45,7 +45,7 @@ abstract class contract
 
     abstract public function limit($offset, $rows = 0);
 
-    abstract public function join($join);
+    abstract public function join($join, $type);
 
     abstract public function on($on);
 

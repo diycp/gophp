@@ -14,7 +14,7 @@ return [
         'right_delimiter' => '}}', //右定界符
         'cache_enable'    => false, //是否缓存
         'cache_lifetime'  => 120, //缓存时间，单位秒
-        'plugin_path'     => GOPHP_PLUG . '/smarty',
+        'plugin_path'     => COMMON_PATH . '/smarty',
     ],
 
     'php' => [

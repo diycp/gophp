@@ -15,9 +15,9 @@ class phpmailer extends contract
     public function __construct($config)
     {
 
-        $this->config = $config;
+        $this->config = $config['phpmailer'];
 
-        $this->mail = new \PHPMailer();
+        $this->mail   = new \PHPMailer();
 
         // 使用SMTP方式发送
         $this->mail->IsSMTP();

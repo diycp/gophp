@@ -19,7 +19,10 @@ ini_set("display_errors", "Off");
 error_reporting(E_ALL ^ E_NOTICE);
 
 require __DIR__ . '/bootstrap/const.php';
+
 require __DIR__ . '/function/function.php';
+
+require  COMMON_PATH . '/function/function.php';
 
 // 定义调试开关
 if('true' === input(DEBUG_PARAM)){
@@ -34,3 +37,5 @@ if('true' === input(DEBUG_PARAM)){
 
 // 初始化核心框架
 \gophp\app::run();
+
+

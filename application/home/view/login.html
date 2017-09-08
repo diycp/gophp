@@ -1,0 +1,119 @@
+{{include_file name='public/header' title='用户登录'}}
+
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="login-panel panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title text-center">用户登录</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form role="form" class="js_loginForm" action="{{url('login')}}" method="post">
+                            <fieldset>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="登录邮箱" name="email" type="email"  autocomplete="off" datatype="e" nullmsg="请输入登录邮箱！" errormsg="请输入合法的邮箱地址！">
+                                    <span class="Validform_checktip"></span>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="登录密码" name="password" type="password" value="" autocomplete="off" datatype="*6-20" nullmsg="请填写登录密码！" errormsg="请填写6-20个字符">
+                                    <span class="Validform_checktip"></span>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input name="remember" type="checkbox" checked value="1">记住我
+                                    </label>
+                                </div>
+                                <!-- Change this to a button or input when using this as a form -->
+                                <a href="javascript:void(0);" class="btn btn-lg btn-success btn-block js_submit">立即登录</a>
+
+                                <hr>
+
+                                <a href="register.html" class="btn btn-default btn-block">还没有账号？免费注册</a>
+
+                            </fieldset>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <hr>
+        <p class="text-center"> Copyright © 2016 APIDOC版权所有</p>
+    </div>
+
+    <script>
+
+        $(function(){
+
+            //提交表单合法性验证
+            $(".js_loginForm").Validform({
+
+                tiptype:function(msg,o,cssctl){
+
+                    if(!o.obj.is("form")){
+
+                        var objtip=o.obj.siblings(".Validform_checktip");
+
+                        cssctl(objtip,o.type);
+
+                        objtip.text(msg);
+
+                    }
+
+                },
+
+                label:"label",
+
+                ajaxPost:true,
+
+                btnSubmit:".js_submit",
+
+                beforeSubmit:function(){
+
+                    $(".js_submit").attr("disabled", "disabled").text('登录中..');
+
+                },
+                callback:function(json){
+
+                    if(json.code == 200){
+
+                        $(".js_submit").attr("disabled", "disabled").text('登录成功');
+
+                        alert(json.msg, 500, function () {
+                            window.location.href = "{{url('project')}}";
+                        });
+
+                    }else{
+
+                        alert(json.msg, 2000);
+
+                        $(".js_submit").text('重新登录').removeAttr("disabled");
+
+                    }
+
+                }
+
+            });
+
+            //enter回车登录
+            $('body').bind('keypress',function(event){
+
+                if(event.keyCode == "13") {
+
+                    $('.js_loginForm').trigger('submit');
+
+                }
+
+            });
+
+
+        })
+
+    </script>
+
+    {{include_file name='public/footer'}}

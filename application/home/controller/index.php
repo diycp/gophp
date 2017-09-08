@@ -3,18 +3,26 @@
 namespace app\home\controller;
 
 use gophp\controller;
-use gophp\db;
-use gophp\mail;
-use gophp\request;
-use gophp\route;
-use Workerman\Lib\Timer;
-use Workerman\Worker;
+use gophp\session;
 
 
-class index extends controller {
+class index extends auth {
 
     public function index(){
-        echo ROOT_PATH;
+
+        $a = 'project.a as a,project.a as b';
+
+        $arguments = explode(',', $a);
+
+
+        foreach ($arguments as $argument) {
+
+            $data[] = 'doc_' . trim($argument);
+
+        }
+
+        dump($data);
+
 
     }
 

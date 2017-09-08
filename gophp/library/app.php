@@ -38,11 +38,6 @@ class app
         // 路由分发
         route::dispatch();
 
-        // 加载公共函数库文件
-        file::load(COMMON_PATH . '/function/function.php');
-
-        // 加载模块函数库文件
-        file::load(MODULE_PATH . '/function/function.php');
 
     }
 
@@ -106,7 +101,6 @@ class app
         self::$error['file']    =   $e->getFile();
         self::$error['line']    =   $e->getLine ();
         self::$error['message'] =   $e->getMessage();
-        self::$error['sql']     =   $e->getSQL();
         self::$error['trace']   =   $e->getTrace();
 
         self::show();

@@ -1,0 +1,118 @@
+{{$user = session('user')}}
+<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="javascript:void(0);" style="margin-left: 20px;">
+            API接口文档管理系统
+        </a>
+    </div>
+    <!-- /.navbar-header -->
+
+    <ul class="nav navbar-top-links navbar-right">
+        <li class="dropdown">
+
+            <span style="margin-left: 20px;">欢迎您，{{$user->name}}</span>
+
+        </li>
+        <li class="dropdown">
+            <a class="dropdown-toggle fa fa-random active" href="{{url('project')}}">
+                切换项目
+            </a>
+        </li>
+
+        <!-- /.dropdown -->
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                <i class="fa fa-bell fa-fw"></i>  <i class="fa fa-caret-down"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-alerts">
+                <li>
+                    <a href="#">
+                        <div>
+                            <i class="fa fa-comment fa-fw"></i> New Comment
+                            <span class="pull-right text-muted small">4 minutes ago</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a href="#">
+                        <div>
+                            <i class="fa fa-twitter fa-fw"></i> 3 New Followers
+                            <span class="pull-right text-muted small">12 minutes ago</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a href="#">
+                        <div>
+                            <i class="fa fa-envelope fa-fw"></i> Message Sent
+                            <span class="pull-right text-muted small">4 minutes ago</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a href="#">
+                        <div>
+                            <i class="fa fa-tasks fa-fw"></i> New Task
+                            <span class="pull-right text-muted small">4 minutes ago</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a href="#">
+                        <div>
+                            <i class="fa fa-upload fa-fw"></i> Server Rebooted
+                            <span class="pull-right text-muted small">4 minutes ago</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a class="text-center" href="#">
+                        <strong>See All Alerts</strong>
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </li>
+            </ul>
+            <!-- /.dropdown-alerts -->
+        </li>
+        <!-- /.dropdown -->
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-user">
+                <li><a href="#"><i class="fa fa-search fa-fw"></i> 搜索项目</a>
+                </li>
+                <li><a href="#" data-toggle="modal" data-target="#js_settingProfile"><i class="fa fa-user fa-fw"></i> 修改资料</a>
+                </li>
+                {{if $user->type == 2}}
+                <li><a href="{{url('setting')}}"><i class="fa fa-gear fa-fw"></i> 系统设置</a>
+                </li>
+                {{/if}}
+                <li class="divider"></li>
+                <li><a class="js_logout" href="javascript:void(0);"><i class="fa fa-sign-out fa-fw"></i> 退出登录</a>
+                </li>
+            </ul>
+            <!-- /.dropdown-user -->
+        </li>
+        <!-- /.dropdown -->
+    </ul>
+    <!-- /.navbar-top-links -->
+    {{if $sidebar}}
+
+    {{include_file name="public/{{$sidebar}}"}}
+
+    {{/if}}
+
+    <!-- /.navbar-static-side -->
+</nav>

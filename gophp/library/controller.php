@@ -105,10 +105,10 @@ class controller
      * @param array $data
      * @param $type
      */
-    public function ajaxReturn(array $data, $type)
+    public function ajaxReturn($data, $type)
     {
 
-        response::ajax($data, $type);
+        return response::ajax($data, $type);
 
     }
 
