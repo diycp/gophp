@@ -32,7 +32,9 @@ class user extends auth {
                 $data['password'] = md5(encrypt($password));
             }
 
-            $user = db('user')->show(false)->where('id', '=', $this->user_id)->update($data);
+            $user = db('user')->show(true)->where('id', '=', $this->user_id)->update($data);
+
+            dump($user);exit;
 
 
             if($user !== false){

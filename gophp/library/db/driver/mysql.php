@@ -802,13 +802,13 @@ class mysql extends contract
 
         foreach ($data as $field => $value) {
 
-            if(is_string($value)){
-
-                $value = '"' . $value . '"';
-
-            }
-
             if($this->chain['show']){
+
+                if(is_string($value)){
+
+                    $value = '"' . $value . '"';
+
+                }
 
                 $bindString .= $field . '='. $value . ',';
 
