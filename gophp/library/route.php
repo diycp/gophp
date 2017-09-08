@@ -212,10 +212,6 @@ class route
 
             $arguments = array_merge(request::get(), $arguments);
 
-        }else{
-
-            $arguments = request::get();
-
         }
 
         unset($arguments[$uriParam]);
