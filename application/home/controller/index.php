@@ -2,26 +2,14 @@
 
 namespace app\home\controller;
 
-use gophp\controller;
-use gophp\session;
-
 
 class index extends auth {
 
     public function index(){
 
-        $a = 'project.a as a,project.a as b';
 
-        $arguments = explode(',', $a);
+        session('user_id', null);
 
-
-        foreach ($arguments as $argument) {
-
-            $data[] = 'doc_' . trim($argument);
-
-        }
-
-        dump($data);
 
 
     }

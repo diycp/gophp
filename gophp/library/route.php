@@ -212,10 +212,6 @@ class route
 
             $arguments = array_merge(request::get(), $arguments);
 
-        }else{
-
-            $arguments = request::get();
-
         }
 
         unset($arguments[$uriParam]);
@@ -261,7 +257,7 @@ class route
             'action'     => $action,
         ];
 
-        $siteUrl   = $isAbsolute ? request::getDomain().ROOT_URL : ROOT_URL;
+        $siteUrl   = $isAbsolute ? request::getDomain(): '/';
         $extension = $extension ? $extension : $this->config['default_extension'];
         $urlQuery  = http_build_query($arguments);
 

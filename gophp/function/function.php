@@ -208,16 +208,21 @@ if(!function_exists('cache'))
 if(!function_exists('session'))
 {
 
-    function session($name, $value)
+    function session($name, $value = '')
     {
 
         $session = \gophp\session::instance();
 
-        if(isset($value) && !is_null($value)){
+        if($value === ''){
 
-            $session->set($name, $value);
+            return $session->get($name);
 
-        }elseif(isset($value) && is_null($value)){
+        }elseif(isset($value)){
+
+            return $session->set($name, $value);
+
+
+        }elseif(is_null($value)){
 
             $session->delete($name);
 
@@ -289,6 +294,21 @@ if(!function_exists('decrypt'))
         $crypt = \gophp\crypt::instance();
 
         return $crypt->decrypt($str);
+
+    }
+
+}
+
+
+if(!function_exists('_uri'))
+{
+
+    function _uri($table, $id, $value = '')
+    {
+
+        $db = \gophp\db::instance();
+
+        $db->table($table)->where('id', '=', $id)->find($value);
 
     }
 

@@ -12,7 +12,7 @@ class login extends controller {
 
     public function index(){
 
-        $user_id = user::get_user_id();
+        $user_id = user::get_id();
 
         if($user_id){
 

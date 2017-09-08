@@ -4,6 +4,7 @@ namespace app\home\controller;
 
 use app\home\model\user;
 use gophp\controller;
+use gophp\response;
 
 class auth extends controller {
 
@@ -13,7 +14,7 @@ class auth extends controller {
     {
 
         // 判断是否登录
-        $this->user_id = user::get_user_id();
+        $this->user_id = user::get_id();
 
         if(!$this->user_id){
 

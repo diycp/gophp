@@ -12,8 +12,6 @@ class project extends auth {
         //参与的项目
         $join_projects = db('project_user')->join('project', 'left')->show(false)->on('project_user.project_id = project.id')->findAll('project.id as id, project.title as title, project.intro as intro, project_user.add_time as join_time');
 
-        dump($join_projects);
-
         $this->assign('create_projects', $create_projects);
         $this->assign('join_projects', $join_projects);
 
@@ -116,7 +114,7 @@ class project extends auth {
     public function __call($id, $arguments)
     {
 
-        $project = db::table('project')->find($id);
+        $project = db('project')->find($id);
 
         // 判断项目是否存在
         if(!$project){
@@ -127,7 +125,7 @@ class project extends auth {
 
         // 判断是否有权限访问项目
 
-        $user = db::table('user')->find($project['user_id']);
+        $user = db('user')->find($project['user_id']);
 
         $this->assign('project', $project);
         $this->assign('user', $user);

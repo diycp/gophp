@@ -75,7 +75,7 @@
                         <p>{{$create_project.intro}}</p>
                     </div>
                     <div class="panel-footer">
-                        创 建 人(勾国印 245629560@qq.com)
+                        创 建 人 (勾国印 245629560@qq.com)
                         <br>
                         创建时间({{$create_project.add_time}})
                     </div>
@@ -106,7 +106,7 @@
         <!-- /.row -->
         <div class="row">
             {{foreach $join_projects as $join_project}}
-            <div class="col-lg-3 js_project" data-id="{{$join_project.project_id}}">
+            <div class="col-lg-3 js_project" data-url="{{url("project/{{$join_project.id}}")}}">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         {{$join_project.title}}
@@ -118,7 +118,7 @@
                         <p>{{$join_project.intro}}</p>
                     </div>
                     <div class="panel-footer">
-                        创 建 人(勾国印 245629560@qq.com)
+                        创 建 人 (勾国印 245629560@qq.com)
                         <br>
                         加入时间({{$join_project.join_time}})
                     </div>

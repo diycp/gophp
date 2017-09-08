@@ -246,7 +246,7 @@ class mysql extends contract
 
         if($this->chain['show']){
 
-            return $this->stmt;
+            return $this->sql;
 
         }
 
@@ -801,6 +801,12 @@ class mysql extends contract
         $bindString = '';
 
         foreach ($data as $field => $value) {
+
+            if(is_string($value)){
+
+                $value = '"' . $value . '"';
+
+            }
 
             if($this->chain['show']){
 
