@@ -404,6 +404,9 @@ class mysql extends contract
         }
 
         $this->stmt = $this->execute($this->bind);
+        
+        // 清除对下个sql语句中where条件的影响
+        unset($this->option['order']);
 
         // 返回影响行数
         return $this->stmt->rowCount();
