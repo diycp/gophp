@@ -379,10 +379,6 @@ class mysql extends contract
 
             $this->where($pk, '=', $id);
 
-        }else{
-
-            return false;
-
         }
 
         unset($this->option['order']);
