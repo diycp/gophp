@@ -208,13 +208,12 @@ class route
         $defaultAction     = $this->config['default_action'];
         $uriParam          = $this->config['uri_param'];
 
-        if($arguments){
+        if($arguments && is_array($arguments)){
 
             $arguments = array_merge(request::get(), $arguments);
+            unset($arguments[$uriParam]);
 
         }
-
-        unset($arguments[$uriParam]);
 
         $uriInfo = array_filter(explode('/', $uri));
         $uriInfo = array_values($uriInfo);
@@ -257,7 +256,7 @@ class route
             'action'     => $action,
         ];
 
-        $siteUrl   = $isAbsolute ? request::getDomain(): '/';
+        $siteUrl   = $isAbsolute ? request::getDomain().ROOT_URL : ROOT_URL;
         $extension = $extension ? $extension : $this->config['default_extension'];
         $urlQuery  = http_build_query($arguments);
 

@@ -430,10 +430,6 @@ class mysql extends contract
 
             $this->where($pk, '=', $id);
 
-        }else{
-
-            return false;
-
         }
 
         unset($this->option['order']);
@@ -455,6 +451,9 @@ class mysql extends contract
         }
 
         $this->stmt = $this->execute($this->bind);
+        
+        // 清除对下个sql语句中where条件的影响
+        unset($this->option['where']);
 
         // 返回影响行数
         return $this->stmt->rowCount();
@@ -578,9 +577,9 @@ class mysql extends contract
     public function where($field , $condition, $value, $logic = 'AND')
     {
 
-        $this->bind = $this->bind([$field => $value]);
-
         if(strtoupper($value) == 'NULL'){
+            
+            $this->bind = $this->bind([$field => $value]);
 
             $value = strtoupper($value);
 
@@ -593,6 +592,8 @@ class mysql extends contract
             is_array($value) and $value = $value[0] . ' AND ' . $value[1];
 
         }elseif(!$this->chain['show']){
+            
+            $this->bind = $this->bind([$field => $value]);
 
             $value = ':' . $field;
 
@@ -795,12 +796,15 @@ class mysql extends contract
      */
     private function set($data)
     {
-
-        $this->bind = [];
-
         $bindString = '';
 
         foreach ($data as $field => $value) {
+            
+            if(is_string($value)){
+
+                $value = '"' . $value . '"';
+
+            }
 
             if($this->chain['show']){
 

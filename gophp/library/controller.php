@@ -50,12 +50,10 @@ class controller
      * @param $url 跳转url
      * @param int $time 延迟跳转时间，单位秒
      */
-    public function success($message, $url, $time = 1)
+    public function success($msg, $url, $time = 1)
     {
 
-        $suffix = view::instance()->suffix;
-
-        $viewFile = config::get('view', 'success_template') . '.' . $suffix;
+        $viewFile = config::get('view', 'error_template');
 
         if(!$url){
 
@@ -63,12 +61,12 @@ class controller
 
         }
 
-        $this->assign('type', 'sucess');
-        $this->assign('message', $message);
-        $this->assign('url', $url);
-        $this->assign('time', $time);
+        $message['type']   = 'success';
+        $message['content'] = $msg;
+        $message['url']     = $url;
+        $message['time']    = $time;
 
-        $this->display($viewFile);
+        response::view($viewFile, $message);
 
     }
 
@@ -78,12 +76,10 @@ class controller
      * @param $url 跳转url
      * @param int $time 延迟跳转时间，单位秒
      */
-    public function error($message, $url, $time = 3)
+    public function error($msg, $url, $time = 3)
     {
 
-        $suffix = view::instance()->suffix;
-
-        $viewFile = config::get('view', 'error_template') . '.' . $suffix;
+        $viewFile = config::get('view', 'error_template');
 
         if(!$url){
 
@@ -91,10 +87,12 @@ class controller
 
         }
 
-        $this->assign('type', 'error');
-        $this->assign('message', $message);
-        $this->assign('url', $url);
-        $this->assign('time', $time);
+        $message['type']   = 'error';
+        $message['content'] = $msg;
+        $message['url']     = $url;
+        $message['time']    = $time;
+
+        response::view($viewFile, $message);
 
         $this->display($viewFile);
 
@@ -125,4 +123,3 @@ class controller
     }
 
 }
-

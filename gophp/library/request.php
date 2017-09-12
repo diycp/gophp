@@ -504,7 +504,7 @@ class request
         // 强制类型转化
         gettype($default) == 'unknown type' or settype($value, gettype($default));
 
-        return $value ? $value : $default;
+        return isset($value) ? $value : $default;
 
     }
 
@@ -528,7 +528,7 @@ class request
         // 强制类型转化
         gettype($default) == 'unknown type' or settype($value, gettype($default));
 
-        return $value ? $value : $default;
+        return isset($value) ? $value : $default;
 
     }
 

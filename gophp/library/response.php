@@ -200,6 +200,22 @@ class response
 
     }
 
+    // 视图输出
+    public static function view($viewFile, $data = [])
+    {
+
+        $view     = view::instance();
+
+        $suffix   = $view->suffix;
+
+        $viewFile = $viewFile . '.' . $suffix;
+
+        $view->assign($data);
+
+        $view->display($viewFile);
+
+    }
+
     // ajax输出
     public static function ajax($data, $type = 'json')
     {
