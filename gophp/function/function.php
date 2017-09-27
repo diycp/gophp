@@ -51,6 +51,22 @@ if (!function_exists('dump'))
 }
 
 /**
+ * 打印并终止
+ */
+if (!function_exists('dexit'))
+{
+
+    function dexit()
+    {
+
+        dump();
+        exit();
+
+    }
+
+}
+
+/**
  * 获取输入参数
  */
 if(!function_exists('redirect'))
@@ -303,12 +319,20 @@ if(!function_exists('decrypt'))
 if(!function_exists('_uri'))
 {
 
-    function _uri($table, $id, $value = '')
+    function _uri($table, $id, $value)
     {
 
         $db = \gophp\db::instance();
 
-        $db->table($table)->where('id', '=', $id)->find($value);
+        if(isset($value)){
+
+            return $db->table($table)->show(false)->where('id', '=', $id)->value($value);
+
+        }else{
+
+            return $db->table($table)->show(false)->where('id', '=', $id)->find();
+
+        }
 
     }
 

@@ -16,12 +16,12 @@ class login extends controller {
 
         if($user_id){
 
-            response::redirect('project');
+            response::redirect('project/select');
 
         }elseif(request::isAjax()){
 
-            $email    = post('email', '');
-            $password = post('password', '');
+            $email    = request::post('email', '');
+            $password = request::post('password', '');
 
             $password = md5(encrypt($password));
 
@@ -35,9 +35,10 @@ class login extends controller {
                     'add_time'=> date('Y-m-d H:i:s'),
                     'ip'      => request::getClientIp(),
                     'address' => get_ip_address(),
+                    'method'  => get_visit_source(),
                 ]);
 
-                session('user_id', $user['id']);
+                session('user_id', $user['id'], 24*3600);
 
                 $data = ['code' => 200, 'msg' => '登录成功'];
 
@@ -58,6 +59,27 @@ class login extends controller {
             $this->display('login');
 
         }
+
+    }
+
+    // 登录历史
+    public function history()
+    {
+
+        $user_id = user::get_id();
+
+
+        if(!$user_id){
+
+            response::redirect('login');
+
+        }
+
+        $historys = db('login_log')->where('user_id', '=', $user_id)->orderBy('id desc')->findAll();
+
+        $this->assign('historys', $historys);
+
+        $this->display('history/login');
 
     }
 

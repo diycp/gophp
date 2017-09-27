@@ -1,3 +1,4 @@
+{{$auth = \app\home\model\user::get_auth()}}
 <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -6,23 +7,46 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="javascript:void(0);" style="margin-left: 20px;">
-            API接口文档管理系统
+        <a class="navbar-brand" href="javascript:void(0);">
+            {{if $project}}当前项目:{{$project.title}}{{else}}API接口文档管理系统{{/if}}
         </a>
     </div>
     <!-- /.navbar-header -->
 
     <ul class="nav navbar-top-links navbar-right">
-        <li class="dropdown">
+<!--        <li class="dropdown">-->
+<!---->
+<!--            <span style="margin-left: 20px;" data-id="{{\app\home\model\user::get_id()}}">欢迎您，{{\app\home\model\user::get_name()}}</span>-->
+<!---->
+<!--        </li>-->
 
-            <span style="margin-left: 20px;">欢迎您，{{\app\home\model\user::get_name()}}</span>
-
-        </li>
         <li class="dropdown">
-            <a class="dropdown-toggle fa fa-random active" href="{{url('project')}}">
-                切换项目
+            <a class="dropdown-toggle" href="{{url('project/select')}}">
+                <i class="fa fa fa-random fa-fw"></i> 切换项目
             </a>
         </li>
+        {{if $project}}
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                <i class="fa fa-tags fa-fw"></i> {{$project['version']['name']}} <i class="fa fa-caret-down"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-user">
+
+                {{foreach $versions as $version}}
+
+                <li {{if $version['id'] == $project['version']['id']}}class="active"{{/if}}><a href="{{url("project/{{$project.id}}-{{$version.id}}")}}">V{{$version.name}}<i data-toggle="modal" data-target="#js_addVersionModal" class="fa fa-pencil fa-fw pull-right"></i>    <i data-toggle="modal" data-target="#js_deleteVersionModal" class="fa fa-trash-o fa-fw pull-right"></i> </a>
+                </li>
+                {{/foreach}}
+
+                <li class="divider"></li>
+
+                <li><a href="#" data-toggle="modal" data-target="#js_addVersionModal" class="text-center">添加版本</a>
+                </li>
+
+            </ul>
+            <!-- /.dropdown-user -->
+        </li>
+        {{/if}}
 
         <!-- /.dropdown -->
         <li class="dropdown">
@@ -84,22 +108,23 @@
             </ul>
             <!-- /.dropdown-alerts -->
         </li>
+
         <!-- /.dropdown -->
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                {{\app\home\model\user::get_name()}}  <i class="fa fa-caret-down"></i>
             </a>
             <ul class="dropdown-menu dropdown-user">
-                <li><a href="#"><i class="fa fa-search fa-fw"></i> 搜索项目</a>
+                <li><a href="{{url('project/search')}}"><i class="fa fa-search fa-fw"></i> 搜索项目</a>
                 </li>
-                <li><a href="#" data-toggle="modal" data-target="#js_settingProfile"><i class="fa fa-user fa-fw"></i> 修改资料</a>
+                <li><a href="#" data-toggle="modal" data-target="#js_settingProfileModal"><i class="fa fa-user fa-fw"></i> 修改资料</a>
                 </li>
-                {{if $user->type == 2}}
-                <li><a href="{{url('setting')}}"><i class="fa fa-gear fa-fw"></i> 系统设置</a>
+                {{if $auth == 2}}
+                <li><a href="{{url('admin')}}"><i class="fa fa-gear fa-fw"></i> 管理中心</a>
                 </li>
                 {{/if}}
                 <li class="divider"></li>
-                <li><a class="js_logout" href="javascript:void(0);"><i class="fa fa-sign-out fa-fw"></i> 退出登录</a>
+                <li><a class="js_logoutBtn" href="#"><i class="fa fa-sign-out fa-fw"></i> 退出登录</a>
                 </li>
             </ul>
             <!-- /.dropdown-user -->

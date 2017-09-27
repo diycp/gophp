@@ -86,8 +86,55 @@ class mysql extends contract
             $this->tableName   = $this->tablePrefix . $table;
         }
 
-
         return $this;
+
+    }
+
+    /**
+     * 执行原生sql
+     * @param $sql
+     * @return int
+     */
+    public function query($sql)
+    {
+
+        if($this->chain['show']){
+
+            return $sql;
+
+        }
+
+        try{
+
+            if (strstr($sql, 'insert') || strstr($sql, 'INSERT')) {
+
+                $this->stmt = $this->db->query($sql);
+
+                return $this->db->lastInsertId();
+
+            }
+
+            if (strstr($sql, 'select') || strstr($sql, 'SELECT')) {
+
+                $this->stmt = $this->db->query($sql);
+
+                return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            }
+
+            if (strstr($sql, 'update') || strstr($sql, 'delete') || strstr($sql, 'UPDATE') || strstr($sql, 'DELETE')) {
+
+                $this->stmt = $this->db->exec($sql);
+
+                return $this->stmt->rowCount();
+
+            }
+
+        }catch(\PDOException $e) {
+
+            throw new exception($e->getMessage(), $sql);
+
+        }
 
     }
 
@@ -152,6 +199,8 @@ class mysql extends contract
 
         }
 
+        unset($this->option['where']);
+
         return $result[$field];
 
     }
@@ -163,7 +212,7 @@ class mysql extends contract
      */
     public function findAll($field = '*')
     {
-
+        $field = isset($field) ? $field : '*';
         $arguments = explode(',', $field);
 
         $prefix    = $this->tablePrefix;
@@ -194,36 +243,19 @@ class mysql extends contract
 
         }
 
+        unset($this->option['where']);
+
         return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
 
     }
 
-    public function select($field = '*')
+    public function column($field)
     {
 
-        $arguments = explode(',', $field);
 
-        $prefix    = $this->tablePrefix;
+        $result = $this->findAll($field);
 
-        foreach ($arguments as $argument) {
-
-            $data[] = $prefix . trim($argument);
-
-        }
-
-        $field = implode(',', $data);
-
-        $this->sql  = "SELECT $field FROM " . $this->tableName . $this->option();
-
-        $this->stmt = $this->execute($this->bind);
-
-        if($this->chain['show']){
-
-            return $this->stmt;
-
-        }
-
-        return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+        return array_column($result, $field);
 
     }
 
@@ -249,6 +281,8 @@ class mysql extends contract
             return $this->sql;
 
         }
+
+        unset($this->option['where']);
 
         // 返回影响行数
         return $this->stmt->rowCount();
@@ -451,8 +485,7 @@ class mysql extends contract
         }
 
         $this->stmt = $this->execute($this->bind);
-        
-        // 清除对下个sql语句中where条件的影响
+
         unset($this->option['where']);
 
         // 返回影响行数
@@ -578,21 +611,27 @@ class mysql extends contract
     {
 
         if(strtoupper($value) == 'NULL'){
-            
+
             $this->bind = $this->bind([$field => $value]);
 
             $value = strtoupper($value);
 
         }elseif(strtoupper($condition) == 'IN' || strtoupper($condition) == 'NOT IN'){
 
-            is_array($value) and $value = '('. implode(',', (array)$value). ')';
+            is_array($value) and $value = '('. implode(',', $value). ')';
 
         }elseif(strtoupper($condition) == 'BETWEEN' || strtoupper($condition) == 'NOT BETWEEN'){
 
+            $this->bind = $this->bind([$field => $value]);
+
             is_array($value) and $value = $value[0] . ' AND ' . $value[1];
 
+        }elseif(strtoupper($value) == 'LIKE'){
+
+            $this->bind = $this->bind([$field => $value]);
+
         }elseif(!$this->chain['show']){
-            
+
             $this->bind = $this->bind([$field => $value]);
 
             $value = ':' . $field;
@@ -601,7 +640,7 @@ class mysql extends contract
 
         $this->chain['logic']  = $logic ? strtoupper($logic) : 'AND';
 
-        $this->option['where'] .= '`' . $field . '` ' . strtoupper($condition) . ' ' . $value . ' ' . $this->chain['logic'] . ' ';
+        $this->option['where'] .= ' ' . $field . ' ' . strtoupper($condition) . ' ' . $value . ' ' . $this->chain['logic'];
 
         return $this;
 
@@ -612,7 +651,7 @@ class mysql extends contract
      * @param $order
      * @return $this
      */
-    public function order($order)
+    public function orderBy($order)
     {
 
         $this->option['order'] = $order;
@@ -648,17 +687,16 @@ class mysql extends contract
     /**
      * 数据分页
      * @param page $page 分页类对象
-     * @param null $pageNo 当前页码
      * @return $this
      */
-    public function page(page $page, $pageNo = null)
+    public function page(page $page)
     {
 
         $pageRows  = $page->pageRows;
 
         $pageParam = config::get('http', 'page_param');
 
-        $pageNo    = $pageNo ? $pageNo : request::getParam($pageParam, 1);
+        $pageNo    = request::get($pageParam, 1);
 
         $firstRow  = $pageRows * ($pageNo - 1);
 
@@ -796,15 +834,10 @@ class mysql extends contract
      */
     private function set($data)
     {
+
         $bindString = '';
 
         foreach ($data as $field => $value) {
-            
-            if(is_string($value)){
-
-                $value = '"' . $value . '"';
-
-            }
 
             if($this->chain['show']){
 

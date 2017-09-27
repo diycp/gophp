@@ -2,15 +2,13 @@
 
 namespace app\home\controller;
 
+use gophp\response;
 
 class index extends auth {
 
     public function index(){
 
-
-        session('user_id', null);
-
-
+        response::redirect('project/select');
 
     }
 

@@ -111,7 +111,27 @@ class db extends contract
 
     }
 
+    public function query($sql)
+    {
+
+        $method = __FUNCTION__;
+
+        $this->handler->$method($sql);
+
+        return $this;
+
+    }
+
     public function find($field)
+    {
+
+        $method = __FUNCTION__;
+
+        return $this->handler->$method($field);
+
+    }
+
+    public function column($field)
     {
 
         $method = __FUNCTION__;
@@ -147,12 +167,12 @@ class db extends contract
 
     }
 
-    public function page(page $page, $pageNo)
+    public function page(page $page)
     {
 
         $method = __FUNCTION__;
 
-        return $this->handler->$method($page, $pageNo);
+        return $this->handler->$method($page);
 
     }
 
@@ -194,15 +214,27 @@ class db extends contract
     public function addAll()
     {
 
+        $method = __FUNCTION__;
+
+        return $this->handler->$method();
+
     }
 
     public function delete($id)
     {
 
+        $method = __FUNCTION__;
+
+        return $this->handler->$method($id);
+
     }
 
     public function count($field)
     {
+
+        $method = __FUNCTION__;
+
+        return $this->handler->$method($field);
 
     }
 
@@ -223,6 +255,15 @@ class db extends contract
 
     public function sum($field)
     {
+
+    }
+
+    public function orderBy($order)
+    {
+
+        $method = __FUNCTION__;
+
+        return $this->handler->$method($order);
 
     }
 

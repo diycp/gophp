@@ -10,7 +10,6 @@ namespace gophp;
 class exception extends \Exception
 {
 
-    protected $title;
     protected $sql;
 
     public function __construct($message, $sql, $code)
@@ -21,7 +20,6 @@ class exception extends \Exception
         $this->sql   = $sql;
 
     }
-
 
     public function getSQL()
     {

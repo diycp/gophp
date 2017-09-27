@@ -143,7 +143,7 @@
 
 .ui-dialog-footer button+button {
     margin-bottom: 0;
-    margin-left: 5px;
+    margin-left: 10px;
 }
 
 .ui-dialog-footer button {
@@ -151,7 +151,7 @@
     overflow: visible;
     display: inline-block;
     padding: 6px 12px;
-    _margin-left: 5px;
+    _margin-left: 10px;
     margin-bottom: 0;
     font-size: 14px;
     font-weight: normal;

@@ -13,6 +13,10 @@ class user extends auth {
 
         if(request::isGet()){
 
+            $users = db('user')->findAll();
+
+            $this->assign('users', $users);
+
             $this->display('user/list');
 
         }elseif(request::isPost()){
@@ -32,12 +36,16 @@ class user extends auth {
                 $data['password'] = md5(encrypt($password));
             }
 
-            $user = db('user')->show(true)->where('id', '=', $this->user_id)->update($data);
-
-            dump($user);exit;
-
+            $user = db('user')->show(false)->where('id', '=', $this->user_id)->update($data);
 
             if($user !== false){
+
+                if($password){
+
+                    // 如果修改密码，需要重新登录
+                    session('user_id', null);
+
+                }
 
                 response::ajax(['code' => 200, 'msg' => '个人资料修改成功']);
 
@@ -49,16 +57,52 @@ class user extends auth {
         }
     }
 
-    public function pick(){
+    public function select(){
 
-        $projectId = request::get('id', 0);
-        $name      = request::get('name', '');
+        $project_id = request::get('project_id', 0);
+        $name       = request::get('name', '');
 
-        if(!$name){
-            return response::ajax([]);
+        // 获取提交过来已选中的用户id
+        $selected_ids = request::get('user_ids', '');
+
+        $member_ids = '';
+
+        if($project_id){
+
+            // 获取已经是成员的用户id
+            $member_id  = db('member')->where('project_id', '=', $project_id)->column('id');
+
+            $member_id && $member_ids = implode(',', $member_id) . ',';
+
+            // 排除掉已是成员的和自己的id
+            $member_ids = $selected_ids . $member_ids . $this->user_id;
+
+        }else{
+
+            // 排除掉自己的id
+            $member_ids = $selected_ids . $this->user_id;
+
         }
 
-        $user = db::table('user')->show(false)->where('email', 'like', "%$name%", 'or')->where('name', 'like', "%$name%")->findAll('id,name,email');
+        $data = [];
+
+        if(!$name){
+
+            return response::ajax($data);
+
+        }
+
+        //$user = db('user')->show(false)->where('name', 'like', "%$name%")->where('id', 'not in', [$member_ids])->findAll('id,name,email');
+
+        $sql = "SELECT id,name,email FROM doc_user WHERE id NOT IN ($member_ids) AND (name LIKE '%{$name}%' OR email LIKE '%{$name}%')";
+
+        $user = db()->show(false)->query($sql);
+
+        if(!$user){
+
+            return response::ajax($data);
+
+        }
 
         foreach ($user as $k => $v) {
             $data[$k]['id'] = $v['id'];

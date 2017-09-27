@@ -1,9 +1,8 @@
 
 <!-- 修改个人资料模态框 -->
-<div class="modal fade" id="js_settingProfile" tabindex="-1" role="dialog" aria-labelledby="settingLabel" aria-hidden="true">
+<div class="modal fade" id="js_settingProfileModal" tabindex="-1" role="dialog" aria-labelledby="settingLabel" aria-hidden="true">
     <form role="form" action="{{url('user')}}" method="post">
         <div class="modal-dialog">
-            <form role="form">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -15,18 +14,17 @@
 
                                 <div class="form-group">
                                     <label>登录邮箱</label>
-                                    <input name="email" class="form-control" value="{{\app\home\model\user::get_email()}}" disabled datatype="e" nullmsg="请输入登录邮箱！" errormsg="请输入合法的邮箱地址！">
+                                    <input name="email" class="form-control" value="{{\app\home\model\user::get_email()}}" disabled datatype="e">
                                 </div>
 
                                 <div class="form-group">
                                     <label>用户昵称</label>
-                                    <input name="name" class="form-control" value="{{\app\home\model\user::get_name()}}" placeholder="用户昵称，建议写真实姓名以方便识别" name="nick_name" type="text" datatype="s2-10" nullmsg="请输入用户昵称！" errormsg="请输入2-10个由字母或汉字组成的字符">
-                                    <span class="Validform_checktip"></span>
+                                    <input name="name" class="form-control" value="{{\app\home\model\user::get_name()}}" placeholder="必填，建议写真实姓名以方便识别" name="nick_name" type="text" datatype="s2-10" nullmsg="请输入用户昵称！" errormsg="请输入2-10个由字母或汉字组成的字符">
                                 </div>
 
                                 <div class="form-group">
                                     <label>登录密码</label>
-                                    <input class="form-control" placeholder="不需要修改密码请留空" name="password" type="text" ignore="ignore" datatype="*6-20" nullmsg="请输入登录密码！" errormsg="请填写6-20个字符">
+                                    <input class="form-control" placeholder="修改密码需要重新登录，密码不少于6位" name="password" type="text" ignore="ignore" datatype="*6-20" nullmsg="请输入登录密码！" errormsg="请填写6-20个字符">
                                     <span class="Validform_checktip"></span>
                                 </div>
 
@@ -35,77 +33,112 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                        <button type="submit" class="btn btn-primary js_submit">保存</button>
+                        <button type="button" class="btn btn-primary js_submit">保存</button>
                     </div>
                 </div>
-            </form>
             <!-- /.modal-content -->
         </div>
     </form>
     <!-- /.modal-dialog -->
 </div>
 
+{{if $project.title}}
+<!-- 添加、编辑版本模态框 -->
+<div class="modal fade" id="js_addVersionModal" tabindex="-1" role="dialog" aria-labelledby="settingLabel" aria-hidden="true">
+    <form role="form" action="{{url('user')}}" method="post">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="settingLabel">添加版本</h4>
+                </div>
+                <div class="modal-body">
+
+                    <iframe id="js_addVersionIframe" style="min-height: 230px;" src="{{url('version/add')}}?id={{$project.id}}-0"></iframe>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary js_submit">保存</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+    </form>
+    <!-- /.modal-dialog -->
+</div>
+
+<!-- 删除版本模态框 -->
+<div class="modal fade" id="js_deleteVersionModal" tabindex="-1" role="dialog" aria-labelledby="settingLabel" aria-hidden="true">
+    <form role="form" action="{{url('user')}}" method="post">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="settingLabel">删除版本</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="alert alert-dismissable alert-warning">
+                        <i class="fa fa-fw fa-info-circle"></i>&nbsp;
+                        <strong>温馨提示：</strong>版本删除后，该版本下所有接口也将被立刻删除，不可恢复，请谨慎操作！
+                    </div>
+                    <div class="form-group">
+                        <input name="id" type="hidden" class="form-control">
+                        <input name="password" type="text" class="form-control" placeholder="重要操作，请输入登录密码" datatype="s5-50" nullmsg="请输入登录密码!" errormsg="请输入正确的登录密码!">
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary js_submit">保存</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+    </form>
+    <!-- /.modal-dialog -->
+</div>
+{{/if}}
 <script>
     $(function(){
+
         //退出登录
-        $(".js_logout").click(function () {
-            var url = "{{url('logout')}}";
+        $(".js_logoutBtn").click(function () {
+
+            var url = "{{url('logout','','','json')}}";
+
             $.post(url, {}, function(json){
+
                 if(json.code == 200){
-                    alert(json.msg, 500, function(){
+
+                    alert(json.msg, 800, function(){
+
                         window.location.href = "{{url('login')}}";
+
                     });
                 }
+
             }, 'json');
         });
 
-        //修改资料表单合法性验证
-        $("#js_settingProfile form").Validform({
+        //修改个人资料
+        $("#js_settingProfileModal form").validateForm();
 
-            tiptype:function(msg,o,cssctl){
-
-                if(!o.obj.is("form")){
-
-                    var objtip=o.obj.siblings(".Validform_checktip");
-
-                    cssctl(objtip,o.type);
-
-                    objtip.text(msg);
-
-                }
-
-            },
-
-            label:"label",
-
-            ajaxPost:true,
-
-            beforeSubmit:function(){
-
-                $(".js_submit").attr("disabled", "disabled").text('提交中..');
-
-            },
-            callback:function(json){
-
-                if(json.code == 200){
-
-                    $(".js_submit").attr("disabled", "disabled").text('修改成功');
-
-                    alert(json.msg, 500, function () {
-                        window.location.reload();
-                    });
-
-                }else{
-
-                    alert(json.msg, 2000);
-
-                    $(".js_submit").text('重新提交').removeAttr("disabled");
-
-                }
-
-            }
-
+        // 添加/编辑版本
+        $(".js_addVersionBtn").iframeModal({
+            modalItem: '#js_addVersionModal', //modal元素
+            iframeItem: '#js_addVersionIframe', //提交按钮
+            submitBtn: '.js_submit'
         });
+
+        // 删除版本
+        $(".js_deleteVersionBtn").iframeModal({
+            modalItem: '#js_deleteVersionModal', //modal元素
+            iframeItem: '#js_deleteVersionIframe', //提交按钮
+            submitBtn: '.js_submit'
+        });
+
     });
 </script>
 

@@ -256,7 +256,7 @@ class route
             'action'     => $action,
         ];
 
-        $siteUrl   = $isAbsolute ? request::getDomain().ROOT_URL : ROOT_URL;
+        $siteUrl   = $isAbsolute ? request::getDomain(): '/';
         $extension = $extension ? $extension : $this->config['default_extension'];
         $urlQuery  = http_build_query($arguments);
 
@@ -286,6 +286,8 @@ class route
         if(!$uri){
 
             $urlPath = request::getPath();
+
+            $urlPath = explode('.', $urlPath)[0];
 
         }elseif($uri = implode('/', $route)){
 
@@ -326,4 +328,3 @@ class route
     }
 
 }
-

@@ -15,7 +15,7 @@ abstract class contract
 
     abstract public function findAll($field);
 
-    abstract public function page(page $page, $pageNo);
+    abstract public function page(page $page);
 
     abstract public function update(array $data);
 
@@ -41,7 +41,7 @@ abstract class contract
 
     abstract public function where($field , $expression, $value, $logic = 'AND');
 
-    abstract public function order($order);
+    abstract public function orderBy($order);
 
     abstract public function limit($offset, $rows = 0);
 

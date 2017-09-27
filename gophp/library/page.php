@@ -17,7 +17,7 @@ class page{
 
         $this->pageParam = config::get('http', 'page_param');
 
-        $this->nowPage   = request::getParam($this->pageParam, 1);
+        $this->nowPage   = request::get($this->pageParam, 1);
 
         $this->totalRows = $totalRows; //设置总记录数
         $this->pageRows  = $pageRows;  //设置每页显示行数
@@ -38,14 +38,14 @@ class page{
     }
 
     //生成页码链接
-    public function url($page)
+    public function url($pageNo)
     {
 
-        $page = $page >= $this->totalPages ? $this->totalPages : intval($page);
+        $pageNo = $pageNo >= $this->totalPages ? $this->totalPages : intval($pageNo);
 
-        if($page > 0){
+        if($pageNo > 0){
 
-            return route::url('', [$this->pageParam => $page]);
+            return route::url('', [$this->pageParam => $pageNo], false, '');
 
         }else{
 
@@ -55,44 +55,48 @@ class page{
 
     }
 
-    //当前页码
+    //当前链接
     public function now()
     {
 
-        return $this->nowPage;
+        return $this->url($this->nowPage);
 
     }
     
-    //上一页页码
+    //上一页链接
     public function prev()
     {
 
-        return ($this->nowPage - 1) > 0 ? ($this->nowPage - 1) : 1;
+        $pageNo = ($this->nowPage - 1) > 0 ? ($this->nowPage - 1) : 1;
+
+        return $this->url($pageNo);
 
     }
     
-    //下一页页码
+    //下一页链接
     public function next()
     {
 
-        return ($this->nowPage + 1) > $this->totalPages ? $this->totalPages : ($this->nowPage + 1);
+        $pageNo = ($this->nowPage + 1) > $this->totalPages ? $this->totalPages : ($this->nowPage + 1);
+
+        return $this->url($pageNo);
 
     }
     
     
-    //第一页页码
+    //第一页链接
     public function start()
     {
 
-        return 1;
+        return $this->url(1);
 
     }
     
-    //最后一页页码
+    //最后一页链接
     public function end()
     {
 
-        return $this->totalPages;
+        return $this->url($this->totalPages);
 
     }
     

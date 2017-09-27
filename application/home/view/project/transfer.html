@@ -1,0 +1,157 @@
+{{include_file name='public/header' title='项目管理'}}
+<style>
+    body {
+        background-color: #ffffff;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- /.row -->
+    <div class="row">
+        <form id="js_transferProjectForm" role="form" action="{{url('project/transfer','','','json')}}" method="post">
+            <input type="hidden" class="form-control" name="id" value="{{$project.id}}">
+
+            <div class="alert alert-dismissable alert-warning">
+                <i class="fa fa-fw fa-info-circle"></i>
+                只能转让给项目成员，转让后与该项目不再有任何关系，如果要加入需要重新申请，请谨慎操作!
+            </div>
+
+            <div class="form-group">
+                <label for="recipient-name" class="control-label">转移项目:</label>
+                <input type="text" class="form-control" name="title" value="{{$project.title}}" placeholder="必填" datatype="*" disabled>
+            </div>
+
+            <div class="form-group">
+                <label for="recipient-name" class="control-label">登录密码:</label>
+                <input type="text" class="form-control" name="password" value="" placeholder="重要操作，请输入密码" datatype="*" nullmsg="请输入登录密码!">
+            </div>
+
+            <div class="form-group">
+                <label for="" class="control-label">转让给:</label>
+
+                <select class="form-control" name="user_id" data-live-search="true">
+                    {{foreach $members as $member}}
+                    {{$user_id = $member.user_id}}
+                    <option value="{{$user_id}}">{{_uri('user', $user_id, 'name')}}({{_uri('user', $user_id, 'email')}})</option>
+                    {{foreachelse}}
+                    <option value="0">暂无成员</option>
+                    {{/foreach}}
+                </select>
+
+            </div>
+
+            <input type="hidden" id="js_submit" value="提交">
+
+        </form>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /#wrapper -->
+
+<script src="{{STATIC_URL}}/plugins/bootstrap/js/bootstrap3-typeahead.min.js"></script>
+
+<script>
+
+    $(function(){
+
+        //验证表单
+        $("#js_transferProjectForm").validateForm({
+            submitBtn: '#js_submit',
+            before:function () {
+                // iframe父级提交按钮禁用
+                $('#js_addProjectForm', parent.document).find(".js_submit").attr("disabled", "disabled").text('提交中..');
+            },
+            success:function () {
+                parent.location.reload();
+            },
+            error:function () {
+                // iframe父级提交按钮激活
+                $('#js_addProjectForm', parent.document).find(".js_submit").text('重新提交').removeAttr("disabled");
+
+            }
+        });
+
+        // 获取已选中的成员ids
+        var selectedUser= function () {
+
+            var userIds = '';
+
+            if($(".picked-user").length > 0) {
+                $(".picked-user").each(function () {
+                    userIds += $(this).data('id')+',';
+                });
+            }
+
+            $("input[name=user_ids]").val(userIds);
+
+            return userIds;
+        }
+
+        selectedUser();
+
+        //选择成员
+        $('.js_selectUser').typeahead({
+            source: function (name, process) {
+
+                var projectId = "{{$project.id}}"; //项目id
+                var userIds   = selectedUser();
+
+                if(!projectId){
+
+                    projectId = 0;
+
+                }
+
+                var url = "{{url('user/select')}}";
+
+                $.getJSON(url, { "name": name, "project_id":projectId, "user_ids":userIds }, function (data) {
+                    process(data);
+                });
+
+            },
+
+            afterSelect: function (item) {//选择项之后的时间，item是当前选中的项
+
+                $(".js_selectUser").val('');
+
+                if(!item){
+                    return '';
+                }
+
+                $("input[name=user_ids]").val(selectedUser());
+
+                var pickedUser = "<span class='picked-user' data-id="+item.id+" data-name='"+item.name+"' data-email='"+item.email+"'>"+item.name+"<i title='点击删除' class='fa fa-times js_deleteUser'></i></span>";
+
+                //$(".pick-box").prepend(pickedUser);
+
+                $(".picked-user:last").after(pickedUser);
+
+                selectedUser();
+
+            },
+
+            items: 8, //显示8条
+            delay: 500, //延迟时间
+
+        });
+
+        //删除用户
+        $("body").on('click', '.js_deleteUser',function () {
+            // 阻止事件冒泡
+            event.stopPropagation();
+            $(this).parent('span').remove();
+
+            $("input[name=user_ids]").val(selectedUser());
+
+        });
+    });
+
+
+</script>
+
+{{include_file name='public/footer'}}

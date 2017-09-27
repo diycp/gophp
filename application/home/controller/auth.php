@@ -21,6 +21,7 @@ class auth extends controller {
             response::redirect('login');
 
         }
+
     }
 
 }

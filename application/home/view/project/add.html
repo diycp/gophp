@@ -1,0 +1,215 @@
+{{include_file name='public/header' title='项目管理'}}
+<style>
+    body {
+        background-color: #ffffff;
+    }
+    .container {
+        min-height: 450px;
+    }
+
+    .url-box {
+        margin-bottom: 10px;
+    }
+
+    .input-group-addon input{
+        width: 45px;
+        border: 0;
+        outline: none;
+        background: rgba(0, 0, 0, 0);
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- /.row -->
+    <div class="row">
+        <form id="js_addProjectForm" role="form" action="{{url('project/add','','','json')}}" method="post">
+            <input type="hidden" class="form-control" name="id" value="{{$project.id}}">
+
+            <div class="form-group">
+                <label for="recipient-name" class="control-label">项目名称:</label>
+                <input type="text" class="form-control" name="title" value="{{$project.title}}" placeholder="必填" datatype="*" nullmsg="请输入项目名称!" errormsg="请输入项目名称!">
+            </div>
+
+            <div class="form-group">
+                <label for="message-text" class="control-label">项目描述:</label>
+                <textarea class="form-control" name="intro" placeholder="必填" datatype="*" nullmsg="请输入项目描述!" errormsg="请输入项目描述!">{{$project.intro}}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="recipient-name" class="control-label">初始版本号:</label>
+                <div class="input-group">
+                    <span class="input-group-addon">version</span>
+                    <input type="text" class="form-control" name="version" value="{{$version.name}}" name="version" placeholder="必填，只能由数字和.组成" datatype="/^[0-9.]+$/" nullmsg="请输入初始版本号" errormsg="版本号只能由数字和.组成" {{if $project}}disabled{{/if}}>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>环境域名</label>
+                <div class="input-group url-box">
+                    <span class="input-group-addon"><input type="text" value="生产" datatype="*" nullmsg="请输入请求地址"></span>
+                    <input type="text" name="api[env_domain]" value="http://gocmf.com/project/select.html" class="form-control" placeholder="必填，http://" datatype="url" nullmsg="请输入请求地址">
+                    <span class="input-group-btn js_addUrlBtn">
+                        <button class="btn btn-danger" type="button"><i class="fa fa-times"></i>
+                        </button>
+                    </span>
+                </div>
+
+                <div class="input-group url-box">
+                    <span class="input-group-addon"><input type="text" value="预发布" datatype="*" nullmsg="请输入请求地址"></span>
+                    <input type="text" name="api[env_domain]" class="form-control" placeholder="必填，http://">
+                    <span class="input-group-btn js_addUrlBtn">
+                        <button class="btn btn-success" type="button"><i class="fa fa-plus"></i>
+                        </button>
+                    </span>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <label for="" class="control-label">项目成员:</label>
+                <input type="hidden" name='user_ids' value="">
+
+                <div class="pick-box">
+                    <span class="picked-user hidden" data-id="0"></span>
+                    {{if $members}}
+                    {{foreach $members as $member}}
+                    {{$user_id = $member.user_id}}
+                    {{$user_info = _uri('user', $user_id)}}
+                    <span class="picked-user" data-id="{{$user_id}}" data-name="{{$user_info['name']}}({{$user_info['email']}})" data-email="{{$user_info['email']}}">{{$user_info['name']}}({{$user_info['email']}})<i title="点击删除" class="fa fa-times js_deleteUser"></i></span>
+                    {{/foreach}}
+                    {{/if}}
+                    <input class="form-control accounts-inputer js_selectUser" data-project_id="{{$project.id}}" autocomplete="off" placeholder="添加项目成员" />
+
+                    <div class="accounts-con"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="recipient-name" class="control-label">是否允许被搜索到:  <a data-toggle="tooltip" data-placement="right" title="如果设为不允许搜索，那么其他人无法通过搜索项目搜索到该项目" class="btn-show-tips">
+                        <i class="fa fa-info-circle"></i>
+                    </a></label>
+                <div class="form-group">
+                    <label class="radio-inline">
+                        <input type="radio" name="allow_search" checked value="1"> 允许
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="allow_search" value="0"> 禁止
+                    </label>
+                </div>
+            </div>
+
+            <input type="hidden" id="js_submit" value="提交">
+
+        </form>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /#wrapper -->
+
+<script src="{{STATIC_URL}}/plugins/bootstrap/js/bootstrap3-typeahead.min.js"></script>
+
+<script>
+
+    $(function(){
+
+        //验证表单
+        $("#js_addProjectForm").validateForm({
+            submitBtn: '#js_submit',
+            before:function () {
+                // iframe父级提交按钮禁用
+                $('#js_addProjectForm', parent.document).find(".js_submit").attr("disabled", "disabled").text('提交中..');
+            },
+            success:function () {
+                parent.location.reload();
+            },
+            error:function () {
+                // iframe父级提交按钮激活
+                $('#js_addProjectForm', parent.document).find(".js_submit").text('重新提交').removeAttr("disabled");
+
+            }
+        });
+
+        // 获取已选中的成员ids
+        var selectedUser= function () {
+
+            var userIds = '';
+
+            if($(".picked-user").length > 0) {
+                $(".picked-user").each(function () {
+                    userIds += $(this).data('id')+',';
+                });
+            }
+
+            $("input[name=user_ids]").val(userIds);
+
+            return userIds;
+        }
+
+        selectedUser();
+
+        //选择成员
+        $('.js_selectUser').typeahead({
+            source: function (name, process) {
+
+                var projectId = "{{$project.id}}"; //项目id
+                var userIds   = selectedUser();
+
+                if(!projectId){
+
+                    projectId = 0;
+
+                }
+
+                var url = "{{url('user/select')}}";
+
+                $.getJSON(url, { "name": name, "project_id":projectId, "user_ids":userIds }, function (data) {
+                    process(data);
+                });
+
+            },
+
+            afterSelect: function (item) {//选择项之后的时间，item是当前选中的项
+
+                $(".js_selectUser").val('');
+
+                if(!item){
+                    return '';
+                }
+
+                $("input[name=user_ids]").val(selectedUser());
+
+                var pickedUser = "<span class='picked-user' data-id="+item.id+" data-name='"+item.name+"' data-email='"+item.email+"'>"+item.name+"<i title='点击删除' class='fa fa-times js_deleteUser'></i></span>";
+
+                //$(".pick-box").prepend(pickedUser);
+
+                $(".picked-user:last").after(pickedUser);
+
+                selectedUser();
+
+            },
+
+            items: 8, //显示8条
+            delay: 500, //延迟时间
+
+        });
+
+        //删除用户
+        $("body").on('click', '.js_deleteUser',function () {
+            // 阻止事件冒泡
+            event.stopPropagation();
+            $(this).parent('span').remove();
+
+            $("input[name=user_ids]").val(selectedUser());
+
+        });
+    });
+
+
+</script>
+
+{{include_file name='public/footer'}}

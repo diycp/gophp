@@ -13,9 +13,16 @@ body {
 }
 
 #page-wrapper {
-    padding: 0 15px;
-    min-height: 568px;
+    padding: 0 18px;
+    min-height: 300px;
     background-color: #fff;
+}
+
+.container {
+    padding-right: 18px;
+    padding-left: 18px;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 @media(min-width:768px) {
@@ -127,6 +134,11 @@ body {
     padding-left: 52px;
 }
 
+.fa-rigth {
+    margin-left: 5px;
+    float: right;
+}
+
 @media(min-width:768px) {
     .sidebar {
         z-index: 1;
@@ -140,6 +152,11 @@ body {
     .navbar-top-links .dropdown-alerts {
         margin-left: auto;
     }
+
+    .navbar-brand {
+        margin-left: 10px;
+    }
+
 }
 
 .btn-outline {
@@ -370,7 +387,17 @@ hr {
     border-top: 1px solid #eee;
 }
 
-.picked-user, .picking-user{
+.typeahead>li>a {
+    display: block;
+    padding: 3px 10px;
+    clear: both;
+    font-weight: 400;
+    line-height: 1.42857143;
+    color: #333;
+    white-space: nowrap;
+}
+
+.picked-user {
     background-color: #EEE;
     padding: 6px 14px 6px 6px;
     display: inline-block;
@@ -381,7 +408,8 @@ hr {
     margin-right: 4px;
     text-align: center;
 }
-.picked-user .fa, .picking-user .fa {
+
+.picked-user .fa {
     font-size: 14px;
     cursor: pointer;
     position: absolute;
@@ -395,6 +423,7 @@ hr {
     padding: 6px;
 }
 
+
 .table tr>td, .table tr>th{
     text-align: center;
 }
@@ -403,4 +432,29 @@ hr {
     float: right;
     position: relative;
     top: -40px;
+}
+
+.modal-body iframe {
+    width: 100%;
+    min-height: 300px;
+    border: 0;
+}
+
+.btn-show-tips {
+    right: 16px;
+    top: 10px;
+    height: 29px;
+    width: 14px;
+    font-size: 14px;
+    border-radius: 5px;
+    outline: 0;
+    cursor: pointer;
+}
+
+a.btn-show-tips {
+    color: darkgray;
+}
+
+.module-item .fa-option {
+    float: right;
 }

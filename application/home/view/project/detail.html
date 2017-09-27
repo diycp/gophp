@@ -1,0 +1,270 @@
+{{include_file name='public/header' title='项目主页'}}
+{{$user_id = $project.user_id}}
+
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    {{include_file name='public/nav' sidebar='project_sidebar'}}
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="pageTit page-header">
+                    <h1>项目主页 </h1>
+                    <div class="opt">
+
+                        <a class="btn btn-sm btn-warning hidden-xs" data-toggle="tooltip" title='kkk' data-placement="bottom" data-id="{{$project.id}}" href="javascript:void(0);"><i class="fa fa-fw fa-file-pdf-o"></i>导出PDF</a>
+                        <a class="btn btn-sm btn-success hidden-xs" data-toggle="tooltip" data-placement="bottom" data-id="{{$project.id}}" href="javascript:void(0);"><i class="fa fa-fw fa-file-excel-o"></i>导出HTML</a>
+
+                    </div>
+                </div>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        基本信息
+                    </div>
+                    <div class="panel-body">
+                        <p class="text-muted"><label>项目名称：</label>{{$project.title}}</p>
+                        <p class="text-muted"><label>项目创建人：</label>{{_uri('user', $user_id, 'name')}}({{_uri('user', $user_id, 'email')}}）</p>
+                        <p class="text-muted"><label>创建时间：</label>{{$project.add_time}}</p>
+                        <p class="text-muted"><label>项目描述：</label><span style="word-break:break-all">{{$project.intro}}</span></p>
+
+                        {{foreach $envs as $env_name => $env_domain}}
+                        <p class="text-muted"><label>{{$env_name}}：</label>{{$env_domain}}/{{$project['version']['name']}}</p>
+                        {{/foreach}}
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        参与成员
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th>成员昵称</th>
+                                    <th>成员邮箱</th>
+                                    <th>加入时间</th>
+                                    <th>操作面板</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {{foreach $members as $member}}
+                                {{$user_id = $member.user_id}}
+                                <tr>
+                                    <td>{{_uri('user', $user_id, 'name')}}</td>
+                                    <td>{{_uri('user', $user_id, 'email')}}</td>
+                                    <td>{{$member.add_time}}</td>
+                                    <td>
+
+                                        <button type="button" class="btn btn-xs btn-danger js_quitProjectBtn" data-project_id="{{$project.id}}" data-user_id="{{$user_id}}">移出项目</button>
+
+                                    </td>
+                                </tr>
+                                {{/foreach}}
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <!-- /.table-responsive -->
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+            <!-- /.col-lg-6 -->
+        </div>
+    </div>
+    <!-- /#page-wrapper -->
+
+    <!-- 添加/编辑模块模态框 -->
+    <div class="modal fade" id="js_addModuleModal" tabindex="1" role="dialog">
+        <div class="modal-dialog" role="document">
+
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">添加模块</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <iframe id="js_addModuleIframe" style="min-height: 180px;" src="{{url('module/add')}}"></iframe>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary js_submit">提交</button>
+                    </div>
+
+                </div>
+        </div>
+
+    </div>
+
+    <!-- 添加接口模态框 -->
+    <div class="modal fade" id="js_addApiModal" tabindex="1" role="dialog">
+        <div class="modal-dialog" style="width: 700px;" role="document">
+
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">添加接口</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <iframe id="js_addApiIframe" style="min-height: 350px;" src="{{url('api/add')}}"></iframe>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary js_submit">提交</button>
+                    </div>
+
+                </div>
+
+        </div>
+
+    </div>
+
+    <!-- 删除模块模态框 -->
+    <div class="modal fade" id="js_deleteModuleModal" tabindex="2" role="dialog">
+        <div class="modal-dialog" role="document">
+            <form role="form" action="{{url('module/delete','','','json')}}" method="post">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">确定删除此模块吗？</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-dismissable alert-warning">
+                            <i class="fa fa-fw fa-info-circle"></i>
+                            模块删除后，该模块下所有接口也将被立刻删除，不可恢复，请谨慎操作！
+                        </div>
+                            <div class="form-group">
+                                <input type="hidden" name="id" class="form-control">
+                                <input type="text" name='password' class="form-control" placeholder="重要操作，请输入登录密码" datatype="*" nullmsg="请输入登录密码!" errormsg="请输入正确的登录密码!">
+                            </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-danger js_submit">删除</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </form>
+        </div><!-- /.modal-dialog -->
+    </div>
+
+
+</div>
+<!-- /#wrapper -->
+
+<script>
+    $(function(){
+
+        //添加/编辑项目表单合法性验证
+        $("#js_addModuleModal form").validateForm();
+
+        // 添加/编辑项目
+        $(".js_addModuleBtn").iframeModal({
+            modalItem: '#js_addModuleModal', //modal元素
+            iframeItem: '#js_addModuleIframe', //提交按钮
+            submitBtn: '.js_submit'
+        });
+
+        //移出项目
+        $(".js_quitProjectBtn").click(function(event){
+            // 阻止事件冒泡
+            event.stopPropagation();
+
+            var projectId = $(this).data('project_id');
+            var userId    = $(this).data('user_id');
+
+            var url = "{{url('project/quit')}}?id=" + projectId;
+
+            confirm('确认将该成员移出项目?', function(){
+
+                $.post(url, { project_id:projectId,user_id:userId }, function(json){
+
+                    if(json.code == 200){
+
+                        alert(json.msg, 500, function () {
+                            window.location.reload();
+                        });
+
+                    }else{
+
+                        alert(json.msg, 2000);
+
+                    }
+
+                }, 'json');
+            });
+
+        });
+
+        //删除模块表单合法性验证
+        $("#js_deleteModuleModal form").validateForm();
+
+        // 删除模块
+        $(".js_deleteModuleBtn").click(function () {
+            // 阻止事件冒泡
+            event.stopPropagation();
+            var id = $(this).data('id');
+
+            if(id <= 0){
+                alert('请选择要删除的模块');
+            }
+
+            $('#js_deleteModuleModal input[name=id]').val(id);
+
+            $('#js_deleteModuleModal').modal('show');
+        });
+
+        // 添加/编辑接口
+        $(".js_addApiBtn").iframeModal({
+            modalItem: '#js_addApiModal', //modal元素
+            iframeItem: '#js_addApiIframe', //提交按钮
+            submitBtn: '.js_submit'
+        });
+
+
+        $(".js_module").mouseover(function(){
+
+//            if($(this).hasClass('active')){
+//                $(this).find('.fa-option').addClass('hidden');
+//            }else{
+//                $(this).find('.fa-option').removeClass('hidden');
+//            }
+
+            $(this).find('.fa-option').removeClass('hidden');
+
+        }).mouseout(function(){
+            $(this).find('.fa-option').addClass('hidden');
+        });
+
+    });
+</script>
+
+
+
+{{include_file name='public/footer'}}

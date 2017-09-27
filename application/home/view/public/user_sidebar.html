@@ -1,49 +1,19 @@
+
 <div class="navbar-default sidebar" role="navigation">
     <div class="sidebar-nav navbar-collapse">
 
         <ul class="nav" id="side-menu">
+
             <li>
-                <a href="index.html"><i class="fa fa-home fa-fw"></i> 项目主页</a>
-            </li>
-            <li class="js_module">
-                <a href="javascript:void(0);"><i class="fa fa-fw fa-folder-open"></i> 会员模块
-                    <span class="fa fa-option fa-fw fa-pencil js_editModule hidden m-l-12" data-id="69"></span>
-                    <span class="fa fa-option fa-fw fa-plus js_addApi hidden m-l-12" data-id="69"></span>
-                    <span class="fa fa-option fa-fw fa-trash-o js_deleteModule hidden" data-id="69"></span>
-                    <span class="fa fa-option fa-fw fa-arrow-up js_moduleUp hidden" data-id="68"></span>
-                    <span class="fa fa-option fa-fw fa-arrow-down js_moduleDown hidden" data-id="68"></span>
-                    <span class="fa fa-fw arrow"></span>
-                </a>
-                <ul class="nav nav-second-level collapse">
-
-                    <li>
-                        <a href="api.html" title="点击查看接口详情"><i class="fa fa-fw fa-files-o"></i>保存举报信息<i class="fa fa-long-arrow-right fa-fw" style="float: right"></i></a>
-                    </li>
-
-                </ul>
-                <!-- /.nav-second-level -->
-            </li>
-            <li class="js_module">
-                <a href="javascript:void(0);"><i class="fa fa-fw fa-folder-open"></i> 订单模块
-                    <span class="fa fa-option fa-fw fa-pencil js_editModule hidden" data-id="69"></span>
-                    <span class="fa fa-option fa-fw fa-plus js_addApi hidden m-l-12" data-id="69"></span>
-                    <span class="fa fa-option fa-fw fa-trash-o js_deleteModule hidden" data-id="69"></span>
-                    <span class="fa fa-option fa-fw fa-arrow-up js_moduleUp hidden" data-id="68"></span>
-                    <span class="fa fa-option fa-fw fa-arrow-down js_moduleDown hidden" data-id="68"></span>
-                    <span class="fa fa-fw arrow"></span>
-                </a>
-                <ul class="nav nav-second-level collapse">
-
-                    <li>
-                        <a href="api.html" title="点击查看接口详情"><i class="fa fa-fw fa-files-o"></i>验证码链接<i class="fa fa-long-arrow-right fa-fw" style="float: right"></i></a>
-                    </li>
-
-                </ul>
-                <!-- /.nav-second-level -->
+                <a href="{{url('project/search')}}"><i class="fa fa-search fa-fw"></i> 搜索项目</a>
             </li>
 
             <li>
-                <a class="js_editModule" href="javascript:void(0);" title="点击添加模块"><i class="fa fa-fw fa-plus"></i> 添加模块</a>
+                <a href="{{url('project/notice')}}"><i class="fa fa-bell-o fa-fw"></i> 申请通知</a>
+            </li>
+
+            <li>
+                <a href="{{url('login/history')}}"><i class="fa fa-history fa-fw"></i> 登录历史</a>
             </li>
 
         </ul>
