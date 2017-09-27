@@ -112,8 +112,6 @@ class page{
     public function numbers($length = 5)
     {
 
-        $numbers = [];
-
         $per = floor($length / 2);
         $min = $this->nowPage - $per;
 
@@ -143,10 +141,12 @@ class page{
 
         $min < 1 && $min = 1;
 
+        $numbers = new \stdClass();
+
         foreach ( range($min, $max) as $k => $v) {
 
-            $numbers[$k]['num'] = $v;
-            $numbers[$k]['url'] = $this->url($v);
+            $numbers->$k->num = $v;
+            $numbers->$k->url = $this->url($v);
 
         }
 

@@ -25,6 +25,13 @@ class history extends controller {
 
         $page      = new page($totalRows, 10);
 
+        foreach ($page->numbers() as $num){
+            echo $num->url.'<br>';
+        }
+
+        exit;
+
+
         $historys  = db('login_log')->show(false)->where('user_id', '=', $user_id)->page($page)->orderBy('id desc')->findAll();
 
         $this->assign('historys', $historys);
