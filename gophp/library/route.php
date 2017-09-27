@@ -287,6 +287,7 @@ class route
 
             $urlPath = request::getPath();
 
+            //去掉后缀
             $urlPath = explode('.', $urlPath)[0];
 
         }elseif($uri = implode('/', $route)){
