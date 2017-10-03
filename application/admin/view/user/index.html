@@ -18,7 +18,7 @@
                     <form class="form-inline">
                         <div class="form-group">
                             <label>用户名/昵称</label>
-                            <input type="text" class="form-control" id="exampleInputName2" placeholder="支持模糊查询">
+                            <input type="text" class="form-control" placeholder="支持模糊查询">
                         </div>
                         <div class="form-group">
                             <label>注册渠道</label>
@@ -69,8 +69,8 @@
                                     <td >{{$user.name}}</td>
                                     <td >{{$user.email}}</td>
                                     <td >{{$user.method}}</td>
-                                    <td ><a href="{{url("project/created")}}?user_id={{$user_id}}" data-toggle="tooltip" title="点击查看具体创建项目">{{\app\home\model\user::get_create_project_num($user_id)}}</a></td>
-                                    <td ><a href="{{url("project/joined")}}?user_id={{$user_id}}" data-toggle="tooltip" title="点击查看具体参与项目">{{\app\home\model\user::get_join_project_num($user_id)}}</a></td>
+                                    <td ><a href="{{url("project/created")}}?user_id={{$user_id}}" data-toggle="tooltip" title="点击查看具体创建项目">{{\app\user::get_create_project_num($user_id)}}</a></td>
+                                    <td ><a href="{{url("project/joined")}}?user_id={{$user_id}}" data-toggle="tooltip" title="点击查看具体参与项目">{{\app\user::get_join_project_num($user_id)}}</a></td>
 <!--                                    <td >{{$user.ip}}</td>-->
                                     <td >{{$user.address}}</td>
                                     <td >{{$user.add_time}}</td>

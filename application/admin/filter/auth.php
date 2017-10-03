@@ -2,10 +2,9 @@
 
 namespace app\admin\filter;
 
-use app\common\model\user;
 use gophp\config;
 use gophp\response;
-
+use app\user;
 
 class auth
 {
@@ -13,7 +12,7 @@ class auth
     public function run()
     {
 
-        $user_info = user::get_info();
+        $user_info = user::get_user_info();
 
         if(!$user_info){
 

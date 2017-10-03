@@ -501,6 +501,12 @@ class request
 
         }
 
+        if(!isset($value)){
+
+            $value = $default;
+
+        }
+
         // 强制类型转化
         gettype($default) == 'unknown type' or settype($value, gettype($default));
 
@@ -517,7 +523,7 @@ class request
     public static function post($name, $default = null)
     {
 
-        $value = $_POST[$name];
+        $value = isset($name) ? $_POST[$name] : $_POST;
 
         if(!isset($default)){
 

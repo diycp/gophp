@@ -12,15 +12,20 @@ class db extends contract
     public $config;
     public $driver;
     public $handler;
+    public $suffix;
 
     use driver;
 
     private function __construct()
     {
 
-        $this->config = config::get('db');
+        $config = config::get('db');
 
-        $this->driver = $this->config['driver'];
+        $this->driver = $config['driver'];
+
+        $this->config = $config[$this->driver];
+
+        $this->suffix = $this->config['prefix'];
 
     }
 
@@ -113,6 +118,8 @@ class db extends contract
 
     public function query($sql)
     {
+
+        $this->connect();
 
         $method = __FUNCTION__;
 

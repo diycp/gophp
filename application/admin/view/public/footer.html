@@ -14,12 +14,12 @@
 
                                 <div class="form-group">
                                     <label>登录邮箱</label>
-                                    <input name="email" class="form-control" value="{{\app\home\model\user::get_email()}}" disabled datatype="e" nullmsg="请输入登录邮箱！" errormsg="请输入合法的邮箱地址！">
+                                    <input name="email" class="form-control" value="{{\app\user::get_user_email()}}" disabled datatype="e" nullmsg="请输入登录邮箱！" errormsg="请输入合法的邮箱地址！">
                                 </div>
 
                                 <div class="form-group">
                                     <label>用户昵称</label>
-                                    <input name="name" class="form-control" value="{{\app\home\model\user::get_name()}}" placeholder="用户昵称，建议写真实姓名以方便识别" name="nick_name" type="text" datatype="s2-10" nullmsg="请输入用户昵称！" errormsg="请输入2-10个由字母或汉字组成的字符">
+                                    <input name="name" class="form-control" value="{{\app\user::get_user_name()}}" placeholder="用户昵称，建议写真实姓名以方便识别" name="nick_name" type="text" datatype="s2-10" nullmsg="请输入用户昵称！" errormsg="请输入2-10个由字母或汉字组成的字符">
                                     <span class="Validform_checktip"></span>
                                 </div>
 

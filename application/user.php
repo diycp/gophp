@@ -8,7 +8,7 @@ class user {
      * 获取当前登录用户id
      * @return mixed
      */
-    public static function get_id(){
+    public static function get_user_id(){
 
         $user_id = session('user_id');
 
@@ -16,11 +16,16 @@ class user {
 
     }
 
-    private static function get_info($user_id)
+    /**
+     * 根据用户id获取指定用户信息
+     * @param $user_id
+     * @return mixed
+     */
+    public static function get_user_info($user_id)
     {
         if(!$user_id){
 
-            $user_id = self::get_id();
+            $user_id = self::get_user_id();
 
         }
 
@@ -32,10 +37,21 @@ class user {
      * 根据用户id获取用户名
      * @param $user_id
      */
-    public static function get_name($user_id)
+    public static function get_user_name($user_id)
     {
 
-        return self::get_info($user_id)['name'];
+        return self::get_user_info($user_id)['name'];
+
+    }
+
+    /**
+     * 根据用户id获取用户类型
+     * @param $user_id
+     */
+    public static function get_user_type($user_id)
+    {
+
+        return self::get_user_info($user_id)['type'];
 
     }
 
@@ -43,11 +59,10 @@ class user {
      * 根据用户id获取用户昵称
      * @param $user_id
      */
-    public static function get_email($user_id)
+    public static function get_user_email($user_id)
     {
 
-        return self::get_info($user_id)['email'];
-
+        return self::get_user_info($user_id)['email'];
 
     }
 
@@ -60,7 +75,7 @@ class user {
 
         if(!$user_id){
 
-            $user_id = self::get_id();
+            $user_id = self::get_user_id();
 
         }
 
@@ -77,7 +92,7 @@ class user {
 
         if(!$user_id){
 
-            $user_id = self::get_id();
+            $user_id = self::get_user_id();
 
         }
 
@@ -90,10 +105,10 @@ class user {
      * @param $user_id
      * @return mixed
      */
-    public static function get_auth($project_id)
+    public static function get_user_auth($project_id)
     {
 
-        $user_id = self::get_id();
+        $user_id = self::get_user_id();
 
         $user = db('user')->find($user_id);
 
@@ -127,6 +142,19 @@ class user {
 
         return 5; // 注册会员
 
+    }
+
+    /**
+     * 获取用户列表
+     * @param array $filter
+     * @return mixed
+     */
+    public static function get_user_list($filter=[])
+    {
+
+        $users = db('user')->findAll();
+
+        return $users;
     }
 
 }

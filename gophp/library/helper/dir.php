@@ -205,7 +205,7 @@ class dir
 
             if(is_dir($path. DS .$file)) {
 
-                self::deleteDir($path. DS .$file, true);
+                self::deleteSubDir($path. DS .$file, true);
 
                 rmdir($path. DS .$file);
 

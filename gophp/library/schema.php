@@ -387,7 +387,7 @@ class schema
 
         } catch(\PDOException $e) {
 
-            throw new exception('Query Error', $e->getMessage(), $sql);
+            throw new exception($e->getMessage(), $sql);
 
         }
 

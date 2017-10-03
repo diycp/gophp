@@ -3,6 +3,8 @@
 return [
 
     'driver'             => 'smarty', //视图驱动
+    'debug_template'     => COMMON_VIEW . '/debug', //DEBUG模板
+    '404_template'       => COMMON_VIEW . '/404', //404模板
     'error_template'     => VIEW_PATH . '/public/message', //错误消息模板
     'success_template'   => VIEW_PATH . '/public/message', //成功消息模板
 

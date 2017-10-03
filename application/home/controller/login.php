@@ -2,7 +2,7 @@
 
 namespace app\home\controller;
 
-use app\home\model\user;
+use app\user;
 use gophp\controller;
 use gophp\request;
 use gophp\response;
@@ -12,7 +12,7 @@ class login extends controller {
 
     public function index(){
 
-        $user_id = user::get_id();
+        $user_id = user::get_user_id();
 
         if($user_id){
 
@@ -66,7 +66,7 @@ class login extends controller {
     public function history()
     {
 
-        $user_id = user::get_id();
+        $user_id = user::get_user_id();
 
 
         if(!$user_id){

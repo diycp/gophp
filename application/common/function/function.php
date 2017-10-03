@@ -76,3 +76,29 @@ if(!function_exists('get_visit_source')) {
         return 'pc';
     }
 }
+
+if(!function_exists('get_dir_chmod')) {
+    function get_dir_chmod($dirName){
+
+        if (is_readable ($dirName)) {
+
+            $chmod = '可读,';
+
+        }
+
+        if (is_writable ($dirName)) {
+
+            $chmod .= '可写,';
+
+        }
+
+        if (is_executable ($dirName)) {
+
+            $chmod .= '可执行,';
+
+        }
+
+        return trim($chmod, ',');
+
+    }
+}

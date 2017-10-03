@@ -32,7 +32,7 @@ class mysql extends contract
     public function __construct($config)
     {
 
-        $this->config = $config['mysql'];
+        $this->config = $config;
 
         $this->db     = $this->connect();
 
@@ -64,7 +64,10 @@ class mysql extends contract
 
         } catch(\PDOException $e) {
 
-            throw new exception("mysql connect Error:" . $e->getMessage());
+            return false;
+
+//            throw new exception("mysql connect Error:" . $e->getMessage());
+
 
         }
 
@@ -78,6 +81,8 @@ class mysql extends contract
      */
     public function table($table, $prefix = null)
     {
+
+        $this->option = [];
 
         if($table){
 
@@ -105,6 +110,14 @@ class mysql extends contract
         }
 
         try{
+
+            if (strstr($sql, 'CREATE') || strstr($sql, 'DROP')) {
+
+                $this->stmt = $this->db->query($sql);
+
+                return $this->stmt;
+
+            }
 
             if (strstr($sql, 'insert') || strstr($sql, 'INSERT')) {
 
@@ -149,8 +162,6 @@ class mysql extends contract
         $this->pk  = schema::getPK($this->tableName);
 
         $field     = isset($field) ? $field : '*';
-
-        $this->option['limit'] = 1;
 
         $this->option['order'] = $this->pk.' DESC'; //主键ID降序
 
@@ -199,8 +210,6 @@ class mysql extends contract
 
         }
 
-        unset($this->option['where']);
-
         return $result[$field];
 
     }
@@ -212,6 +221,7 @@ class mysql extends contract
      */
     public function findAll($field = '*')
     {
+
         $field = isset($field) ? $field : '*';
         $arguments = explode(',', $field);
 
@@ -243,8 +253,6 @@ class mysql extends contract
 
         }
 
-        unset($this->option['where']);
-
         return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
 
     }
@@ -266,9 +274,6 @@ class mysql extends contract
      */
     public function update(array $data)
     {
-
-        unset($this->option['order']);
-        unset($this->option['limit']);
 
         $this->option['set'] = $this->set($data);
 
@@ -326,9 +331,6 @@ class mysql extends contract
      */
     public function dec($field, $offset = 1)
     {
-
-        unset($this->option['order']);
-        unset($this->option['limit']);
 
         $this->option['set'] = $field . '=' . $field .'-'. $offset;
 
@@ -465,9 +467,6 @@ class mysql extends contract
             $this->where($pk, '=', $id);
 
         }
-
-        unset($this->option['order']);
-        unset($this->option['limit']);
 
         $this->sql = "DELETE FROM $this->tableName" . $this->option();
 

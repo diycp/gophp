@@ -1,4 +1,4 @@
-{{$auth = \app\home\model\user::get_auth()}}
+{{$auth = \app\user::get_user_auth()}}
 <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -12,13 +12,7 @@
         </a>
     </div>
     <!-- /.navbar-header -->
-
     <ul class="nav navbar-top-links navbar-right">
-<!--        <li class="dropdown">-->
-<!---->
-<!--            <span style="margin-left: 20px;" data-id="{{\app\home\model\user::get_id()}}">欢迎您，{{\app\home\model\user::get_name()}}</span>-->
-<!---->
-<!--        </li>-->
 
         <li class="dropdown">
             <a class="dropdown-toggle" href="{{url('project/select')}}">
@@ -112,7 +106,7 @@
         <!-- /.dropdown -->
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                {{\app\home\model\user::get_name()}}  <i class="fa fa-caret-down"></i>
+                {{\app\user::get_user_name()}}  <i class="fa fa-caret-down"></i>
             </a>
             <ul class="dropdown-menu dropdown-user">
                 <li><a href="{{url('project/search')}}"><i class="fa fa-search fa-fw"></i> 搜索项目</a>

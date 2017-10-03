@@ -2,7 +2,7 @@
 
 namespace app\admin\controller;
 
-use app\common\model\user;
+use app\user;
 use gophp\controller;
 use gophp\page;
 use gophp\response;
@@ -13,7 +13,7 @@ class history extends controller {
     public function login()
     {
 
-        $user_id = user::get_id();
+        $user_id = user::get_user_id();
 
         if(!$user_id){
 
@@ -24,13 +24,6 @@ class history extends controller {
         $totalRows = db('login_log')->where('user_id', '=', $user_id)->count();
 
         $page      = new page($totalRows, 10);
-
-        foreach ($page->numbers() as $num){
-            echo $num->url.'<br>';
-        }
-
-        exit;
-
 
         $historys  = db('login_log')->show(false)->where('user_id', '=', $user_id)->page($page)->orderBy('id desc')->findAll();
 

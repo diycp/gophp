@@ -1,4 +1,4 @@
-{{$auth = \app\home\model\user::get_auth()}}
+{{$auth = \app\user::get_user_auth()}}
 <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -16,7 +16,7 @@
     <ul class="nav navbar-top-links navbar-right">
         <li class="dropdown">
 
-            <span style="margin-left: 20px;" data-id="{{\app\home\model\user::get_id()}}">欢迎您，{{\app\home\model\user::get_name()}}</span>
+            <span style="margin-left: 20px;" data-id="{{\app\user::get_user_id()}}">欢迎您，{{\app\user::get_user_name()}}</span>
 
         </li>
         <li class="dropdown">

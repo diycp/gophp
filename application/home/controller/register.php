@@ -47,7 +47,7 @@ class register extends controller {
 
             if($user_id){
 
-                session('user_id', $user_id);
+                session('user_id', $user_id, 24*3600);
 
                 return response::ajax(['code' => 200, 'msg' => '注册成功!']);
 
