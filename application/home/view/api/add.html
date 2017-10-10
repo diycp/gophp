@@ -4,9 +4,6 @@
     body {
         background-color: #ffffff;
     }
-    .container {
-        min-height: 300px;
-    }
 
 </style>
 </head>
@@ -17,12 +14,12 @@
     <!-- /.row -->
     <div class="row">
         <form id="js_addApiForm" role="form" action="{{url('api/add')}}" method="post">
-            <input type="hidden" class="form-control" name="api_id" value="{{$api.id}}">
-            <input type="hidden" class="form-control" name="module_id" value="{{$module.id}}">
+            <input type="hidden" class="form-control" name="api[id]" value="{{$api.id}}">
+            <input type="hidden" class="form-control" name="api[module_id]" value="{{$module.id}}">
 
             <div class="form-group">
                 <label>所属模块</label>
-                <input class="form-control" name="api[title]" value="{{$module.title}}" placeholder="必填" disabled>
+                <input class="form-control" value="{{$module.title}}" placeholder="必填" disabled>
             </div>
 
             <div class="form-group">
@@ -30,25 +27,21 @@
                 <input class="form-control" name="api[title]" value="" placeholder="必填" datatype="*" nullmsg="请输入接口名称">
             </div>
 
-            <div class="control-group" style="margin:0 0 10px 0;">
-                <label>接口类型</label>
-                <label class="radio-inline ">
-                    <input type="radio" name="api[request_type]" value="1">get
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" name="api[request_type]" value="2">post
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" name="api[request_type]" value="3" checked="checked">get/post
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" name="api[request_type]" value="4">put
-                </label>
+            <div class="form-group">
+                <label class="control-label">请求类型</label>
+                <div class="form-group">
+                    {{foreach \app\api::get_method_list() as $k => $method}}
+                    <label class="radio-inline">
+                        <input type="radio" name="api[method]" value="{{$k}}" {{if $k == 3}}checked{{/if}}> {{$method}}
+                    </label>
+                    {{/foreach}}
+
+                </div>
             </div>
 
             <div class="form-group">
                 <label>请求路径</label>
-                <input type="text" name="api[request_url]" class="form-control" placeholder="必填，http://" datatype="url" nullmsg="请输入请求地址">
+                <input type="text" name="api[uri]" class="form-control" placeholder="必填，http://" datatype="url" nullmsg="请输入请求地址">
             </div>
 
             <div class="form-group">
@@ -78,8 +71,8 @@
                 $('#js_addApiForm', parent.document).find(".js_submit").attr("disabled", "disabled").text('提交中..');
             },
             success:function () {
-
-                parent.$('#js_addApiModal').modal('hide');
+                parent.location.reload();
+//                parent.$('#js_addApiModal').modal('hide');
 
             },
             error:function () {

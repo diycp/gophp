@@ -11,7 +11,7 @@ class project {
     public static function get_project_info($project_id)
     {
 
-        return db('project')->show(false)->where('id', '=', $project_id)->find();
+        return db('project')->show(false)->find($project_id);
 
     }
 
@@ -46,6 +46,23 @@ class project {
         }
 
         return db('version')->show(false)->where('project_id', '=', $project_id)->value('id');
+
+    }
+
+    public static function add($data)
+    {
+
+        if(!$data || !is_array($data)){
+
+            return false;
+        }
+
+        if($data['id']){
+            //更新操作
+            return db('project')->show(false)->where('id', '=', $data['id'])->update($data);
+        }
+
+        return db('project')->show(false)->add($data);
 
     }
 

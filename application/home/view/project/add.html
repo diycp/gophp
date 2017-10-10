@@ -3,13 +3,6 @@
     body {
         background-color: #ffffff;
     }
-    .container {
-        min-height: 450px;
-    }
-
-    .url-box {
-        margin-bottom: 10px;
-    }
 
     .input-group-addon input{
         width: 45px;
@@ -27,46 +20,16 @@
     <!-- /.row -->
     <div class="row">
         <form id="js_addProjectForm" role="form" action="{{url('project/add','','','json')}}" method="post">
-            <input type="hidden" class="form-control" name="id" value="{{$project.id}}">
+            <input type="hidden" class="form-control" name="project[id]" value="{{$project.id}}">
 
             <div class="form-group">
                 <label for="recipient-name" class="control-label">项目名称:</label>
-                <input type="text" class="form-control" name="title" value="{{$project.title}}" placeholder="必填" datatype="*" nullmsg="请输入项目名称!" errormsg="请输入项目名称!">
+                <input type="text" class="form-control" name="project[title]" value="{{$project.title}}" placeholder="必填" datatype="*" nullmsg="请输入项目名称!" errormsg="请输入项目名称!">
             </div>
 
             <div class="form-group">
                 <label for="message-text" class="control-label">项目描述:</label>
-                <textarea class="form-control" name="intro" placeholder="必填" datatype="*" nullmsg="请输入项目描述!" errormsg="请输入项目描述!">{{$project.intro}}</textarea>
-            </div>
-
-            <div class="form-group">
-                <label for="recipient-name" class="control-label">初始版本号:</label>
-                <div class="input-group">
-                    <span class="input-group-addon">version</span>
-                    <input type="text" class="form-control" name="version" value="{{$version.name}}" name="version" placeholder="必填，只能由数字和.组成" datatype="/^[0-9.]+$/" nullmsg="请输入初始版本号" errormsg="版本号只能由数字和.组成" {{if $project}}disabled{{/if}}>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>环境域名</label>
-                <div class="input-group url-box">
-                    <span class="input-group-addon"><input type="text" value="生产" datatype="*" nullmsg="请输入请求地址"></span>
-                    <input type="text" name="api[env_domain]" value="http://gocmf.com/project/select.html" class="form-control" placeholder="必填，http://" datatype="url" nullmsg="请输入请求地址">
-                    <span class="input-group-btn js_addUrlBtn">
-                        <button class="btn btn-danger" type="button"><i class="fa fa-times"></i>
-                        </button>
-                    </span>
-                </div>
-
-                <div class="input-group url-box">
-                    <span class="input-group-addon"><input type="text" value="预发布" datatype="*" nullmsg="请输入请求地址"></span>
-                    <input type="text" name="api[env_domain]" class="form-control" placeholder="必填，http://">
-                    <span class="input-group-btn js_addUrlBtn">
-                        <button class="btn btn-success" type="button"><i class="fa fa-plus"></i>
-                        </button>
-                    </span>
-                </div>
-
+                <textarea class="form-control" name="project[intro]" placeholder="必填" datatype="*" nullmsg="请输入项目描述!" errormsg="请输入项目描述!">{{$project.intro}}</textarea>
             </div>
 
             <div class="form-group">
@@ -94,10 +57,10 @@
                     </a></label>
                 <div class="form-group">
                     <label class="radio-inline">
-                        <input type="radio" name="allow_search" checked value="1"> 允许
+                        <input type="radio" name="project[allow_search]" checked value="1"> 允许
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="allow_search" value="0"> 禁止
+                        <input type="radio" name="project[allow_search]" value="0"> 禁止
                     </label>
                 </div>
             </div>

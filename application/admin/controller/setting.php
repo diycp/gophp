@@ -25,7 +25,15 @@ class setting extends controller {
 
             }
 
-            $result = db('config')->update(['config' => json_encode($config)]);
+            if(db('config')->find()){
+
+                $result = db('config')->update(['config' => json_encode($config)]);
+
+            }else{
+
+                $result = db('config')->add(['config' => json_encode($config)]);
+
+            }
 
             if($result !== false){
 

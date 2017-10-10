@@ -428,7 +428,7 @@ hr {
     text-align: center;
 }
 
-.pageTit div.opt {
+.page-header div.opt-btn {
     float: right;
     position: relative;
     top: -40px;

@@ -8,97 +8,106 @@ use gophp\response;
 class api extends auth {
 
     /**
-     * 添加/编辑模块
+     * 添加接口
      */
     public function add(){
 
         if(request::isAjax()){
 
+            $api = request::post('api', []);
 
-            $title = request::post('title', '');
-            $intro = request::post('intro', '');
+            $api_id    = $api['id'] ? $api['id'] : 0;
+            $module_id = $api['module_id'] ? $api['module_id'] : 0;
 
-            $module_id   = request::post('module_id', 0);
-            $project_id  = request::post('project_id', 0);
+            // 检测是否选择模块
+            if($module_id){
 
-            $project = db('project')->find($project_id);
-
-            if($project){
-
-                $data['project_id'] = $project_id;
+                $data['module_id'] = $module_id;
 
             }else{
 
-                response::ajax(['code' => 301, 'msg' => '请选择要添加模块的项目']);
+                response::ajax(['code' => 301, 'msg' => '请选择所属模块']);
 
             }
 
-            if($title){
+            // 检测是否填写接口名称
+            if($title = $api['title']){
 
                 $data['title'] = $title;
 
             }else{
 
-                response::ajax(['code' => 302, 'msg' => '模块名称不能为空']);
+                response::ajax(['code' => 302, 'msg' => '接口名称不能为空']);
 
             }
 
-            $module = db('module')->show(false)->where('project_id', '=', $project_id)->where('title', '=', $title)->where('id', 'not in', [$module_id])->find();
+            // 检测是否填写接口地址
+            if($uri = $api['uri']){
 
-            if($module){
-
-                response::ajax(['code' => 304, 'msg' => '该模块名称已存在']);
-
-            }
-
-            if($intro){
-
-                $data['intro'] = $intro;
+                $data['uri'] = $uri;
 
             }else{
 
-                response::ajax(['code' => 303, 'msg' => '模块简介不能为空']);
+                response::ajax(['code' => 302, 'msg' => '接口地址不能为空']);
 
             }
 
-            $data['user_id']      = $this->user_id;
-            $data['add_time']     = date('Y-m-d H:i:s');
+            // 检测接口名称是否已存在
+            $result = db('api')->show(false)->where('module_id', '=', $module_id)->where('title', '=', $title)->where('id', 'not in', [$api_id])->find();
 
-            $module = db('module')->find($module_id);
+            if($result){
 
-            if($module){
+                response::ajax(['code' => 304, 'msg' => '该接口名称已存在']);
+
+            }
+
+            // 检测是否填写接口简介
+            if($intro = $api['intro']){
+
+                $data['intro'] = $intro;
+
+            }
+
+            // 检测是否填写返回示例
+            if($demo = $api['demo']){
+
+                $data['demo'] = $demo;
+
+            }
+
+            // 接口请求方式
+            $data['method']    = $api['method'];
+            $data['user_id']   = $this->user_id;
+            $data['add_time']  = date('Y-m-d H:i:s');
+
+            if(\app\api::find($api_id)){
                 // 更新操作
-                $result = db('module')->where('id', '=', $module_id)->update($data);
+                $result = db('api')->where('id', '=', $api_id)->update($data);
 
                 if($result !== false){
 
-                    response::ajax(['code' => 200, 'msg' => '模块更新成功']);
+                    response::ajax(['code' => 200, 'msg' => '接口更新成功']);
 
                 }
 
             }else{
 
-                $result = db('module')->add($data);
+                $result = db('api')->add($data);
 
                 if($result){
 
-                    response::ajax(['code' => 200, 'msg' => '模块添加成功']);
+                    response::ajax(['code' => 200, 'msg' => '接口添加成功']);
 
                 }
             }
 
         }else{
 
-            $ids = explode('-', get('id', ''));
+            $module_id = get('id', 0);
 
-            $module_id = $ids[0];
-            $api_id    = $ids[1];
-
-            $module_id && $module = db('module')->find($module_id);
-            $api_id && $api    = db('api')->find($api_id);
+            $module = _uri('module', $module_id);
 
             $this->assign('module', $module);
-            $this->assign('api', $api);
 
             $this->display('api/add');
 
@@ -108,7 +117,7 @@ class api extends auth {
     }
 
     /** 
-     * 删除模块
+     * 删除接口
      */
     public function delete(){
 
@@ -116,12 +125,9 @@ class api extends auth {
         $password = request::post('password', '');
         $password = md5(encrypt($password));
 
+        if(!_uri('api', $id)){
 
-        $module   = db('module')->find($id);
-
-        if(!$module){
-
-            response::ajax(['code' => 301, 'msg' => '请选择要删除的模块!']);
+            response::ajax(['code' => 301, 'msg' => '请选择要删除的接口!']);
 
         }
 
@@ -133,7 +139,7 @@ class api extends auth {
 
         }
 
-        $result = db('module')->show(false)->delete($id);
+        $result = db('api')->show(false)->delete($id);
 
         if($result){
 
@@ -147,57 +153,88 @@ class api extends auth {
 
     }
 
+    /**
+     * 编辑接口
+     */
+    public function edit()
+    {
 
-    public function quit(){
+        $api_id = request::post('id', 0);
 
-        $id = request::post('id', 0);
+        // 判断接口是否存在
+        $api = _uri('api', $api_id);
 
-        $project  = db('project')->find($id);
+        if(!$api){
 
-        if(!$project){
-
-            response::ajax(['code' => 301, 'msg' => '请选择要退出的项目!']);
-
-        }
-
-        $result = db('project_user')->show(false)->where('project_id', '=', $id)->where('user_id', '=', $this->user_id)->delete();
-
-        if($result){
-
-            response::ajax(['code' => 200, 'msg' => '退出成功!']);
-
-        }else{
-
-            response::ajax(['code' => 403, 'msg' => '退出失败!']);
+            $this->error('抱歉，该接口不存在');
 
         }
+
+        $project_id = _uri('module', $api['module_id'], 'project_id');
+
+        $modules = db('module')->where('project_id', '=', $project_id)->findAll();
+
+        // 获取请求参数列表
+        $request_fields = db('field')->where('api_id', '=', $api_id)->where('method', '=', 1)->findAll();
+
+        // 获取响应参数列表
+        $response_fields = db('field')->where('api_id', '=', $api_id)->where('method', '=', 2)->findAll();
+
+        $this->assign('api', $api);
+        $this->assign('modules', $modules);
+        $this->assign('request_fields', $request_fields);
+        $this->assign('response_fields', $response_fields);
+
+        $this->display('api/edit');
+
     }
 
     /**
-     * 项目详情
+     * 接口详情
      * @param $id
      * @param $arguments
      */
     public function __call($id, $arguments)
     {
 
-        $project = db('project')->find($id);
+        $api_id = (int)$id;
 
-        // 判断项目是否存在
-        if(!$project){
+        $api = _uri('api', $api_id);
 
-            response::redirect('project');
+        // 判断接口是否存在
+        if(!$api){
+
+            $this->error('抱歉，该接口不存在');
 
         }
 
-        // 获取项目成员
-        $users = db('project_user')->where('project_id', '=', $id)->findAll();
+        $api['module'] = _uri('module', $api['module_id']);
 
-        $this->assign('project', $project);
-        $this->assign('users', $users);
+        $project_id = _uri('module', $api['module_id'], 'project_id');
 
-        $this->display('project/index');
+        $auth = \app\user::get_user_auth($project_id);
+
+        if($auth == 1 || $auth == 5){
+
+            $this->error('抱歉，您无权查看该接口');
+
+        }
+
+        // 获取项目模块
+        $modules = db('module')->where('project_id', '=', $project_id)->findAll();
+
+        // 获取请求参数列表
+        $request_fields = db('field')->where('api_id', '=', $api_id)->where('method', '=', 1)->findAll();
+
+        // 获取响应参数列表
+        $response_fields = db('field')->where('api_id', '=', $api_id)->where('method', '=', 2)->findAll();
+
+        $this->assign('api', $api);
+        $this->assign('modules', $modules);
+        $this->assign('request_fields', $request_fields);
+        $this->assign('response_fields', $response_fields);
+
+        $this->display('api/detail');
 
     }
-
 }

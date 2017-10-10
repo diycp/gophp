@@ -30,7 +30,7 @@ class register extends controller {
 
             if($captcha['code'] != 200){
 
-                return response::ajax(['code' => 402, 'msg' => '验证码不存在或者已失效!']);
+                return response::ajax(['code' => 402, 'msg' => '验证码错误或已失效!']);
 
             }
 

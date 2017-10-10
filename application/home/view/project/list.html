@@ -62,7 +62,7 @@
                                     <td >{{$project.title}}</td>
                                     <td >{{$project.intro}}</td>
                                     <td >{{_uri('user', $user_id, 'name')}}/{{_uri('user', $user_id, 'email')}}</td>
-                                    <td >{{\app\home\model\project::get_member_num($project_id)}}</td>
+                                    <td >{{\app\project::get_member_num($project_id)}}</td>
                                     <td >{{$project.add_time}}</td>
                                     <td >
 

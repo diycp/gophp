@@ -19,28 +19,6 @@
                 <i class="fa fa fa-random fa-fw"></i> 切换项目
             </a>
         </li>
-        {{if $project}}
-        <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="fa fa-tags fa-fw"></i> {{$project['version']['name']}} <i class="fa fa-caret-down"></i>
-            </a>
-            <ul class="dropdown-menu dropdown-user">
-
-                {{foreach $versions as $version}}
-
-                <li {{if $version['id'] == $project['version']['id']}}class="active"{{/if}}><a href="{{url("project/{{$project.id}}-{{$version.id}}")}}">V{{$version.name}}<i data-toggle="modal" data-target="#js_addVersionModal" class="fa fa-pencil fa-fw pull-right"></i>    <i data-toggle="modal" data-target="#js_deleteVersionModal" class="fa fa-trash-o fa-fw pull-right"></i> </a>
-                </li>
-                {{/foreach}}
-
-                <li class="divider"></li>
-
-                <li><a href="#" data-toggle="modal" data-target="#js_addVersionModal" class="text-center">添加版本</a>
-                </li>
-
-            </ul>
-            <!-- /.dropdown-user -->
-        </li>
-        {{/if}}
 
         <!-- /.dropdown -->
         <li class="dropdown">

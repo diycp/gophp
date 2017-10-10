@@ -52,7 +52,7 @@ class view extends contract
 
         $method = __FUNCTION__;
 
-        return $this->handler()->$method($viewName);
+         return $this->handler()->$method($viewName);
 
     }
 

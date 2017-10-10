@@ -73,22 +73,22 @@
 
     <!-- /#wrapper -->
 
-    <script type="text/javascript">
-        var time = $("#jumpTime").text();
-        var url  = "{{$message.url}}";
-        if(!url){
-            url = "javascript:history.back()";
-        }
-        var jumpInterval = setInterval(function(){
-            time--;
-            if (time < 1) time = 1;
-            $("#jumpTime").text(time);
-            if (time == 1) {
-                clearInterval(jumpInterval);
-                window.location.href = url;
+        <script type="text/javascript">
+            var time = $("#jumpTime").text();
+            var url  = "{{$message.url}}";
+            if(!url){
+                url = "javascript:history.back()";
             }
-        }, 1000);
-    </script>
+            var jumpInterval = setInterval(function(){
+                time--;
+                if (time < 1) time = 1;
+                $("#jumpTime").text(time);
+                if (time == 1) {
+                    clearInterval(jumpInterval);
+                    window.location.href = url;
+                }
+            }, 1000);
+        </script>
 
 
     {{include_file name='public/footer'}}

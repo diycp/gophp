@@ -274,5 +274,26 @@ class db extends contract
 
     }
 
+    public function beginTransaction(){
+
+        $method = __FUNCTION__;
+
+        return $this->handler->$method();
+    }
+
+    public function commit(){
+
+        $method = __FUNCTION__;
+
+        return $this->handler->$method();
+    }
+
+    public function rollBack(){
+
+        $method = __FUNCTION__;
+
+        return $this->handler->$method();
+    }
+
 
 }

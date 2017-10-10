@@ -69,10 +69,6 @@ class smarty extends contract
 
             $this->view->display($viewFile);
 
-        }else{
-
-            throw new exception( 'Template file '. $viewFile . ' not exist');
-
         }
 
     }

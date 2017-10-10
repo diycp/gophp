@@ -927,4 +927,21 @@ class mysql extends contract
 
     }
 
+    public function beginTransaction(){
+
+        $this->db->beginTransaction();
+
+    }
+
+    public function commit(){
+
+        $this->db->commit();
+    }
+
+    public function rollBack(){
+
+        $this->rollBack();
+
+    }
+
 }

@@ -4,7 +4,7 @@ namespace app\home\controller;
 
 use gophp\request;
 use gophp\response;
-use app\home\model\user;
+use app\user;
 
 class project extends auth {
 
@@ -44,62 +44,51 @@ class project extends auth {
 
         if(request::isAjax()){
 
-            $id    = request::post('id', 0);
-            $title = request::post('title', '');
-            $version = request::post('version', '');
-            $intro = request::post('intro', '');
-            $allow_search = request::post('allow_search', 1);
+            $project  = request::post('project', []);
+
             $user_ids = request::post('user_ids', '');
 
-            if($title){
+            $project_id = $project['id'] ? $project['id'] : 0;
 
-                $data['title'] = $title;
-
-            }else{
+            if(!$project['title']){
 
                 response::ajax(['code' => 301, 'msg' => '项目标题不能为空']);
 
             }
 
-            $project = db('project')->show(false)->where('title', '=', $title)->where('id', 'not in', [$id])->find();
+            $result = db('project')->show(false)->where('title', '=', $project['title'])->where('id', 'not in', [$project_id])->find();
 
-            if($project){
+            if($result){
 
                 response::ajax(['code' => 304, 'msg' => '该项目名称已存在']);
 
             }
 
-            if($intro){
-
-                $data['intro'] = $intro;
-
-            }else{
+            if(!$project['intro']){
 
                 response::ajax(['code' => 302, 'msg' => '项目简介不能为空']);
 
             }
 
-            $data['allow_search'] = $allow_search;
-            $data['user_id']      = $this->user_id;
-            $data['add_time']     = date('Y-m-d H:i:s');
-
-            $project  = db('project')->find($id);
+            $project['user_id']  = $this->user_id;
+            $project['add_time'] = date('Y-m-d H:i:s');
 
             $user_ids = array_filter(explode(',',$user_ids));
 
-            if($project){
+            if(_uri('project', $project_id)){
+
                 // 更新操作
-                $result = db('project')->where('id', '=', $id)->update($data);
+                $result = db('project')->where('id', '=', $project['id'])->update($project);
 
                 if($result !== false){
 
-                    $member  = db('member')->where('project_id', '=', $id)->delete();
+                    $member  = db('member')->where('project_id', '=', $project_id)->delete();
 
                     if($member !== false){
 
                         foreach ($user_ids as $user_id){
 
-                            db('member')->add(['user_id' => $user_id, 'project_id' => $id, 'add_time' => date('Y-m-d H:i:s')]);
+                            db('member')->add(['user_id' => $user_id, 'project_id' => $project_id, 'add_time' => date('Y-m-d H:i:s')]);
 
                         }
 
@@ -107,23 +96,23 @@ class project extends auth {
 
                     response::ajax(['code' => 200, 'msg' => '项目更新成功']);
 
+                }else{
+
+                    response::ajax(['code' => 303, 'msg' => '项目更新事失败']);
+
                 }
 
             }else{
                 // 添加操作
-                $result = db('project')->add($data);
+                $project_id = \app\project::add($project);
 
-                if($result){
-
-                    $project_id = $result;
+                if($project_id){
 
                     foreach ($user_ids as $user_id){
 
                         db('member')->add(['user_id' => $user_id, 'project_id' => $project_id, 'add_time' => date('Y-m-d H:i:s')]);
 
                     }
-
-                    db('version')->add(['project_id' => $project_id, 'name' => $version, 'user_id' => $user_id]);
 
                     response::ajax(['code' => 200, 'msg' => '项目添加成功']);
 
@@ -132,18 +121,14 @@ class project extends auth {
 
         }else{
 
-            $id = get('id', 0);
+            $project_id = get('id', 0);
 
-            $project = db('project')->find($id);
+            $project = _uri('project', $project_id);
 
             // 获取项目成员
-            $members = db('member')->show(false)->where('project_id', '=', $id)->findAll();
-
-            // 获取初始版本号
-            $version = db('version')->show(false)->where('project_id', '=', $id)->orderBy('id asc')->find();
+            $members = db('member')->show(false)->where('project_id', '=', $project_id)->findAll();
 
             $this->assign('project', $project);
-            $this->assign('version', $version);
             $this->assign('members', $members);
 
             $this->display('project/add');
@@ -329,8 +314,7 @@ class project extends auth {
 
         $ids = explode('-', $id);
 
-        $project_id = $ids[0];
-        $version_id = $ids[1];
+        $project_id = (int)$ids[0];
 
         $project = db('project')->find($project_id);
 
@@ -341,31 +325,16 @@ class project extends auth {
 
         }
 
-        // 判断版本是否存在
-        $version = db('version')->find($version_id);
-
-        if(!$version){
-
-            $this->error('抱歉，该版本不存在');
-
-        }else{
-
-            $project['version'] = $version;
-
-        }
-
-        $auth = user::get_auth($project_id);
+        $auth = user::get_user_auth($project_id);
 
         if($auth == 1 || $auth == 5){
 
             $this->error('抱歉，您无权查看该项目');
+
         }
 
         // 获取项目成员
         $members = db('member')->where('project_id', '=', $project_id)->findAll();
-
-        // 获取项目版本
-        $versions = db('version')->where('project_id', '=', $project_id)->orderBy('name desc,id desc')->findAll();
 
         // 获取项目模块
         $modules = db('module')->where('project_id', '=', $project_id)->findAll();
@@ -377,7 +346,6 @@ class project extends auth {
         $this->assign('members', $members);
         $this->assign('modules', $modules);
         $this->assign('envs', $envs);
-        $this->assign('versions', $versions);
 
         $this->display('project/detail');
 

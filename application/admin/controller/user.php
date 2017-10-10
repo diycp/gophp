@@ -8,7 +8,7 @@ class user extends controller {
 
     public function index(){
 
-        $users = db('user')->findAll();
+        $users = \app\user::get_user_list();
 
         $this->assign('users', $users);
 

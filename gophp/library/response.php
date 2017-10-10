@@ -214,6 +214,8 @@ class response
 
         $view->display($viewFile);
 
+        exit;
+
     }
 
     // ajax输出

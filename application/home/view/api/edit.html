@@ -1,0 +1,277 @@
+
+<form role="form" id="js_addApiForm" action="{{url('api/add')}}" method="post">
+    {{$api_id = $api.id}}
+    <input name="api[id]" type="hidden" value="{{$api_id}}">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="page-header">
+                <h1>编辑接口 </h1>
+                <div class="opt-btn">
+                    <a class="btn btn-success js_submit" href="javascript:void(0);">保存</a>
+                    <a class="btn btn-danger" href="{{url("api/$api_id")}}">取消</a>
+
+                </div>
+            </div>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    接口详情
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+
+                                <div class="form-group">
+                                    <label>接口名称</label>
+                                    <input class="form-control" name="api[title]" value="{{$api.title}}" placeholder="必填" datatype="*2-250" nullmsg="请输入网站名称！" errormsg="至少2个字符">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>所属分类</label>
+                                    <select class="form-control" name="api[module_id]">
+                                        {{foreach $modules as $module}}
+                                        <option value="{{$module.id}}" {{if $module.id == $api.module_id}}selected{{/if}}>{{$module.title}}</option>
+                                        {{/foreach}}
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label">请求类型</label>
+                                    <div class="form-group">
+                                        {{foreach \app\api::get_method_list() as $k => $method}}
+                                        <label class="radio-inline">
+                                            <input type="radio" name="api[method]" value="{{$k}}" {{if $k == $api.method}}checked{{/if}}> {{$method}}
+                                        </label>
+                                        {{/foreach}}
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>请求路径</label>
+                                    <input class="form-control" name="api[uri]" value="{{$api.uri}}" placeholder="必填" datatype="*">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>接口描述</label>
+                                    <textarea class="form-control" name="api[intro]" rows="2">{{$api.intro}}</textarea>
+                                </div>
+
+                        </div>
+                        <!-- /.col-lg-6 (nested) -->
+
+                        <!-- /.col-lg-6 (nested) -->
+                    </div>
+
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+
+    <!-- /.row -->
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    请求参数
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="table-responsive">
+
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                            <tr class="success">
+
+                                <th>字段别名</th>
+                                <th>字段含义</th>
+                                <th>字段类型</th>
+                                <th>是否必填</th>
+                                <th>备注说明</th>
+                                <th>快捷操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {{foreach $request_fields as $request_field}}
+                            <tr>
+                                <td>{{$request_field.name}}</td>
+                                <td>{{$request_field.title}}</td>
+                                <td>{{\app\field::get_type_list({{$request_field.type}})}}</td>
+                                <td>{{if $request_field.is_required}}是{{else}}否{{/if}}</td>
+                                <td>{{$request_field.intro}}</td>
+                                <td>
+                                    <a href="javascript:void(0);" class="fa fa-pencil cate-btn js_field_edit" title="编辑参数" data-url="/field/add/id/3040/api_id/241/param_type/1"></a>
+                                    <a href="javascript:void(0);" class="fa fa-trash-o cate-btn js_field_delete" title="删除参数" data-id="3040"></a>
+                                </td>
+                            </tr>
+                            {{/foreach}}
+                            </tbody>
+                        </table>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-default js_addRequestFieldBtn" data-id="{{$api.id}}">添加参数</button>
+                        </div>
+                    </div>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-6 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    返回参数
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                            <tr class="success">
+                                <th>字段别名</th>
+                                <th>字段含义</th>
+                                <th>字段类型</th>
+                                <th>备注说明</th>
+                                <th>快捷操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {{foreach $response_fields as $response_field}}
+                            <tr>
+
+                                <td>{{$response_field.name}}</td>
+                                <td>{{$response_field.title}}</td>
+                                <td>{{\app\field::get_type_list({{$request_field.type}})}}</td>
+
+                                <td>{{$response_field.intro}}</td>
+
+                                <td>
+                                    <a href="javascript:void(0);" class="fa fa-pencil cate-btn js_field_edit" title="编辑参数" data-url="/field/add/id/3046/api_id/241/param_type/2/parent_id/0"></a>
+
+                                    <a href="javascript:void(0);" class="fa fa-plus cate-btn js_field_add hidden" data-url="/field/add/parent_id/3046/api_id/241/param_type/2"></a>
+
+                                    <a href="javascript:void(0);" class="fa fa-trash-o cate-btn js_field_delete" data-id="3046"></a>
+                                </td>
+
+                            </tr>
+                            {{/foreach}}
+
+                            </tbody>
+                        </table>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-default js_addResponseFieldBtn" data-id="{{$api.id}}">添加参数</button>
+                        </div>
+                    </div>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-6 -->
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    返回示例
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <textarea class="form-control" name="api[demo]" rows="3">{{$api.demo}}</textarea>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-6 -->
+    </div>
+</form>
+
+<!-- 添加/编辑请求字段模态框 -->
+<div class="modal fade" id="js_addRequestFieldModal" role="dialog">
+    <div class="modal-dialog" role="document">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">添加请求参数</h4>
+            </div>
+            <div class="modal-body">
+
+                <iframe id="js_addRequestFieldIframe" style="min-height: 380px;" src="{{url('field/request')}}"></iframe>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary js_submit">提交</button>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<!-- 添加/编辑响应字段模态框 -->
+<div class="modal fade" id="js_addResponseFieldModal" role="dialog">
+    <div class="modal-dialog" role="document">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">添加响应参数</h4>
+            </div>
+            <div class="modal-body">
+
+                <iframe id="js_addResponseFieldIframe" style="min-height: 320px;" src="{{url('field/response')}}"></iframe>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary js_submit">提交</button>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    $(function(){
+        //表单合法性验证
+        $("#js_addApiForm").validateForm();
+
+        // 添加/编辑请求字段
+        $(".js_addRequestFieldBtn").iframeModal({
+            modalItem: '#js_addRequestFieldModal', //modal元素
+            iframeItem: '#js_addRequestFieldIframe', //提交按钮
+            submitBtn: '.js_submit'
+        });
+
+        // 添加/编辑响应字段
+        $(".js_addResponseFieldBtn").iframeModal({
+            modalItem: '#js_addResponseFieldModal', //modal元素
+            iframeItem: '#js_addResponseFieldIframe', //提交按钮
+            submitBtn: '.js_submit'
+        });
+
+    });
+
+</script>

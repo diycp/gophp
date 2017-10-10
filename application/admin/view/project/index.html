@@ -58,10 +58,10 @@
                                 {{$project_id = $project.id}}
                                 {{$user_id = $project.user_id}}
                                 <tr>
-                                    <td ><a href="{{url("project/$project_id")}}">{{$project.title}}</a></td>
-                                    <td >{{$project.intro}}</td>
+                                    <td ><a href="{{url("project/$project_id")}}" title="{{$project.title}}">{{$project.title|truncate:100}}</a></td>
+                                    <td >{{$project.intro|truncate:30}}</td>
                                     <td >{{_uri('user', $user_id, 'name')}}/{{_uri('user', $user_id, 'email')}}</td>
-                                    <td ><a href="{{url("project/$project_id")}}">{{\app\home\model\project::get_member_num($project_id)}}</a></td>
+                                    <td ><a href="{{url("project/$project_id")}}">{{\app\project::get_member_num($project_id)}}</a></td>
                                     <td >{{$project.add_time}}</td>
                                     <td >
 

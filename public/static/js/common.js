@@ -57,6 +57,8 @@ function alert(msg, time, callback) {
             d.close().remove();
         }, time);
     }
+
+    return false;
 }
 
 /**
@@ -76,6 +78,7 @@ function confirm(msg, ok) {
         cancel: function () {}
     });
     d.show();
+    return false;
 
 }
 
