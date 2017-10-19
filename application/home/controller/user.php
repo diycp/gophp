@@ -2,6 +2,7 @@
 
 namespace app\home\controller;
 
+use app\member;
 use gophp\crypt;
 use gophp\db;
 use gophp\request;

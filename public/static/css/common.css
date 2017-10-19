@@ -8,6 +8,8 @@ body {
     background-color: #f8f8f8;
 }
 
+.ime-disabled{ime-mode:disabled;}/* 屏蔽输入法 */
+
 #wrapper {
     width: 100%;
 }
@@ -71,8 +73,12 @@ body {
 .navbar-top-links .dropdown-messages,
 .navbar-top-links .dropdown-tasks,
 .navbar-top-links .dropdown-alerts {
-    width: 310px;
+    width: 350px;
     min-width: 0;
+}
+
+.navbar-top-links .dropdown-alerts a{
+    font-size: 10px;
 }
 
 .navbar-top-links .dropdown-messages {
@@ -95,6 +101,11 @@ body {
 .sidebar .sidebar-nav.navbar-collapse {
     padding-right: 0;
     padding-left: 0;
+}
+
+.alert-link {
+    color: #337ab7;
+    margin: 5px;
 }
 
 .sidebar .sidebar-search {
@@ -225,6 +236,14 @@ body {
 .chat-panel .panel-body {
     height: 350px;
     overflow-y: scroll;
+}
+
+.pannel-project p {
+    overflow: hidden;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
 }
 
 .login-panel {

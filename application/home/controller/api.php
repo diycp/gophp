@@ -71,7 +71,7 @@ class api extends auth {
             // 检测是否填写返回示例
             if($demo = $api['demo']){
 
-                $data['demo'] = $demo;
+                $data['demo'] = str_replace(array("\r\n", "\r", "\n", ' '), "", $demo);
 
             }
 
@@ -123,7 +123,6 @@ class api extends auth {
 
         $id       = request::post('id', 0);
         $password = request::post('password', '');
-        $password = md5(encrypt($password));
 
         if(!_uri('api', $id)){
 
@@ -131,11 +130,9 @@ class api extends auth {
 
         }
 
-        $user = db('user')->where('id', '=', $this->user_id)->where('password', '=', $password)->find();
+        if(!\app\user::check_password($password)){
 
-        if(!$user){
-
-            response::ajax(['code' => 303, 'msg' => '抱歉，密码验证错误!']);
+            response::ajax(['code' => 302, 'msg' => '抱歉，密码验证失败!']);
 
         }
 
@@ -175,10 +172,10 @@ class api extends auth {
         $modules = db('module')->where('project_id', '=', $project_id)->findAll();
 
         // 获取请求参数列表
-        $request_fields = db('field')->where('api_id', '=', $api_id)->where('method', '=', 1)->findAll();
+        $request_fields = \app\field::get_field_list($api_id, 1);
 
         // 获取响应参数列表
-        $response_fields = db('field')->where('api_id', '=', $api_id)->where('method', '=', 2)->findAll();
+        $response_fields = \app\field::get_field_list($api_id, 2);
 
         $this->assign('api', $api);
         $this->assign('modules', $modules);
@@ -186,6 +183,46 @@ class api extends auth {
         $this->assign('response_fields', $response_fields);
 
         $this->display('api/edit');
+
+    }
+
+
+    public function load()
+    {
+
+        $api_id = request::post('id', 0);
+
+        $api    = _uri('api', $api_id);
+
+        // 判断接口是否存在
+        if(!$api){
+
+            $this->error('抱歉，该接口不存在');
+
+        }
+
+        $api['module'] = _uri('module', $api['module_id']);
+
+        $project_id = _uri('module', $api['module_id'], 'project_id');
+
+        $project = _uri('project', $project_id);
+
+        // 获取项目模块
+        $modules = db('module')->where('project_id', '=', $project_id)->findAll();
+
+        // 获取请求参数列表
+        $request_fields = \app\field::get_field_list($api_id, 1);
+
+        // 获取响应参数列表
+        $response_fields = \app\field::get_field_list($api_id, 2);
+
+        $this->assign('api', $api);
+        $this->assign('project', $project);
+        $this->assign('modules', $modules);
+        $this->assign('request_fields', $request_fields);
+        $this->assign('response_fields', $response_fields);
+
+        $this->display('api/load');
 
     }
 
@@ -212,24 +249,28 @@ class api extends auth {
 
         $project_id = _uri('module', $api['module_id'], 'project_id');
 
-        $auth = \app\user::get_user_auth($project_id);
+        $project = _uri('project', $project_id);
 
-        if($auth == 1 || $auth == 5){
+        if(!\app\user::has_view_auth($project_id)){
 
             $this->error('抱歉，您无权查看该接口');
 
         }
 
+        $envs    = json_decode($project['envs'], true);
+
         // 获取项目模块
         $modules = db('module')->where('project_id', '=', $project_id)->findAll();
 
         // 获取请求参数列表
-        $request_fields = db('field')->where('api_id', '=', $api_id)->where('method', '=', 1)->findAll();
+        $request_fields = \app\field::get_field_list($api_id, 1);
 
         // 获取响应参数列表
-        $response_fields = db('field')->where('api_id', '=', $api_id)->where('method', '=', 2)->findAll();
+        $response_fields = \app\field::get_field_list($api_id, 2);
 
         $this->assign('api', $api);
+        $this->assign('project', $project);
+        $this->assign('envs', $envs);
         $this->assign('modules', $modules);
         $this->assign('request_fields', $request_fields);
         $this->assign('response_fields', $response_fields);

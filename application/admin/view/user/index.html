@@ -96,27 +96,7 @@
                 <!-- /.panel -->
             </div>
             <div class="col-sm-12">
-                <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
-                    <ul class="pagination">
-                        <li class=""><a aria-label="Previous"><span aria-hidden="true">共2页</span></a></li>
-                        <li class="paginate_button " aria-controls="dataTables-example"  >
-                            <a href=" javascript:void(0);">首页</a>
-                        </li>
-                        <li class="paginate_button previous " aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous">
-                            <a href=" javascript:void(0);">上一页</a>
-                        </li>
-                        <li class="paginate_button active hidden-xs" >
-                            <a href="/home/project/index/p/1">1</a>
-                        </li>
-
-                        <li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next">
-                            <a href=" /home/project/index/p/2 ">下一页</a>
-                        </li>
-                        <li class="paginate_button " aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next">
-                            <a href=" /home/project/index/p/2 ">末页</a>
-                        </li>
-                    </ul>
-                </div>
+                {{include_file name='public/page'}}
             </div>
 
             <!-- /.col-lg-6 -->
@@ -125,6 +105,8 @@
 
     </div>
     <!-- /#wrapper -->
+    <hr>
+    <p class="text-center">{{get_config('copyright')}}</p>
     <script>
         //重置密码
         $(".js_resetPasswordBtn").click(function(event){

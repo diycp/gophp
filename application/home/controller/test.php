@@ -2,23 +2,25 @@
 
 namespace app\home\controller;
 
-use gophp\config;
-use gophp\mysql;
+use app\category;
+use app\notify;
+use app\tree;
+
 
 class test {
 
+    /**
+     * 添加/编辑字段
+     */
     public function index(){
 
-        $config = config::get('db')['mysql'];
 
-        $mysql = new mysql($config);
+        $list = is_default_password();
 
-        $a = $mysql->table('user')->show(true)->where('id', '>', 0)->logic_start()->where('name','like', 'lll', 'or')->where('email','like', 'demo')->where('add_time', '>', 'kkk')->logic_end()->find();
-
-        dump($a);
-
-
+        dump($list);
 
     }
+
+
 
 }

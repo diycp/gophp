@@ -102,3 +102,60 @@ if(!function_exists('get_dir_chmod')) {
 
     }
 }
+
+function pass_time($time)
+{
+    $now        = time();
+    $time_past  = $now - strtotime($time);
+
+    // 如果小于1分钟（60s），则显示"刚刚"
+    if ($time_past < 60) {
+        return '刚刚';
+    }
+
+    $time_mapping = array(
+        '分钟' => '60',
+        '小时' => '24',
+        '天'   => '7',
+        '周'   => '4',
+        '月'   => '12',
+        '年'   => '100'
+    );
+
+    $time_past = floor($time_past / 60);
+
+    foreach($time_mapping as $k=>$v) {
+        if ($time_past < $v) {
+            return floor($time_past).$k.'前';
+        }
+        $time_past = $time_past / $v;
+    }
+
+    // 如果小于1小时（60*60s），则显示N分钟前
+    // 如果小于24个小时（60*60*24s），则显示N小时前
+    // 如果大于24个小时（60*60*24s），则显示N天前
+}
+
+function get_config($field)
+{
+    return \app\config::get_config_value($field);
+}
+
+function is_default_password()
+{
+
+    $user = \app\user::get_user_info();
+
+    $default_password = md5(encrypt(\app\config::get_config_value('default_password')));
+
+    if($default_password == $user['password']){
+
+        return true;
+
+    }else{
+
+        return false;
+
+    }
+
+}

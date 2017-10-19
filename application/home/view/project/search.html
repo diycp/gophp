@@ -46,7 +46,7 @@
                                 <tr>
                                     <th>项目名称</th>
                                     <th>项目简介</th>
-                                    <th>创建人/创建人账号</th>
+                                    <th>创建人/账号</th>
                                     <th>成员数</th>
                                     <th>创建时间</th>
 
@@ -59,17 +59,20 @@
                                 {{$project_id = $project.id}}
                                 {{$user_id = $project.user_id}}
                                 <tr>
-                                    <td >{{$project.title}}</td>
-                                    <td >{{$project.intro}}</td>
-                                    <td >{{_uri('user', $user_id, 'name')}}/{{_uri('user', $user_id, 'email')}}</td>
+                                    <td >{{$project.title|truncate:10}}</td>
+                                    <td >{{$project.intro|truncate:30}}</td>
+                                    <td >{{_uri('user', $user_id, 'name')}}<br>{{_uri('user', $user_id, 'email')}}</td>
                                     <td >{{\app\project::get_member_num($project_id)}}</td>
                                     <td >{{$project.add_time}}</td>
                                     <td >
 
-                                        <button type="button" class="btn btn-warning btn-xs js_quitProjectBtn" data-project_id="{{$project.id}}">转让项目</button>
-
-                                        <button type="button" class="btn btn-success btn-xs js_quitProjectBtn" data-project_id="{{$project.id}}">加入项目</button>
-
+                                        {{if \app\user::is_creater($project_id)}}
+                                        <a class="btn btn-info btn-xs disabled">创建者</a>
+                                        {{else if \app\user::is_joiner($project_id)}}
+                                        <a class="btn btn-warning btn-xs disabled">参与者</a>
+                                        {{else}}
+                                        <a class="btn btn-success btn-xs hidden-xs js_addProjectBtn" data-project_id="{{$project.id}}">加入项目</a>
+                                        {{/if}}
 
                                     </td>
                                 </tr>
@@ -86,27 +89,7 @@
                 <!-- /.panel -->
             </div>
             <div class="col-sm-12">
-                <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
-                    <ul class="pagination">
-                        <li class=""><a aria-label="Previous"><span aria-hidden="true">共2页</span></a></li>
-                        <li class="paginate_button " aria-controls="dataTables-example"  >
-                            <a href=" javascript:void(0);">首页</a>
-                        </li>
-                        <li class="paginate_button previous " aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous">
-                            <a href=" javascript:void(0);">上一页</a>
-                        </li>
-                        <li class="paginate_button active hidden-xs" >
-                            <a href="/home/project/index/p/1">1</a>
-                        </li>
-
-                        <li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next">
-                            <a href=" /home/project/index/p/2 ">下一页</a>
-                        </li>
-                        <li class="paginate_button " aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next">
-                            <a href=" /home/project/index/p/2 ">末页</a>
-                        </li>
-                    </ul>
-                </div>
+                {{include_file name='public/page'}}
             </div>
 
             <!-- /.col-lg-6 -->
@@ -115,6 +98,28 @@
 
     </div>
     <!-- /#wrapper -->
+    <script>
+        $(function () {
+            $(".js_addProjectBtn").click(function () {
+                var thisObi = $(this);
+                var url = "{{url('project/apply')}}";
+                var projectId = thisObi.data('project_id');
 
+                $.post(url, { project_id:projectId }, function(json){
+                    if(json.code == 200 || json.code == 304){
+
+                        thisObi.attr("disabled", "disabled").text('审核中');
+
+                    }else{
+
+                        thisObi.text('重新提交').removeAttr("disabled");
+                    }
+
+                    alert(json.msg, 2000);
+
+                }, 'json');
+            });
+        });
+    </script>
 
     {{include_file name='public/footer'}}

@@ -3,13 +3,19 @@
 namespace app\admin\controller;
 
 use gophp\controller;
+use gophp\page;
 
 class user extends controller {
 
     public function index(){
 
-        $users = \app\user::get_user_list();
+        $totalRows = db('user')->count();
 
+        $page      = new page($totalRows, 10);
+
+        $users     = db('user')->show(false)->page($page)->orderBy('id desc')->findAll();
+
+        $this->assign('page', $page);
         $this->assign('users', $users);
 
         $this->display('user/index');

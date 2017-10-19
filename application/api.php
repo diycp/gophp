@@ -32,6 +32,7 @@ class api {
         $method[1] = 'GET';
         $method[2] = 'POST';
         $method[3] = 'GET/POST';
+        $method[4] = 'PUT';
 
         return $method_id ? $method[$method_id] : $method;
 

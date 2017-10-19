@@ -63,10 +63,19 @@ class field extends auth {
 
             }
 
-            // 检测字段名称是否已存在
-            $result = db('field')->show(false)->where('api_id', '=', $api_id)->where('name', '=', $name)->where('id', 'not in', [$field_id])->find();
+            // 检测是否填写参数方法
+            if($method = $field['method']){
 
-            if($result){
+                $data['method'] = $method;
+
+            }else{
+
+                response::ajax(['code' => 304, 'msg' => '参数方法不能为空']);
+
+            }
+
+            // 检测字段名称是否已存在
+            if(\app\field::check_name(['api_id' => $api_id, 'name' => $name, 'method' => $method], $field_id)){
 
                 response::ajax(['code' => 304, 'msg' => '该参数名称已存在']);
 
@@ -79,14 +88,25 @@ class field extends auth {
 
             }
 
-            $data['is_required'] = $field['is_required'];
+            if($field['method'] == 1){
+
+                $data['default_value'] = isset($field['default_value']) ? $field['default_value'] : '';
+
+            }elseif($field['method'] == 2){
+
+                $data['default_value'] = \app\field::get_random_value($type, $title);
+
+            }
+
             $data['method']    = $field['method'];
+            $data['is_required'] = $field['is_required'];
+            $data['parent_id'] = $field['parent_id'];
             $data['user_id']   = $this->user_id;
             $data['add_time']  = date('Y-m-d H:i:s');
 
             if(\app\field::find($field_id)){
                 // 更新操作
-                $result = db('field')->where('id', '=', $field_id)->update($data);
+                $result = db('field')->show(false)->where('id', '=', $field_id)->update($data);
 
                 if($result !== false){
 
@@ -109,30 +129,98 @@ class field extends auth {
 
     }
 
+    // 添加请求参数页面
     public function request()
     {
 
-        $api_id  = request::get('id', 0);
+        $ids = request::get('id', '');
 
-        $api = _uri('api', $api_id);
+        list($api_id, $field_id) = explode('-', $ids);
 
-        $this->assign('api', $api);
+        $field = _uri('field', $field_id);
 
-        $this->display('field/request');
+        $field['api_id'] = $api_id;
+        $field['id']     = $field_id;
+
+        $this->assign('field', $field);
+
+        $this->display('field/request/add');
 
     }
 
+    // 添加响应参数页面
     public function response()
     {
 
-        $api_id  = request::get('id', 0);
+        $ids = request::get('id', '');
 
-        $api = _uri('api', $api_id);
+        list($api_id, $parent_id, $field_id) = explode('-', $ids);
+
+        $field = _uri('field', $field_id);
+
+        $field['api_id'] = $api_id;
+        $field['parent_id'] = $parent_id;
+        $field['id']     = $field_id;
+
+        $this->assign('field', $field);
+
+        $this->display('field/response/add');
+    }
+
+    // ajax载入参数列表
+    public function load()
+    {
+
+        $method = request::post('method', 0);
+        $api_id = request::post('api_id', 0);
+
+        $fields = \app\field::get_field_list($api_id, $method);
+
+        $api    = _uri('api', $api_id);
 
         $this->assign('api', $api);
 
-        $this->display('field/response');
+        if($method == 1){
+
+            $this->assign('request_fields', $fields);
+            $this->display('field/request/load');
+
+        }elseif($method == 2){
+
+            $this->assign('response_fields', $fields);
+            $this->display('field/response/load');
+
+        }
+
     }
 
+    /**
+     * 删除参数
+     */
+    public function delete(){
+
+        $id = request::post('id', 0);
+
+        $field = _uri('field', $id);
+
+        if(!$field){
+
+            response::ajax(['code' => 301, 'msg' => '请选择要删除的参数!']);
+
+        }
+
+        $result = db('field')->show(false)->delete($id);
+
+        if($result){
+
+            response::ajax(['code' => 200, 'msg' => '删除成功!']);
+
+        }else{
+
+            response::ajax(['code' => 403, 'msg' => '删除失败!']);
+
+        }
+
+    }
 
 }

@@ -17,7 +17,7 @@ class step4 extends auth {
 
         }
 
-        $_sql = file_get_contents(APP_PATH.'/install/static/db.sql');
+        $_sql = file_get_contents(APP_PATH.'/install/cache/db.sql');
         $_arr = array_filter(explode(';', $_sql));
 
         $db   = db::instance();
@@ -53,7 +53,7 @@ class step4 extends auth {
         if($admin_id){
             session('user_id', $admin_id, 24*3600);
             // 创建安装锁文件
-            file::create(APP_PATH.'/install/static/install.lock');
+            file::create(APP_PATH.'/install/cache/install.lock');
         }
 
         session('step', 4);

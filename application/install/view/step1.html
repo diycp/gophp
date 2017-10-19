@@ -196,15 +196,15 @@
                                                 </tr>
 
                                                 <tr>
-                                                    <td>application/install/static/</td>
+                                                    <td>application/install/cache/</td>
                                                     <td>{{$chmod['db']}}</td>
                                                     <td>可读,可写</td>
                                                     <td>
-                                                        {{if is_writable(APP_PATH|cat:'/install/static/')}}
+                                                        {{if is_writable(APP_PATH|cat:'/install/cache/')}}
                                                         <i class="fa fa-check"></i>
                                                         {{else}}
                                                         <i class="fa fa-times"></i>
-                                                        <input type="hidden" name="step1[install]" value="application/install/static目录必须可读可写" >
+                                                        <input type="hidden" name="step1[install]" value="application/install/cache目录必须可读可写" >
                                                         {{/if}}
                                                     </td>
                                                 </tr>

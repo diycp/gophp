@@ -4,6 +4,7 @@ namespace app\home\controller;
 
 use app\user;
 use gophp\controller;
+use gophp\page;
 use gophp\request;
 use gophp\response;
 
@@ -75,9 +76,14 @@ class login extends controller {
 
         }
 
-        $historys = db('login_log')->where('user_id', '=', $user_id)->orderBy('id desc')->findAll();
+        $totalRows = db('login_log')->where('user_id', '=', $user_id)->count();
+
+        $page      = new page($totalRows, 10);
+
+        $historys  = db('login_log')->show(false)->where('user_id', '=', $user_id)->page($page)->orderBy('id desc')->findAll();
 
         $this->assign('historys', $historys);
+        $this->assign('page', $page);
 
         $this->display('history/login');
 

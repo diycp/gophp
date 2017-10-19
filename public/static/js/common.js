@@ -69,13 +69,17 @@ function alert(msg, time, callback) {
  */
 function confirm(msg, ok) {
     var d = dialog({
+        fixed: true,
         width: '280',
         title: '温馨提示',
         content: msg,
         okValue: '确定',
         ok: ok,
         cancelValue: '取消',
-        cancel: function () {}
+        cancel: function () {
+            d.close().remove();
+            return false;
+        }
     });
     d.show();
     return false;
@@ -183,19 +187,21 @@ function confirm(msg, ok) {
             modalItem: '', //点击展示modal的元素
             iframeItem: '', //点击展示modal的元素
             submitBtn: '', //提交按钮
+            clickBtn: '', //提交按钮
         };
 
-        var config    = $.extend(defaults, options);
-
-        var thisObj   = $(this);
+        var config  = $.extend(defaults, options);
 
         var modalItem  = config.modalItem;
         var iframeItem = config.iframeItem;
         var submitBtn  = config.submitBtn;
+        var clickBtn   = config.clickBtn;
 
-        var frameSrc  = $(iframeItem).attr('src');
+        var frameSrc   = $(iframeItem).attr('src');
 
-        thisObj.click(function (event) {
+        var thisObj = $(this);
+
+        var modalShow = function (event) {
             // 阻止事件冒泡
             event.stopPropagation();
 
@@ -209,16 +215,29 @@ function confirm(msg, ok) {
 
             }
 
-            $(modalItem).find('.modal-title').text(title);
+            if(title){
+
+                $(modalItem).find('.modal-title').text(title);
+
+            }
+
             $(modalItem).find('iframe').attr('src', src);
 
             setTimeout(function () {
                 $(modalItem).modal('show');
-            }, 200);
+            }, 500);
 
-        });
+        };
 
-        $(submitBtn).click(function () {
+        if(clickBtn){
+            $(document).on('click', clickBtn, modalShow);
+        }else{
+            thisObj.on('click', modalShow);
+        }
+
+        $(document).delegate(submitBtn, 'click',function(event){
+
+            event.stopPropagation();
 
             $(iframeItem).contents().find("#js_submit").trigger('click');
 

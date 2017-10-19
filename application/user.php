@@ -101,50 +101,6 @@ class user {
     }
 
     /**
-     * 根据项目id获取当前登录用户权限
-     * @param $user_id
-     * @return mixed
-     */
-    public static function get_user_auth($project_id)
-    {
-
-        $user_id = self::get_user_id();
-
-        $user = db('user')->find($user_id);
-
-        if($user['status'] == 0){
-
-            return 1; //黑名单
-
-        }
-
-        if($user['type'] == 2){
-
-            return 2; //总管理员
-
-        }
-
-        $project = db('project')->show(false)->where('id', '=', $project_id)->where('user_id', '=', $user_id)->find();
-
-        if($project){
-
-            return 3; //项目创建者
-
-        }
-
-        $member = db('member')->where('project_id', '=', $project_id)->where('user_id', '=', $user_id)->find();
-
-        if($member){
-
-            return 4; //项目成员
-
-        }
-
-        return 5; // 注册会员
-
-    }
-
-    /**
      * 获取用户列表
      * @param array $filter
      * @return mixed
@@ -155,6 +111,137 @@ class user {
         $users = db('user')->findAll();
 
         return $users;
+    }
+
+    /**
+     * 判断当前登录用户是否是管理员
+     * @return bool
+     */
+    public static function is_admin()
+    {
+
+        $type = self::get_user_type();
+
+        if($type == 2){
+
+            return true;
+
+        }else{
+
+            return false;
+
+        }
+
+    }
+
+    /**判断当前登录用户是否是项目创建者
+     * @param $project_id
+     * @return bool
+     */
+    public static function is_creater($project_id)
+    {
+
+        $user_id = self::get_user_id();
+
+        $project = db('project')->show(false)->where('id', '=', $project_id)->where('user_id', '=', $user_id)->find();
+
+        if($project){
+
+            return true;
+
+        }else{
+
+            return false;
+
+        }
+
+    }
+
+    /**判断当前登录用户是否是项目成员
+     * @param $project_id
+     * @return bool
+     */
+    public static function is_joiner($project_id)
+    {
+
+        $user_id = self::get_user_id();
+
+        $member = db('member')->where('project_id', '=', $project_id)->where('user_id', '=', $user_id)->find();
+
+        if($member){
+
+            return true;
+
+        }else{
+
+            return false;
+
+        }
+
+    }
+
+    /**判断当前登录用户是否有可以查看项目的权限
+     * @param $project_id
+     * @return bool
+     */
+    public static function has_view_auth($project_id)
+    {
+
+        if(self::is_admin() || self::is_creater($project_id) || self::is_joiner($project_id)){
+
+            return true;
+
+        }else{
+
+            return false;
+
+        }
+
+    }
+
+    /**
+     * 验证密码是否正确
+     * @param $user_id
+     * @return mixed
+     */
+    public static function check_password($password)
+    {
+
+        if(!$password){
+
+            return false;
+
+        }
+
+        $password = md5(encrypt($password));
+
+        $user_id  = self::get_user_id();
+
+        $result   = db('user')->where('id', '=', $user_id)->where('password', '=', $password)->find();
+
+        if($result){
+
+            return true;
+
+        }else{
+
+            return false;
+
+        }
+
+    }
+
+    /**
+     * 获取当前登录用户最近登录信息
+     * @return int
+     */
+    public static function get_last_login()
+    {
+
+        $user_id = user::get_user_id();
+
+        return db('login_log')->show(false)->where('user_id', '=', $user_id)->find();
+
     }
 
 }

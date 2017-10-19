@@ -43,19 +43,21 @@
 
     $(function(){
 
+        var moduleModal = $(window.parent.document).find('#js_addModuleModal');
+
         //验证表单
         $("#js_addModuleForm").validateForm({
             submitBtn: '#js_submit',
             before:function () {
                 // iframe父级提交按钮禁用
-                $('#js_addModuleForm', parent.document).find(".js_submit").attr("disabled", "disabled").text('提交中..');
+                moduleModal.find(".js_submit").attr("disabled", "disabled").text('提交中..');
             },
             success:function () {
                 parent.location.reload();
             },
             error:function () {
                 // iframe父级提交按钮激活
-                $('#js_addModuleForm', parent.document).find(".js_submit").text('重新提交').removeAttr("disabled");
+                moduleModal.find(".js_submit").text('重新提交').removeAttr("disabled");
 
             }
         });

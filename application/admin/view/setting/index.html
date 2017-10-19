@@ -26,34 +26,26 @@
                                     <div class="form-group">
                                         <label>网站名称</label>
                                         <input class="form-control" name="config[name]" value="{{$config['name']}}" placeholder="必填" datatype="*2-250" nullmsg="请输入网站名称！" errormsg="至少2个字符">
-                                        <span class="Validform_checktip"></span>
                                     </div>
 
                                     <div class="form-group">
                                         <label>网站关键字</label>
                                         <input class="form-control" name="config[keywords]" value="{{$config['keywords']}}" placeholder="" ignore="ignore" datatype="*2-250" nullmsg="请输入网站关键字！" errormsg="至少2位">
-                                        <span class="Validform_checktip"></span>
-
                                     </div>
 
                                     <div class="form-group">
                                         <label>版权信息</label>
                                         <textarea class="form-control" name="config[copyright]" rows="2" ignore="ignore" datatype="*2-250" nullmsg="请输入版权信息！" errormsg="至少2个字符">{{$config['copyright']}}</textarea>
-                                        <span class="Validform_checktip"></span>
-
                                     </div>
 
                                     <div class="form-group">
                                         <label>系统邮箱</label>
                                         <input class="form-control" name="config[email]" value="{{$config['email']}}" placeholder="必填" datatype="e" nullmsg="请输入系统邮箱！" errormsg="请输入合法邮箱">
-                                        <span class="Validform_checktip"></span>
-
                                     </div>
 
                                     <div class="form-group">
                                         <label>重置默认密码</label>
                                         <input class="form-control" name="config[default_password]" value="{{$config['default_password']}}" placeholder="必填" value="123456" datatype="*6-20" nullmsg="请输入重置默认密码！" errormsg="至少6位">
-                                        <span class="Validform_checktip"></span>
 
                                     </div>
 
@@ -72,7 +64,6 @@
                                     <div class="form-group js_closeMsg hidden">
                                         <label>关闭时信息</label>
                                         <textarea class="form-control" name="config[close_msg]" rows="2" datatype="*2-250" ignore="ignore" nullmsg="请输入关闭时提示信息！" errormsg="至少2位">{{$config['close_msg']}}</textarea>
-                                        <span class="Validform_checktip"></span>
                                     </div>
 
                                     <button type="reset" class="btn btn-default">重置</button>
@@ -96,6 +87,8 @@
         <!-- /#page-wrapper -->
 
     </div>
+    <hr>
+    <p class="text-center">{{get_config('copyright')}}</p>
     <!-- /#wrapper -->
     <script>
 

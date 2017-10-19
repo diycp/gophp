@@ -10,7 +10,7 @@ class auth extends controller {
     public function __construct()
     {
 
-        if(file::exists(APP_PATH.'/install/static/install.lock')){
+        if(file::exists(APP_PATH.'/install/cache/install.lock')){
             exit('<stong>程序已经安装，请勿重复安装</stong>');
         }
 

@@ -58,7 +58,7 @@
                                 {{$project_id = $project.id}}
                                 {{$user_id = $project.user_id}}
                                 <tr>
-                                    <td ><a href="{{url("project/$project_id")}}" title="{{$project.title}}">{{$project.title|truncate:100}}</a></td>
+                                    <td ><a href="{{url("project/$project_id")}}" title="{{$project.title}}">{{$project.title|truncate:12}}</a></td>
                                     <td >{{$project.intro|truncate:30}}</td>
                                     <td >{{_uri('user', $user_id, 'name')}}/{{_uri('user', $user_id, 'email')}}</td>
                                     <td ><a href="{{url("project/$project_id")}}">{{\app\project::get_member_num($project_id)}}</a></td>
@@ -85,28 +85,7 @@
                 <!-- /.panel -->
             </div>
             <div class="col-sm-12">
-                <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
-                    <ul class="pagination">
-                        <li class=""><a aria-label="Previous"><span aria-hidden="true">共2页</span></a></li>
-                        <li class="paginate_button " aria-controls="dataTables-example"  >
-                            <a href=" javascript:void(0);">首页</a>
-                        </li>
-                        <li class="paginate_button previous " aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous">
-                            <a href=" javascript:void(0);">上一页</a>
-                        </li>
-
-                        <li class="paginate_button active hidden-xs" >
-                            <a href="/home/project/index/p/1">1</a>
-                        </li>
-
-                        <li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next">
-                            <a href=" /home/project/index/p/2 ">下一页</a>
-                        </li>
-                        <li class="paginate_button " aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next">
-                            <a href=" /home/project/index/p/2 ">末页</a>
-                        </li>
-                    </ul>
-                </div>
+                {{include_file name='public/page'}}
             </div>
 
             <!-- /.col-lg-6 -->
@@ -115,5 +94,6 @@
 
     </div>
     <!-- /#wrapper -->
-
+    <hr>
+    <p class="text-center">{{get_config('copyright')}}</p>
     {{include_file name='public/footer'}}
