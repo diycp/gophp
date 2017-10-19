@@ -63,6 +63,15 @@ class apply extends auth {
 
             if($result){
 
+                $notify = [
+                    'type' => '申请加入项目',
+                    'project_id' => $project_id,
+                    'to_user_id' => $project['user_id'],
+                    'message' => $project['title'],
+                ];
+
+                notify::add($notify);
+
                 response::ajax(['code' => 200, 'msg' => '您的申请已提交成功，请耐心等待项目创建者申请']);
 
             }else{
@@ -98,6 +107,14 @@ class apply extends auth {
             $project_id = $apply['project_id'];
             $user_id    = $apply['user_id'];
 
+            $project    = \app\project::get_project_info($project_id);
+
+            if(!$project){
+
+                response::ajax(['code' => 301, 'msg' => '抱歉，该项目不存在']);
+
+            }
+
             if(!user::is_creater($project_id)){
 
                 response::ajax(['code' => 302, 'msg' => '抱歉，您无权操作']);
@@ -116,6 +133,15 @@ class apply extends auth {
 
                 member::add($member);
 
+                $notify = [
+                    'type' => '同意您加入项目',
+                    'project_id' => $project_id,
+                    'to_user_id' => $user_id,
+                    'message' => $project['title'],
+                ];
+
+                notify::add($notify);
+
                 response::ajax(['code' => 200, 'msg' => '申请通过']);
 
             }else{
@@ -126,6 +152,5 @@ class apply extends auth {
         }
 
     }
-
 
 }

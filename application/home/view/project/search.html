@@ -98,11 +98,12 @@
 
     </div>
     <!-- /#wrapper -->
+
     <script>
         $(function () {
             $(".js_addProjectBtn").click(function () {
                 var thisObi = $(this);
-                var url = "{{url('project/apply')}}";
+                var url = "{{url('apply')}}";
                 var projectId = thisObi.data('project_id');
 
                 $.post(url, { project_id:projectId }, function(json){

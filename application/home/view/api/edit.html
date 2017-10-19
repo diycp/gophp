@@ -259,7 +259,7 @@
 
                         alert(json.msg, 500, function () {
                             //移除tr
-                            thisObj.parent().parent().remove();
+                            thisObj.closest('tr').remove();
                         });
 
                     }else{

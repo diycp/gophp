@@ -209,7 +209,7 @@
         $("body").on('click', '.js_deleteUser',function (event) {
             // 阻止事件冒泡
             event.stopPropagation();
-            $(this).parent('span').remove();
+            $(this).closest('span').remove();
 
             $("input[name=user_ids]").val(selectedUser());
 

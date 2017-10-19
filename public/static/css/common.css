@@ -66,8 +66,16 @@ body {
     min-height: 0;
 }
 
-.navbar-top-links .dropdown-menu li a div {
+.navbar-top-links .dropdown-menu .notify-item {
+    padding: 3px 20px;
+    min-height: 0;
+    font-size: 10px;
     white-space: normal;
+}
+
+.navbar-top-links .dropdown-menu .notify-item a{
+    padding: 0;
+    min-height: 0;
 }
 
 .navbar-top-links .dropdown-messages,

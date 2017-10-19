@@ -20,36 +20,10 @@
         </li>
 
         <!-- /.dropdown -->
-        <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="fa fa-bell fa-fw"></i>  <i class="fa fa-caret-down"></i>
-            </a>
-            {{$notifys = \app\notify::get_notify_list()}}
-            {{if $notifys}}
-            <ul class="dropdown-menu dropdown-alerts">
-                {{foreach $notifys as $notify}}
-                <li>
-                    <a href="javascript:void(0);">
-                    <div>
-                        <i class="fa fa-comment fa-fw"></i>
-                        <span class="alert-link">{{$notify.user_name}}</span>
-                        {{$notify.option_title}}
-                        <span class="alert-link">{{$notify.res_title}}</span>
-                        <span class="pull-right text-muted small">{{$notify.pass_time}}</span>
-                    </div>
-                    </a>
-                </li>
-                <li class="divider"></li>
-                {{/foreach}}
+        <li class="dropdown js_notifyDropdown">
 
-                <li>
-                    <div class="text-center">
-                        <button type="button" class="btn btn-warning js_cleanNotify">清空</button>
-                    </div>
-                </li>
-            </ul>
+            {{include_file name="apply/notify"}}
 
-            {{/if}}
             <!-- /.dropdown-alerts -->
         </li>
 
