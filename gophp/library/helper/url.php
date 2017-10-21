@@ -57,7 +57,7 @@ class url
     public static function getExtension($url)
     {
 
-        $extension = pathinfo($url, PATHINFO_EXTENSION);
+        $extension = pathinfo(self::getPath($url), PATHINFO_EXTENSION);
 
         if(strpos($extension, '?') !== false){
 

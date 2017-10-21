@@ -2,8 +2,6 @@
 
 namespace gophp\helper;
 
-use gophp\validate;
-
 class file
 {
 

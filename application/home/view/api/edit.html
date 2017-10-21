@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="page-header">
-                <h1>接口编辑 <small>支持CTR+S键快速保存</small> </h1>
+                <h1>接口编辑 {{if \app\user::is_creater()}}<small>支持Ctrl+S键快速保存</small>{{/if}} </h1>
                 <div class="opt-btn">
                     <a class="btn btn-sm btn-success js_submit" href="javascript:void(0);">保存</a>
                     <a class="btn btn-sm btn-danger" href="javascript:location.reload();">取消</a>

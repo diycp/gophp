@@ -27,8 +27,8 @@ class field {
         $data['json']   = '字符串(json)';
         $data['int']    = '整形(int)';
         $data['float']  = '浮点型(float)';
-        $data['enum']   = '枚举型(enum)';
-        $data['boolean'] = '布尔型(boolean)';
+        $data['mixed']  = '任意(mixed)';
+        $data['boolean']= '布尔型(boolean)';
         $data['array']  = '数组(array)';
         $data['object'] = '对象(object)';
         $data['null']   = '对象(null)';

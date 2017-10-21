@@ -2,30 +2,40 @@
 
 namespace app\admin\controller;
 
-use app\user;
-use gophp\controller;
 use gophp\page;
-use gophp\response;
+use gophp\request;
 
-class history extends controller {
+class history extends auth {
 
     // 登录历史
     public function login()
     {
 
-        $user_id = user::get_user_id();
+        $user_id  = request::get('user_id', 0);
 
-        if(!$user_id){
+        if($user_id){
 
-            response::redirect('login');
+            $model = db('login_log')->where('user_id', '=', $user_id);
+        }else{
+
+            $model = db('login_log');
 
         }
 
-        $totalRows = db('login_log')->where('user_id', '=', $user_id)->count();
+        $totalRows = $model->show(false)->count();
 
         $page      = new page($totalRows, 10);
 
-        $historys  = db('login_log')->show(false)->where('user_id', '=', $user_id)->page($page)->orderBy('id desc')->findAll();
+        if($user_id){
+
+            $model = db('login_log')->where('user_id', '=', $user_id);
+        }else{
+
+            $model = db('login_log');
+
+        }
+
+        $historys  = $model->page($page)->orderBy('id desc')->show(false)->findAll();
 
         $this->assign('historys', $historys);
         $this->assign('page', $page);

@@ -93,11 +93,12 @@ class user extends auth {
 
         }
 
-        //$user = db('user')->show(false)->where('name', 'like', "%$name%")->where('id', 'not in', [$member_ids])->findAll('id,name,email');
+        $db     = db::instance();
+        $suffix = $db->suffix;
 
-        $sql = "SELECT id,name,email FROM doc_user WHERE id NOT IN ($member_ids) AND (name LIKE '%{$name}%' OR email LIKE '%{$name}%')";
+        $sql  = "SELECT id,name,email FROM {$suffix}user WHERE id NOT IN ($member_ids) AND (name LIKE '%{$name}%' OR email LIKE '%{$name}%')";
 
-        $user = db()->show(false)->query($sql);
+        $user = $db->show(false)->query($sql);
 
         if(!$user){
 

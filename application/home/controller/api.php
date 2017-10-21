@@ -80,7 +80,7 @@ class api extends auth {
             $data['user_id']   = $this->user_id;
             $data['add_time']  = date('Y-m-d H:i:s');
 
-            if(\app\api::find($api_id)){
+            if(\app\api::get_api_info($api_id)){
                 // 更新操作
                 $result = db('api')->where('id', '=', $api_id)->update($data);
 
@@ -234,9 +234,8 @@ class api extends auth {
     public function __call($id, $arguments)
     {
 
-        $api_id = (int)$id;
-
-        $api = _uri('api', $api_id);
+        $api_id = id_decode($id);
+        $api    = \app\api::get_api_info($api_id);
 
         // 判断接口是否存在
         if(!$api){
@@ -245,11 +244,13 @@ class api extends auth {
 
         }
 
+        $api['decode_id'] = $id;
+
         $api['module'] = _uri('module', $api['module_id']);
 
-        $project_id = _uri('module', $api['module_id'], 'project_id');
+        $project_id    = _uri('module', $api['module_id'], 'project_id');
 
-        $project = _uri('project', $project_id);
+        $project       = _uri('project', $project_id);
 
         if(!\app\user::has_view_auth($project_id)){
 

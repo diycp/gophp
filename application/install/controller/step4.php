@@ -32,7 +32,7 @@ class step4 extends auth {
 
             }
 
-            $a = $db->query($v);
+            $db->query($v);
 
         }
 

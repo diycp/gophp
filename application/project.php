@@ -78,16 +78,6 @@ class project {
 
             if($result !== false){
 
-                $notify = array(
-                    'res_title' => $project['title'],
-                    'res_name'  => 'project',
-                    'res_id'    => $project['id'],
-                    'project_id'=> $project['id'],
-                    'res_option'=> 'update',
-                );
-
-                notify::add($notify);
-
                 return true;
 
             }else{
@@ -103,16 +93,6 @@ class project {
             $id =  db('project')->show(false)->add($data);
 
             if($id){
-
-                $notify = array(
-                    'res_title' => $data['title'],
-                    'res_name'  => 'project',
-                    'res_id'    => $id,
-                    'project_id'=> $id,
-                    'res_option'=> 'insert',
-                );
-
-                notify::add($notify);
 
                 return $id;
 
@@ -146,16 +126,6 @@ class project {
         $result = db('project')->show(false)->delete($project_id);
 
         if($result){
-
-            $notify = array(
-                'res_title' => $project['title'],
-                'res_name'  => 'project',
-                'res_id'    => $project_id,
-                'project_id'=> $project_id,
-                'res_option'=> 'delete',
-            );
-
-            notify::add($notify);
 
             return true;
 

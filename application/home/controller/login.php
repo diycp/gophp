@@ -36,7 +36,7 @@ class login extends controller {
                     'add_time'=> date('Y-m-d H:i:s'),
                     'ip'      => request::getClientIp(),
                     'address' => get_ip_address(),
-                    'method'  => get_visit_source(),
+                    'device'  => get_visit_source(),
                 ]);
 
                 session('user_id', $user['id'], 24*3600);
@@ -60,32 +60,6 @@ class login extends controller {
             $this->display('login');
 
         }
-
-    }
-
-    // 登录历史
-    public function history()
-    {
-
-        $user_id = user::get_user_id();
-
-
-        if(!$user_id){
-
-            response::redirect('login');
-
-        }
-
-        $totalRows = db('login_log')->where('user_id', '=', $user_id)->count();
-
-        $page      = new page($totalRows, 10);
-
-        $historys  = db('login_log')->show(false)->where('user_id', '=', $user_id)->page($page)->orderBy('id desc')->findAll();
-
-        $this->assign('historys', $historys);
-        $this->assign('page', $page);
-
-        $this->display('history/login');
 
     }
 

@@ -3,8 +3,13 @@
 namespace app\home\controller;
 
 use app\category;
+use app\id;
 use app\notify;
 use app\tree;
+use gophp\config;
+use gophp\db;
+use gophp\helper\url;
+use gophp\schema;
 
 
 class test {
@@ -15,9 +20,12 @@ class test {
     public function index(){
 
 
-        $list = is_default_password();
+        $url = 'http://gocmf.com/mock/lHiSJHmHVq.html?user_id=1.1';
 
-        dump($list);
+        $a = url::getExtension($url);
+
+        dump($a);
+
 
     }
 

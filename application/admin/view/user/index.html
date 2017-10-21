@@ -24,9 +24,10 @@
                             <label>注册渠道</label>
                             <select class="form-control">
                                 <option>不限</option>
-                                <option>pc</option>
-                                <option>weixin</option>
-                                <option>mobile</option>
+                                {{$devices = \app\user::get_device_list('title')}}
+                                {{foreach $devices as $k => $device}}
+                                <option value="{{$k}}">{{$device}}</option>
+                                {{/foreach}}
                             </select>
                         </div>
                         <button type="submit" class="btn btn-primary">搜索</button>
@@ -65,10 +66,11 @@
 
                                 {{foreach $users as $user}}
                                 {{$user_id = $user.id}}
+                                {{$device  = $user.device}}
                                 <tr>
                                     <td >{{$user.name}}</td>
                                     <td >{{$user.email}}</td>
-                                    <td >{{$user.method}}</td>
+                                    <td >{{\app\user::get_device_list('icon', $device)}}</td>
                                     <td ><a href="{{url("project/created")}}?user_id={{$user_id}}" data-toggle="tooltip" title="点击查看具体创建项目">{{\app\user::get_create_project_num($user_id)}}</a></td>
                                     <td ><a href="{{url("project/joined")}}?user_id={{$user_id}}" data-toggle="tooltip" title="点击查看具体参与项目">{{\app\user::get_join_project_num($user_id)}}</a></td>
 <!--                                    <td >{{$user.ip}}</td>-->

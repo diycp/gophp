@@ -4,7 +4,7 @@
         <ul class="nav" id="side-menu">
 
             <li>
-                <a href="{{url("project/{{id_encode($project.id)}}")}}"><i class="fa fa-home fa-fw"></i> 项目主页</a>
+                <a href="{{url("project/{{$project.id}}")}}"><i class="fa fa-home fa-fw"></i> 项目主页</a>
             </li>
 
             {{foreach $modules as $module}}
@@ -14,20 +14,29 @@
 
                     <span class="fa fa-fw arrow"></span>
 
-                    <span class="fa hidden-xs fa-fw fa-trash-o js_deleteModuleBtn hidden" data-id="{{$module.id}}" data-title="删除模块"></span>
-                    <span class="fa hidden-xs fa-fw fa-plus js_addApiBtn hidden" data-id="{{$module.id}}" data-title="添加接口"></span>
-                    <span class="fa hidden-xs fa-fw fa-pencil  js_addModuleBtn hidden" data-id="{{$project.id}}-{{$module.id}}" data-title="编辑模块"></span>
+                    <span class="fa hidden-xs fa-fw fa-cog js_settingModuleBtn hidden" data-id="{{$project.id}}-{{$module.id}}" data-title="编辑模块"></span>
+
+                    <div class="btn-box">
+
+                        <div class="js_addModuleBtn" data-id="{{$project.id}}-{{$module.id}}" data-title="编辑模块"><i class="fa fa-pencil "></i>编辑模块</div>
+                        <div class="js_addApiBtn" data-id="{{$module.id}}" data-title="添加接口"><i class="fa fa-plus"></i>添加接口</div>
+                        <div class="js_deleteModuleBtn" data-id="{{$module.id}}" data-title="删除模块"><i class="fa fa-trash-o"></i>删除模块</div>
+
+                    </div>
+
                 </a>
-                <ul class="nav nav-second-level collapse" id="api-menu-{{$module.id}}">
+
+                <ul class="nav nav-second-level collapse">
                     {{$apis = \app\api::get_api_list($module.id)}}
                     {{foreach $apis as $api}}
                     {{$api_id = $api.id}}
                     <li class="api-item js_apiItem" data-id="{{$api_id}}">
-                        <a href="{{url("api/{{id_encode($api_id)}}")}}" title="点击查看接口详情"><i class="fa fa-fw fa-files-o"></i>{{$api.title}}
+                        <a href="{{url("api/$api_id")}}" title="点击查看接口详情"><i class="fa fa-fw fa-files-o"></i>{{$api.title}}
                         </a>
                     </li>
                     {{/foreach}}
                 </ul>
+
                 <!-- /.nav-second-level -->
             </li>
             {{/foreach}}
@@ -142,6 +151,8 @@
         $(".js_deleteModuleBtn").click(function () {
             // 阻止事件冒泡
             event.stopPropagation();
+
+//            $(this).closest('.btn-box').hide();
             var id = $(this).data('id');
 
             if(id <= 0){
@@ -159,6 +170,16 @@
             modalItem: '#js_addApiModal', //modal元素
             iframeItem: '#js_addApiIframe', //提交按钮
             submitBtn: '.js_submit'
+        });
+
+        $(".btn-box").mouseover(function(){
+
+            $(this).show();
+
+        }).mouseout(function(){
+
+            $(this).hide();
+
         });
 
         $(".js_moduleItem").mouseover(function(){
@@ -180,6 +201,12 @@
 
             $(this).find('span').addClass('hidden');
 
+        });
+
+        $('.js_settingModuleBtn').click(function (e) {
+            e.stopPropagation();
+            $(this).closest('li').siblings('li').find('.btn-box').hide();
+            $(this).siblings('.btn-box').slideToggle();
         });
 
     });

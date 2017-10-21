@@ -1,0 +1,220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0037)http://book.ecmoban.com/images/db.htm -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title>ECSHOP 数据库结构说明 (适用版本v2.7.3)</title>
+    <meta name="Keywords" content="ecshop在线手册,提供ecshop 2.7.3最新版程序说明,数据库说明,模板结构说明,常见问题,该手册由ecshop模板堂重制">
+    <meta name="Description" content="ecshop在线手册,提供ecshop 2.7.3最新版程序说明,数据库说明,模板结构说明,常见问题,该手册由ecshop模板堂重制">
+
+    <style>
+
+        body {
+
+            color:#4f6b72;
+            padding:0;
+            margin:0;
+            background:#fff; font-size:14px;
+            line-height:150%;
+            color:#404040;
+            line-height:30px;
+        }
+
+        a,a:visited {
+            text-decoration:none;
+            color:#4f6b72;
+            border-bottom:1px dotted #CCC;
+        }
+
+        a:hover {
+            text-decoration:underline;
+        }
+
+        table {
+            border:1px solid #C1DAD7;
+            border-collapse:collapse;
+        }
+
+        th {
+            background:#d6eef0;
+            padding:5px;
+        }
+
+        td {
+            padding:3px 5px 3px 10px;
+            vertical-align:top;
+        }
+
+        dl#template_maps dt {
+            font-size:16px;
+            padding:0;
+            padding-top:55px;
+            margin:10px 0 10px 0;
+        }
+
+        dl#template_maps dd {
+            padding:0;
+            padding-bottom:20px;
+            margin:0;
+            margin-bottom:30px;
+            border-bottom:1px dashed #CCC;
+        }
+
+        .menu {
+
+            background:#eee;
+            height:38px; line-height:38px;
+            text-align:right;
+
+            padding:0 10px;
+        }
+
+        .menu h3 {
+            float:left;
+            font-size:16px;
+            margin:0 10px 0 0;
+            padding:0;
+        }
+
+        .menu a,
+        .menu a:visited {
+            font-size:12px;
+            text-decoration:none;
+            color:#666;
+            padding:5px 10px;
+            height:20px;
+            background:#FFF;
+            border:1px solid #FFF;
+        }
+
+        .menu a:hover {
+            background:transparent;
+        }
+
+        .content {
+            padding:10px 30px;
+        }
+
+        .content ol li {
+            margin-bottom:8px;
+            line-height:1.5em;
+        }
+
+    </style>
+</head>
+<body>
+<div class="menu">
+    <h3>ECSHOP 数据库结构说明 (适用版本v2.7.3)</h3>
+</div>
+<div class="content">
+    <h4>1.account_log 用户账目日志表</h4>
+    <table width="100%" border="1" cellpadding="0" cellspacing="0">
+        <tbody><tr style="background:#F1F1F1;">
+            <th style="width:10%">字段</th>
+            <th style="width:10%">类型</th>
+            <th style="width:10%">Null/默认</th>
+            <th>注释</th>
+        </tr>
+        <tr>
+            <td>log_id</td>
+            <td>mediumint(8)</td>
+            <td>否 /</td>
+            <td>自增 ID 号</td>
+        </tr>
+        <tr>
+            <td>user_id</td>
+            <td>mediumint(8)</td>
+            <td>否 /</td>
+            <td>用户登录后保存在session中的id号,跟users表中user_id对应</td>
+        </tr>
+        <tr>
+            <td>user_money</td>
+            <td>decimal(10,2) </td>
+            <td>否 /</td>
+            <td>用户该笔记录的余额</td>
+        </tr>
+        <tr>
+            <td>frozen_money </td>
+            <td>decimal(10,2) </td>
+            <td>否 /</td>
+            <td>被冻结的资金</td>
+        </tr>
+        <tr>
+            <td>rank_points </td>
+            <td>mediumint(9) </td>
+            <td>否 /</td>
+            <td>等级积分,跟消费积分是分开的</td>
+        </tr>
+        <tr>
+            <td>pay_points </td>
+            <td>mediumint(9) </td>
+            <td>否 /</td>
+            <td>消费积分,跟等级积分是分开的</td>
+        </tr>
+        <tr>
+            <td>change_time </td>
+            <td>int(10) </td>
+            <td>否 /</td>
+            <td>该笔操作发生的时间</td>
+        </tr>
+        <tr>
+            <td>change_desc </td>
+            <td>varchar(255)</td>
+            <td>否 /</td>
+            <td>该笔操作的备注</td>
+        </tr>
+        <tr>
+            <td>change_type </td>
+            <td>tinyint(3)</td>
+            <td>否 /</td>
+            <td>操作类型,0为充值,1,为提现,2为管理员调节,99为其它类型</td>
+        </tr>
+        </tbody></table>
+
+    <h4>88.wholesale&nbsp;&nbsp;批发方案表</h4>
+    <table width="100%" border="1" cellpadding="0" cellspacing="0">
+        <tbody><tr style="background:#F1F1F1;">
+            <th style="width:10%">字段</th>
+            <th style="width:10%">类型</th>
+            <th style="width:10%">Null/默认</th>
+            <th>注释</th>
+        </tr>
+        <tr>
+            <td width="91" valign="top">act_id&nbsp; </td>
+            <td width="91" valign="top">mediumint(8)&nbsp; </td>
+            <td width="66" valign="top">否 </td>
+            <td width="358" valign="top">批发方案自增id </td>
+        </tr>
+        <tr>
+            <td width="91" valign="top">goods_id&nbsp; </td>
+            <td width="91" valign="top">mediumint(8)&nbsp; </td>
+            <td width="66" valign="top">否 </td>
+            <td width="358" valign="top">商品ID </td>
+        </tr>
+        <tr>
+            <td width="91" valign="top">goods_name&nbsp; </td>
+            <td width="91" valign="top">varchar(255) </td>
+            <td width="66" valign="top">否 </td>
+            <td width="358" valign="top">商品名称 </td>
+        </tr>
+        <tr>
+            <td width="91" valign="top">rank_ids&nbsp; </td>
+            <td width="91" valign="top">varchar(255) </td>
+            <td width="66" valign="top">否 </td>
+            <td width="358" valign="top">适用会员登记,多个值之间用逗号分隔取值于user_rank </td>
+        </tr>
+        <tr>
+            <td width="91" valign="top">prices&nbsp; </td>
+            <td width="91" valign="top">text </td>
+            <td width="66" valign="top">否 </td>
+            <td width="358" valign="top">序列化后的商品属性,数量,价格 </td>
+        </tr>
+        <tr>
+            <td width="91" valign="top">enabled&nbsp; </td>
+            <td width="91" valign="top">tinyint(3)&nbsp; </td>
+            <td width="66" valign="top">否 </td>
+            <td width="358" valign="top">批发方案是否可用 </td>
+        </tr>
+        </tbody></table>
+</div>
+</body>
+</html>

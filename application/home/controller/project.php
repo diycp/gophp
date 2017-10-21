@@ -2,7 +2,6 @@
 
 namespace app\home\controller;
 
-use app\config;
 use app\member;
 use app\notify;
 use gophp\page;
@@ -27,8 +26,6 @@ class project extends auth {
     {
 
         $user_id = $this->user_id;
-
-
 
         //创建的项目
         $create_projects = db('project')->show(false)->where('user_id', '=', $user_id)->findAll();
@@ -263,16 +260,6 @@ class project extends auth {
 
             if($result !== false){
 
-                $notify = array(
-                    'res_title' => $project['title'],
-                    'res_name'  => 'project',
-                    'res_id'    => $project['id'],
-                    'project_id'=> $project['id'],
-                    'res_option'=> 'transfer',
-                );
-
-                notify::add($notify);
-
                 response::ajax(['code' => 200, 'msg' => '转让成功!']);
 
             }else{
@@ -400,8 +387,48 @@ class project extends auth {
         $this->assign('page', $page);
         $this->assign('projects', $projects);
 
-        $this->assign('projects', $projects);
         $this->display('project/search');
+
+    }
+
+    /**
+     * 导入项目
+     */
+    public function import()
+    {
+
+        $this->display('project/import');
+
+    }
+
+    /**
+     * 导出项目
+     */
+    public function export()
+    {
+
+        $project_id = request::get('id', 0);
+        $project    = \app\project::get_project_info($project_id);
+
+        if(!$project){
+            $this->error('抱歉，要导出的项目不存在');
+        }
+
+        $modules   = db('module')->where('project_id', '=', $project_id)->orderBy('id asc')->findAll();
+
+        // 获取项目环境域名
+        $envs      = json_decode($project['envs'], true);
+
+        $file_name = $project['title'] . '接口文档.html';
+
+        header ("Content-Type: application/force-download");
+        header ("Content-Disposition: attachment;filename=$file_name");
+
+        $this->assign('project', $project);
+        $this->assign('modules', $modules);
+        $this->assign('envs', $envs);
+
+        $this->display('project/export');
 
     }
 
@@ -413,7 +440,7 @@ class project extends auth {
     public function __call($id, $arguments)
     {
 
-        $project_id = (int)$id;
+        $project_id = id_decode($id);
 
         $project    = \app\project::get_project_info($project_id);
 

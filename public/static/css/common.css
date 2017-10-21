@@ -455,7 +455,7 @@ hr {
     text-align: center;
 }
 
-.page-header div.opt-btn {
+.page-header .opt-btn {
     float: right;
     position: relative;
     top: -40px;
@@ -482,6 +482,34 @@ a.btn-show-tips {
     color: darkgray;
 }
 
-.module-item .fa-option {
+.module-item span {
     float: right;
+}
+
+.btn-box{
+    position: absolute;
+    display: none;
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    color: #455a64;
+    z-index: 100;
+    width: 100px;
+    right: 0;
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,0.16);
+    margin: 2px 0 0;
+    border-radius: 2px;
+}
+
+.btn-box div {
+    float: left;
+    clear: both;
+    height: 27px;
+    padding-left: 10px;
+    padding-top: 4px;
+}
+
+.btn-box i {
+    margin-right: 12px;
+    font-size: 15px;
+    width: 15px;
 }

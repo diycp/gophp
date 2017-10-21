@@ -244,4 +244,30 @@ class user {
 
     }
 
+    /**
+     * 获取登录设备列表
+     * @param $type
+     * @return mixed
+     */
+    public static function get_device_list($type, $device)
+    {
+
+        if($type == 'title'){
+            $data = [
+                'pc'     => '电脑',
+                'weixin' => '微信',
+                'mobile' => '手机',
+            ];
+        }elseif($type == 'icon'){
+            $data = [
+                'pc'     => '<i class="fa fa-desktop fa-fw"></i>',
+                'weixin' => '<i class="fa fa-weixin fa-fw"></i>',
+                'mobile' => '<i class="fa fa-mobile fa-fw"></i>',
+            ];
+        }
+
+        return $device ? $data[$device] : $data;
+
+    }
+
 }

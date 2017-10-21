@@ -256,7 +256,7 @@ class route
             'action'     => $action,
         ];
 
-        $siteUrl   = $isAbsolute ? request::getDomain(): '/';
+        $siteUrl   = $isAbsolute ? request::getDomain().'/': '/';
         $extension = $extension ? $extension : $this->config['default_extension'];
         $urlQuery  = http_build_query($arguments);
 

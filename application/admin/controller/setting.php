@@ -3,12 +3,10 @@
 namespace app\admin\controller;
 
 use app\config;
-use gophp\controller;
 use gophp\request;
 use gophp\response;
 
-
-class setting extends controller {
+class setting extends auth {
 
     /**
      * 管理配置

@@ -8,10 +8,15 @@ class api {
      * 根据模块id获取接口列表
      * @param $user_id
      */
-    public static function find($api_id)
+    public static function get_api_info($api_id)
     {
 
         return db('api')->find($api_id);
+
+    }
+
+    public static function get_encrypt_id($id)
+    {
 
     }
 
@@ -31,8 +36,7 @@ class api {
 
         $method[1] = 'GET';
         $method[2] = 'POST';
-        $method[3] = 'GET/POST';
-        $method[4] = 'PUT';
+        $method[3] = 'PUT';
 
         return $method_id ? $method[$method_id] : $method;
 

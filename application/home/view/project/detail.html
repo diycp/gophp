@@ -13,12 +13,14 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="page-header">
-                    <h1>项目主页 {{if $auth == 3}}<small>支持CTR+E键快速编辑</small>{{/if}}</h1>
+                    <h1>项目主页 {{if \app\user::is_creater({{$project.id}})}}<small class="hidden-xs">支持Ctrl+E键快速编辑</small>{{/if}}</h1>
                     <div class="opt-btn">
                         {{if \app\user::is_creater({{$project.id}})}}
-                        <a href="javascript:void(0);" class="btn hidden-xs btn-sm btn-success js_editProjectBtn" data-toggle="tooltip" title="编辑项目" data-placement="bottom"  data-id="{{$project.id}}">编辑</a>
+                        <a href="javascript:void(0);" class="btn hidden-xs btn-sm btn-success js_editProjectBtn" data-toggle="tooltip" title="编辑项目" data-placement="bottom" data-id="{{$project.id}}">编辑</a>
+                        <a href="{{url("project/export")}}?id={{$project.id}}" class="btn hidden-xs btn-sm btn-info" data-toggle="tooltip" title="导出JSON" data-placement="bottom">备份</a>
+
                         {{/if}}
-                        <a href="javascript:void(0);" class="btn hidden-xs btn-sm btn-warning js_exportProjectBtn" data-toggle="tooltip" title="导出HTML" data-placement="bottom" data-id="{{$project.id}}" href="javascript:void(0);">导出</a>
+                        <a href="{{url("project/export")}}?id={{$project.id}}" class="btn hidden-xs btn-sm btn-warning" data-toggle="tooltip" title="导出HTML" data-placement="bottom">导出</a>
 
                     </div>
                 </div>

@@ -2,10 +2,9 @@
 
 namespace app\admin\controller;
 
-use gophp\controller;
 use gophp\page;
 
-class user extends controller {
+class user extends auth {
 
     public function index(){
 

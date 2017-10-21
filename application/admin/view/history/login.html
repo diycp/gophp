@@ -60,6 +60,7 @@
                                 {{if $historys}}
                                 {{foreach $historys as $history}}
                                 {{$user_id = $history.user_id}}
+                                {{$device  = $history.device}}
                                 <tr>
                                     <td >{{_uri('user', $user_id, 'name')}}</td>
                                     <td >{{_uri('user', $user_id, 'email')}}</td>
@@ -67,13 +68,7 @@
                                     <td >{{$history.address}}</td>
                                     <td >{{$history.add_time}}</td>
                                     <td >
-                                        {{if $history.method == 'pc'}}
-                                        <i class="fa fa-desktop fa-fw"></i>
-                                        {{elseif $history.method == 'weixin'}}
-                                        <i class="fa fa-weixin fa-fw"></i>
-                                        {{elseif $history.method == 'mobile'}}
-                                        <i class="fa fa-mobile fa-fw"></i>
-                                        {{/if}}
+                                        {{\app\user::get_device_list('icon', $device)}}
                                     </td>
                                 </tr>
                                 {{/foreach}}

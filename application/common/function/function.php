@@ -136,11 +136,20 @@ function pass_time($time)
     // 如果大于24个小时（60*60*24s），则显示N天前
 }
 
+/**
+ * 获取后台配置信息
+ * @param $field
+ * @return mixed
+ */
 function get_config($field)
 {
     return \app\config::get_config_value($field);
 }
 
+/**
+ * 判断当前登录永丰虎密码是否是默认密码
+ * @return bool
+ */
 function is_default_password()
 {
 
@@ -157,5 +166,44 @@ function is_default_password()
         return false;
 
     }
+
+}
+
+/** 获取表备注
+ * @param $table_name 表名，包含前缀
+ * @return mixed
+ */
+function get_table_comment($table_name)
+{
+
+    return \gophp\schema::instance()->getTableComment($table_name);
+
+}
+
+/**
+ * id加密
+ * @param $id
+ * @return string
+ */
+function id_encode($id)
+{
+
+    $id_class = new \app\id();
+
+    return $id_class->encode($id);
+
+}
+
+/**
+ * id解密
+ * @param $string
+ * @return string
+ */
+function id_decode($string)
+{
+
+    $id_class = new \app\id();
+
+    return $id_class->decode($string);
 
 }

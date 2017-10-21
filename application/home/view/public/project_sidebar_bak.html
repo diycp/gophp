@@ -4,26 +4,28 @@
         <ul class="nav" id="side-menu">
 
             <li>
-                <a href="{{url("project/{{id_encode($project.id)}}")}}"><i class="fa fa-home fa-fw"></i> 项目主页</a>
+                <a href="{{url("project/{{$project.id}}")}}"><i class="fa fa-home fa-fw"></i> 项目主页</a>
             </li>
 
             {{foreach $modules as $module}}
-            <li class="module-item js_moduleItem" data-id="{{$module.id}}">
+            <li class="module-item js_module" data-id="{{$module.id}}">
                 <a href="javascript:void(0);"><i class="fa fa-fw fa-folder-open"></i>
                     {{$module.title}}
 
-                    <span class="fa fa-fw arrow"></span>
+                    <span class="fa fa-option fa-fw arrow"></span>
 
-                    <span class="fa hidden-xs fa-fw fa-trash-o js_deleteModuleBtn hidden" data-id="{{$module.id}}" data-title="删除模块"></span>
-                    <span class="fa hidden-xs fa-fw fa-plus js_addApiBtn hidden" data-id="{{$module.id}}" data-title="添加接口"></span>
-                    <span class="fa hidden-xs fa-fw fa-pencil  js_addModuleBtn hidden" data-id="{{$project.id}}-{{$module.id}}" data-title="编辑模块"></span>
+                    <span class="fa hidden-xs fa-option fa-fw fa-cog  js_configModuleBtn hidden" data-id="{{$project.id}}-{{$module.id}}" data-title="编辑模块"></span>
+
+                    <span class="fa hidden-xs fa-option fa-fw fa-trash-o js_deleteModuleBtn hidden" data-id="{{$module.id}}" data-title="删除模块"></span>
+                    <span class="fa hidden-xs fa-option fa-fw fa-plus js_addApiBtn hidden" data-id="{{$module.id}}" data-title="添加接口"></span>
+                    <span class="fa hidden-xs fa-option fa-fw fa-pencil  js_addModuleBtn hidden" data-id="{{$project.id}}-{{$module.id}}" data-title="编辑模块"></span>
                 </a>
                 <ul class="nav nav-second-level collapse" id="api-menu-{{$module.id}}">
                     {{$apis = \app\api::get_api_list($module.id)}}
                     {{foreach $apis as $api}}
                     {{$api_id = $api.id}}
-                    <li class="api-item js_apiItem" data-id="{{$api_id}}">
-                        <a href="{{url("api/{{id_encode($api_id)}}")}}" title="点击查看接口详情"><i class="fa fa-fw fa-files-o"></i>{{$api.title}}
+                    <li class="api-item js_api" data-id="{{$api_id}}">
+                        <a href="{{url("api/$api_id")}}" title="点击查看接口详情"><i class="fa fa-fw fa-files-o"></i>{{$api.title}}
                         </a>
                     </li>
                     {{/foreach}}
@@ -161,25 +163,30 @@
             submitBtn: '.js_submit'
         });
 
-        $(".js_moduleItem").mouseover(function(){
+        $(".js_module").mouseover(function(){
 
-            $(this).find('span').removeClass('hidden');
-            $('.js_apiItem').find('span').addClass('hidden');
+            $(this).find('.fa-option').removeClass('hidden');
+            $('.js_api').find('.fa-option').addClass('hidden');
 
         }).mouseout(function(){
 
-            $(this).find('span').addClass('hidden');
+            $(this).find('.fa-option').addClass('hidden');
 
         });
 
-        $(".js_apiItem").mouseover(function(){
+        $(".js_api").mouseover(function(e){
 
-            $(this).find('span').removeClass('hidden');
+            e.stopPropagation();
+            $(this).find('.fa-option').removeClass('hidden');
 
         }).mouseout(function(){
 
-            $(this).find('span').addClass('hidden');
+            $(this).find('.fa-option').addClass('hidden');
 
+        });
+
+        $('.js_configModuleBtn').click(function (e) {
+            e.stopPropagation();
         });
 
     });

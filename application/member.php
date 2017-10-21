@@ -98,15 +98,6 @@ class member {
 
         if($result){
 
-            $notify = array(
-                'res_title' => _uri('user', $member['user_id'], 'name'),
-                'res_name'  => 'member',
-                'res_id'    => $member['user_id'],
-                'res_option'=> 'delete',
-            );
-
-            notify::add($notify);
-
             return true;
 
         }else{
