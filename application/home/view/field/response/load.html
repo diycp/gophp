@@ -20,7 +20,7 @@
 
         <td>
 
-            {{if $response_field.type == 6 || $response_field.type == 7}}
+            {{if in_array($response_field.type, ['array', 'object'])}}
             <a href="javascript:void(0);" class="fa fa-plus js_addResponseFieldBtn" data-title="添加返回参数" data-id="{{$api.id}}-{{$response_field.id}}-0"></a>
             {{/if}}
             <a href="javascript:void(0);" class="fa fa-pencil js_addResponseFieldBtn" data-title="编辑返回参数" data-id="{{$api.id}}-{{$response_field.parent_id}}-{{$response_field.id}}"></a>

@@ -94,7 +94,13 @@ class call extends controller {
 
             }
 
-            if($type == 'float' && !is_float($value)){
+            if($type == 'float' && !is_float((floatval($value)))){
+
+                response::ajax(['code'=> 301+$k, 'msg' =>  $name . '字段类型必须是' . field::get_type_list($type)]);
+
+            }
+
+            if($type == 'boolean' &&  in_array($value, ['true', 'false'])){
 
                 response::ajax(['code'=> 301+$k, 'msg' =>  $name . '字段类型必须是' . field::get_type_list($type)]);
 

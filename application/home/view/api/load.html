@@ -6,7 +6,7 @@
                 <div class="opt-btn">
                     <a href="javascript:void(0);" class="btn btn-sm btn-success js_editApiBtn" data-id="{{$api.id}}">编辑</a>
                     <a href="javascript:void(0);" class="btn btn-sm btn-danger js_deleteApiBtn" data-id="{{$api.id}}">删除</a>
-
+                    <a href="javascript:void(0);" class="btn btn-sm btn-warning js_debugApiBtn" data-id="{{$api.id}}">调试</a>
                 </div>
             </div>
         </div>
@@ -45,19 +45,21 @@
 
                             <tbody>
                             {{foreach $envs as $env}}
+                            {{$env_url = {{$env.domain}}|cat:'/'|cat:{{$api.uri}}}}
                             <tr>
                                 <td style="width: 20%;">{{$env.title}}({{$env.name}})</td>
-                                <td style="width: 70%;">{{$env.domain}}/{{$api.uri}}</td>
+                                <td style="width: 70%;"><code>{{$env_url}}</code></td>
                                 <td style="width: 10%;">
-                                    <button type="button" class="btn btn-xs btn-success">复制链接</button>
+                                    <button type="button" data-clipboard-text="{{$env_url}}" class="btn btn-xs btn-success js_copyUrl">复制链接</button>
                                 </td>
                             </tr>
                             {{/foreach}}
                             <tr>
-                                <td>mock地址</td>
-                                <td>{{url("mock/{{$api.decode_id}}", '', true)}}</td>
+                                <td>模拟环境(mock)</td>
+                                {{$mock_url = url("mock/{{$api.decode_id}}", '', true)}}
+                                <td><code>{{$mock_url}}</code></td>
                                 <td>
-                                    <button type="button" class="btn btn-xs btn-success">复制链接</button>
+                                    <button type="button" data-clipboard-text="{{$mock_url}}" class="btn btn-xs btn-success js_copyUrl">复制链接</button>
                                 </td>
                             </tr>
 

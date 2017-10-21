@@ -58,7 +58,7 @@
 
                                     </label>
 
-                                    <input class="form-control" name="api[uri]" value="{{$api.uri}}" placeholder="必填，不包含域名部分" datatype="*2-250" nullmsg="请输入网站名称！" errormsg="至少2个字符">
+                                    <input class="form-control" name="api[uri]" value="{{$api.uri}}" placeholder="必填，不包含域名部分" datatype="/^(?!http://).*$/" nullmsg="请输入网站名称！" errormsg="至少2个字符">
 
                                 </div>
 

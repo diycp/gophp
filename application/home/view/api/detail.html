@@ -48,10 +48,10 @@
 </div>
 <!-- /#wrapper -->
 <script src="{{STATIC_URL}}/plugins/jsonFormat/js.js"></script>
-
+<script type="text/javascript" src="{{STATIC_URL}}/plugins/clipboard/clipboard.min.js"></script>
 <script>
     $(function () {
-        //control+se编辑
+        //control+s快速编辑
         document.onkeydown=function()   {
             if (event.ctrlKey == true && event.keyCode == 69) {//Ctrl+S
                 event.returnvalue = false;
@@ -59,6 +59,7 @@
             }
 
         };
+
         //删除接口表单合法性验证
         $("#js_deleteApiForm").validateForm({
             success:function () {
@@ -72,7 +73,7 @@
             var id = $(this).data('id');
 
             if(id <= 0){
-                alert('请选择要删除的模块');
+                alert('请选择要删除的模块', 1000);
             }
 
             $('#js_deleteApiModal input[name=id]').val(id);
@@ -84,6 +85,16 @@
         $(document).delegate('.js_editApiBtn', 'click',function(){
             var id = $(this).data('id');
             $('#page-wrapper').load("{{url('api/edit')}}", {'id':id});
+        });
+
+        // 复制链接
+        var clipboard = new Clipboard('.js_copyUrl');
+        clipboard.on('success', function(e) {
+            alert('地址复制成功', 1000);
+            e.clearSelection();
+        });
+        clipboard.on('error', function() {
+            alert('地址复制失败，请手动复制', 3000);
         });
 
     })

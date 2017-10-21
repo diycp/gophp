@@ -1,4 +1,22 @@
+<style>
 
+    @media(min-width:768px) {
+
+        .sidebar {
+            z-index: 1;
+            position: absolute;
+            width: 200px;
+            margin-top: 51px;
+        }
+        #page-wrapper {
+            position: inherit;
+            margin: 0 0 0 200px;
+            padding: 0 30px;
+            border-left: 1px solid #e7e7e7;
+        }
+    }
+
+</style>
 <div class="navbar-default sidebar" role="navigation">
     <div class="sidebar-nav navbar-collapse">
 
@@ -10,6 +28,10 @@
 
             <li>
                 <a href="{{url('apply')}}"><i class="fa fa-bell-o fa-fw"></i> 申请通知</a>
+            </li>
+
+            <li>
+                <a href="{{url('db')}}"><i class="fa fa-database fa-fw"></i> 数据字典</a>
             </li>
 
             <li>

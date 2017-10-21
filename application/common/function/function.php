@@ -188,9 +188,7 @@ function get_table_comment($table_name)
 function id_encode($id)
 {
 
-    $id_class = new \app\id();
-
-    return $id_class->encode($id);
+    return \gophp\helper\id::encode($id);
 
 }
 
@@ -202,8 +200,6 @@ function id_encode($id)
 function id_decode($string)
 {
 
-    $id_class = new \app\id();
-
-    return $id_class->decode($string);
+    return \gophp\helper\id::decode($string);
 
 }

@@ -3,7 +3,7 @@
 namespace app\home\controller;
 
 use app\member;
-use app\notify;
+use gophp\helper\number;
 use gophp\page;
 use gophp\request;
 use gophp\response;
@@ -82,7 +82,6 @@ class project extends auth {
             }
 
             $project['user_id']  = $this->user_id;
-            $project['add_time'] = date('Y-m-d H:i:s');
 
             $user_ids = array_filter(explode(',',$user_ids));
 
@@ -121,6 +120,7 @@ class project extends auth {
 
             }else{
                 // 添加操作
+                $project['add_time'] = date('Y-m-d H:i:s');
                 $project_id = \app\project::add($project);
 
                 if($project_id){
@@ -407,7 +407,8 @@ class project extends auth {
     public function export()
     {
 
-        $project_id = request::get('id', 0);
+        $id         = request::get('id', '');
+        $project_id = id_decode($id);
         $project    = \app\project::get_project_info($project_id);
 
         if(!$project){
@@ -419,7 +420,7 @@ class project extends auth {
         // 获取项目环境域名
         $envs      = json_decode($project['envs'], true);
 
-        $file_name = $project['title'] . '接口文档.html';
+        $file_name = $project['title'] . '接口离线文档.html';
 
         header ("Content-Type: application/force-download");
         header ("Content-Disposition: attachment;filename=$file_name");
@@ -437,10 +438,10 @@ class project extends auth {
      * @param $id
      * @param $arguments
      */
-    public function __call($id, $arguments)
+    public function __call($encode_id, $arguments)
     {
 
-        $project_id = id_decode($id);
+        $project_id = id_decode($encode_id);
 
         $project    = \app\project::get_project_info($project_id);
 

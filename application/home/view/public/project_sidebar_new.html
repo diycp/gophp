@@ -23,9 +23,8 @@
                     {{foreach $apis as $api}}
                     {{$api_id = $api.id}}
                     <li class="api-item js_apiItem" data-id="{{$api_id}}">
-                        <a href="{{url("api/{{id_encode($api_id)}}")}}" title="点击查看接口详情">
-                        <i class="fa fa-fw fa-files-o"></i>{{$api.title}}
-                        <i class="fa fa-fw fa-eye pull-right"></i>
+                        <a href="{{url("api/{{id_encode($api_id)}}")}}" title="点击查看接口详情"><i class="fa fa-fw fa-files-o"></i>{{$api.title}}
+                        <span class="fa fa-fw fa-eye"></span>
                         </a>
                     </li>
                     {{/foreach}}
@@ -163,26 +162,24 @@
             submitBtn: '.js_submit'
         });
 
-        $(".js_moduleItem").mouseover(function(event){
-            event.stopPropagation();
+        $(".js_moduleItem").mouseover(function(){
+
             $(this).find('span').removeClass('hidden');
             $('.js_apiItem').find('span').addClass('hidden');
 
-        }).mouseout(function(event){
-            event.stopPropagation();
+        }).mouseout(function(){
+
             $(this).find('span').addClass('hidden');
 
         });
 
-        $(".js_apiItem").mouseover(function(event){
-            event.stopPropagation();
-            $(this).find('span').removeClass('hidden');
-            $(this).find('.fa-eye').removeClass('hidden');
+        $(".js_apiItem").mouseover(function(){
 
-        }).mouseout(function(event){
-            event.stopPropagation();
+            $(this).find('span').removeClass('hidden');
+
+        }).mouseout(function(){
+
             $(this).find('span').addClass('hidden');
-            $(this).find('.fa-eye').addClass('hidden');
 
         });
 

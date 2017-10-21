@@ -147,7 +147,7 @@ function confirm(msg, ok) {
 
                 $(submitBtn).attr("disabled", "disabled").text('提交成功');
 
-                alert(json.msg, 500, function () {
+                alert(json.msg, 1000, function () {
 
                     if(success){
 
@@ -164,7 +164,7 @@ function confirm(msg, ok) {
 
                 error && error();
 
-                alert(json.msg, 2000);
+                alert(json.msg, 3000);
 
                 $(submitBtn).text('重新提交').removeAttr("disabled");
 

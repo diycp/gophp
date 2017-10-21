@@ -102,7 +102,6 @@ class field extends auth {
             $data['is_required'] = $field['is_required'];
             $data['parent_id'] = $field['parent_id'];
             $data['user_id']   = $this->user_id;
-            $data['add_time']  = date('Y-m-d H:i:s');
 
             if(\app\field::find($field_id)){
                 // 更新操作
@@ -115,6 +114,8 @@ class field extends auth {
                 }
 
             }else{
+
+                $data['add_time']  = date('Y-m-d H:i:s');
 
                 $result = db('field')->add($data);
 

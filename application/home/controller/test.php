@@ -6,6 +6,7 @@ use app\category;
 use app\id;
 use app\notify;
 use app\tree;
+use gophp\backup;
 use gophp\config;
 use gophp\db;
 use gophp\helper\url;
@@ -19,12 +20,14 @@ class test {
      */
     public function index(){
 
+//        $b = id_encode('26');
 
-        $url = 'http://gocmf.com/mock/lHiSJHmHVq.html?user_id=1.1';
 
-        $a = url::getExtension($url);
+//        var_dump($c);
 
-        dump($a);
+        $a = \app\database::backup();
+
+
 
 
     }

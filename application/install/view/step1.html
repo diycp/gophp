@@ -127,6 +127,26 @@
                                                     </td>
                                                 </tr>
 
+                                                <tr>
+                                                    <td>MCRYPT扩展</td>
+                                                    <td>
+                                                        {{if extension_loaded('mcrypt')}}
+                                                        支持
+                                                        {{else}}
+                                                        不支持
+                                                        {{/if}}
+                                                    </td>
+                                                    <td>支持</td>
+                                                    <td>
+                                                        {{if extension_loaded('mcrypt')}}
+                                                        <i class="fa fa-check"></i>
+                                                        {{else}}
+                                                        <i class="fa fa-times"></i>
+                                                        <input type="hidden" name="step1['mcrypt']" value="必须安装MCRYPT扩展" >
+                                                        {{/if}}
+                                                    </td>
+                                                </tr>
+
                                                 </tbody>
                                             </table>
                                         </div>
@@ -155,28 +175,15 @@
                                                 <tbody>
 
                                                 <tr>
-                                                    <td>runtime/log</td>
-                                                    <td>{{$chmod['log']}}</td>
+                                                    <td>runtime</td>
+                                                    <td>{{$chmod['runtime']}}</td>
                                                     <td>可读,可写</td>
                                                     <td>
-                                                        {{if is_writable(RUNTIME_PATH|cat:'/log/')}}
+                                                        {{if is_writable(RUNTIME_PATH)}}
                                                         <i class="fa fa-check"></i>
                                                         {{else}}
                                                         <i class="fa fa-times"></i>
-                                                        <input type="hidden" name="step1[log]" value="runtime/log目录必须可写" >
-                                                        {{/if}}
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>runtime/compile</td>
-                                                    <td>{{$chmod['compile']}}</td>
-                                                    <td>可读,可写</td>
-                                                    <td>
-                                                        {{if is_writable(RUNTIME_PATH|cat:'/compile/')}}
-                                                        <i class="fa fa-check"></i>
-                                                        {{else}}
-                                                        <i class="fa fa-times"></i>
-                                                        <input type="hidden" name="step1[compile]" value="runtime/compile目录必须可写" >
+                                                        <input type="hidden" name="step1[log]" value="runtime目录必须可写" >
                                                         {{/if}}
                                                     </td>
                                                 </tr>
@@ -196,15 +203,15 @@
                                                 </tr>
 
                                                 <tr>
-                                                    <td>application/install/cache/</td>
-                                                    <td>{{$chmod['db']}}</td>
+                                                    <td>application/install</td>
+                                                    <td>{{$chmod['install']}}</td>
                                                     <td>可读,可写</td>
                                                     <td>
-                                                        {{if is_writable(APP_PATH|cat:'/install/cache/')}}
+                                                        {{if is_writable(APP_PATH|cat:'/install/')}}
                                                         <i class="fa fa-check"></i>
                                                         {{else}}
                                                         <i class="fa fa-times"></i>
-                                                        <input type="hidden" name="step1[install]" value="application/install/cache目录必须可读可写" >
+                                                        <input type="hidden" name="step1[install]" value="application/install目录必须可读可写" >
                                                         {{/if}}
                                                     </td>
                                                 </tr>

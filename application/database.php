@@ -1,23 +1,13 @@
 <?php
 
-namespace app\admin\controller;
+namespace app;
 
-use gophp\helper\file;
 use gophp\schema;
 
-class db extends auth {
+class database {
 
-    public function index()
-    {
 
-        $tables = schema::instance()->getTables();
-
-        $this->assign('tables', $tables);
-        $this->display('db/index');
-
-    }
-
-    public function backup()
+    public static function backup()
     {
 
         $tables = schema::instance()->getTables();
@@ -28,11 +18,8 @@ class db extends auth {
 
         foreach ($tables as $table) {
             // 如果存在则删除表
-            $sql = "DROP TABLE IF EXISTS `" . $table . '`;\n';
 
-            if(file::create($file, $sql)){
-
-                echo <<<EOF
+            echo <<<EOF
 <tr>
                                 <td>1</td>
                                 <td>database.sql</td>
@@ -41,9 +28,7 @@ class db extends auth {
                                 <td>@mdo</td>
                             </tr>
 EOF;
-;
-
-            };
+            ;
 
             ob_flush();
             flush();

@@ -38,9 +38,8 @@ class step1 extends auth {
             session('step', 1);
 
             $chmod['runtime'] = get_dir_chmod(ROOT_PATH.'/runtime/');
-            $chmod['log']     = get_dir_chmod(ROOT_PATH.'/runtime/log/');
-            $chmod['compile'] = get_dir_chmod(RUNTIME_PATH.'/compile/');
             $chmod['db']      = get_dir_chmod(COMMON_CONFIG.'/db.php');
+            $chmod['install'] = get_dir_chmod(APP_PATH.'/install/');
 
             $this->assign('chmod', $chmod);
             $this->display('step1');

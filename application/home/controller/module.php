@@ -62,7 +62,6 @@ class module extends auth {
             }
 
             $data['user_id']      = $this->user_id;
-            $data['add_time']     = date('Y-m-d H:i:s');
 
             $module = db('module')->find($module_id);
 
@@ -77,6 +76,8 @@ class module extends auth {
                 }
 
             }else{
+
+                $data['add_time']     = date('Y-m-d H:i:s');
 
                 $result = db('module')->add($data);
 

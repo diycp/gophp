@@ -78,7 +78,6 @@ class api extends auth {
             // 接口请求方式
             $data['method']    = $api['method'];
             $data['user_id']   = $this->user_id;
-            $data['add_time']  = date('Y-m-d H:i:s');
 
             if(\app\api::get_api_info($api_id)){
                 // 更新操作
@@ -92,6 +91,7 @@ class api extends auth {
 
             }else{
 
+                $data['add_time']  = date('Y-m-d H:i:s');
                 $result = db('api')->add($data);
 
                 if($result){
