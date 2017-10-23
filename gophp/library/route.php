@@ -290,6 +290,8 @@ class route
             //去掉后缀
             $urlPath = explode('.', $urlPath)[0];
 
+
+
         }elseif($uri = implode('/', $route)){
 
             $urlPath = $uri;

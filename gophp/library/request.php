@@ -284,7 +284,7 @@ class request
     public static function getUri()
     {
 
-        return isset($_SERVER['REQUEST_URI']) ? strtolower($_SERVER['REQUEST_URI']) : '';
+        return isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
 
     }
 

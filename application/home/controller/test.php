@@ -20,12 +20,14 @@ class test {
      */
     public function index(){
 
-//        $b = id_encode('26');
+        $b = id_decode('lmhqjhhzjw');
+        $a = id_encode('26');
+
+        $c = url::getExtension('http://gocmf.com/project/lmHQJHHzjW.html#user');
+        dump($c);
 
 
-//        var_dump($c);
-
-        $a = \app\database::backup();
+        var_dump($a);
 
 
 

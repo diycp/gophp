@@ -2,6 +2,7 @@
 
 namespace app\home\controller;
 
+use app\log;
 use gophp\request;
 use gophp\response;
 
@@ -71,6 +72,31 @@ class module extends auth {
 
                 if($result !== false){
 
+                    // 记录日志
+                    if($module['title'] != $data['title']){
+
+                        $log = [
+                            'project_id' => $module['project_id'],
+                            'type'       => '更新',
+                            'object'     => '模块',
+                            'content'    => '将模块名<code>' . $module['title'] . '</code>修改为<code>' . $data['title'] . '</code>',
+                        ];
+
+                        log::project($log);
+                    }
+
+                    if($module['intro'] != $data['intro']){
+
+                        $log = [
+                            'project_id' => $module['project_id'],
+                            'type'       => '更新',
+                            'object'     => '模块',
+                            'content'    => '将模块描述<code>' . $module['intro'] . '</code>修改为<code>' . $data['intro'] . '</code>',
+                        ];
+
+                        log::project($log);
+                    }
+
                     response::ajax(['code' => 200, 'msg' => '模块更新成功']);
 
                 }
@@ -82,6 +108,16 @@ class module extends auth {
                 $result = db('module')->add($data);
 
                 if($result){
+
+                    // 记录日志
+                    $log = [
+                        'project_id' => $data['project_id'],
+                        'type'       => '添加',
+                        'object'     => '模块',
+                        'content'    => '新增模块<code>' . $data['title'] . '</code>',
+                    ];
+
+                    log::project($log);
 
                     response::ajax(['code' => 200, 'msg' => '模块添加成功']);
 
@@ -137,6 +173,16 @@ class module extends auth {
         $result = db('module')->show(false)->delete($id);
 
         if($result){
+
+            // 记录日志
+            $log = [
+                'project_id' => $module['project_id'],
+                'type'       => '删除',
+                'object'     => '模块',
+                'content'    => '删除模块<code>' . $module['title'] . '</code>',
+            ];
+
+            log::project($log);
 
             response::ajax(['code' => 200, 'msg' => '删除成功!']);
 

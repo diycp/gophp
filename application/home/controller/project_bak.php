@@ -8,7 +8,6 @@ use gophp\page;
 use gophp\request;
 use gophp\response;
 use app\user;
-use gophp\schema;
 
 class project extends auth {
 
@@ -49,6 +48,7 @@ class project extends auth {
         if(request::isAjax()){
 
             $project  = request::post('project', []);
+            $user_ids = request::post('user_ids', '');
             $env      = request::post('env', []);
 
             $data = [];
@@ -61,9 +61,86 @@ class project extends auth {
 
             $project['envs'] = json_encode($data);
 
-            $result = \app\project::add($project);
+            $project_id = $project['id'] ? $project['id'] : 0;
 
-            response::ajax(['code' => $result['code'], 'msg' => $result['msg']]);
+            if(!$project['title']){
+
+                response::ajax(['code' => 301, 'msg' => '项目标题不能为空']);
+
+            }
+
+            if(\app\project::check_title($project['title'], $project_id)){
+
+                response::ajax(['code' => 304, 'msg' => '该项目名称已存在']);
+
+            }
+
+            if(!$project['intro']){
+
+                response::ajax(['code' => 302, 'msg' => '项目简介不能为空']);
+
+            }
+
+            $project['user_id']  = $this->user_id;
+
+            $user_ids = array_filter(explode(',',$user_ids));
+
+            if(\app\project::get_project_info($project_id)){
+
+                // 更新操作
+                $result = \app\project::add($project);
+
+                if($result){
+
+                    $member  = db('member')->where('project_id', '=', $project_id)->delete();
+
+                    if($member !== false){
+
+                        foreach ($user_ids as $user_id){
+
+                            $member = [
+                                'user_id'    => $user_id,
+                                'project_id' => $project_id,
+                                'add_time'   => date('Y-m-d H:i:s')
+                            ];
+
+                            member::add($member);
+
+                        }
+
+                    }
+
+                    response::ajax(['code' => 200, 'msg' => '项目更新成功']);
+
+                }else{
+
+                    response::ajax(['code' => 303, 'msg' => '项目更新事失败']);
+
+                }
+
+            }else{
+                // 添加操作
+                $project['add_time'] = date('Y-m-d H:i:s');
+                $project_id = \app\project::add($project);
+
+                if($project_id){
+
+                    foreach ($user_ids as $user_id){
+
+                        $member = [
+                            'user_id'    => $user_id,
+                            'project_id' => $project_id,
+                            'add_time'   => date('Y-m-d H:i:s')
+                        ];
+
+                        member::add($member);
+
+                    }
+
+                    response::ajax(['code' => 200, 'msg' => '项目添加成功']);
+
+                }
+            }
 
         }else{
 
@@ -84,6 +161,63 @@ class project extends auth {
             $this->display('project/add');
 
         }
+
+    }
+
+    /**
+     * 编辑项目
+     */
+    public function edit()
+    {
+
+        $project_id = request::post('id', 0);
+
+        // 判断项目是否存在
+        $project = \app\project::get_project_info($project_id);
+
+        if(!$project){
+
+            $this->error('抱歉，该项目不存在');
+
+        }
+
+        if(!user::is_creater($project_id)){
+
+            $this->error('抱歉，您无权编辑该项目');
+
+        }
+
+        // 获取项目环境域名
+        $envs    = json_decode($project['envs'], true);
+
+        // 获取项目成员
+        $members = member::get_member_list($project_id);
+
+        $this->assign('project', $project);
+        $this->assign('members', $members);
+        $this->assign('envs', $envs);
+
+        $this->display('project/edit');
+
+    }
+
+    public function load()
+    {
+
+        $project_id = request::post('id', 0);
+
+        // 判断项目是否存在
+        $project = _uri('project', $project_id);
+
+        if(!$project){
+
+            $this->error('抱歉，该项目不存在');
+
+        }
+
+        $this->assign('project', $project);
+
+        $this->display('project/load');
 
     }
 
@@ -306,10 +440,8 @@ class project extends auth {
      */
     public function __call($encode_id, $arguments)
     {
-        $tab        = request::get('tab', 'home');
 
         $project_id = id_decode($encode_id);
-
 
         $project    = \app\project::get_project_info($project_id);
 
@@ -335,33 +467,12 @@ class project extends auth {
         // 获取项目环境域名
         $envs    = json_decode($project['envs'], true);
 
-        $logs    = db('project_log')->where('project_id', '=', $project_id)->orderBy('id desc')->findAll();
-
-        // 获取数据表
-        $tables = schema::instance()->getFieldList();
-
-        $this->assign('tab', $tab);
         $this->assign('project', $project);
         $this->assign('members', $members);
         $this->assign('modules', $modules);
         $this->assign('envs', $envs);
-        $this->assign('logs', $logs);
-        $this->assign('tables', $tables);
 
-        switch ($tab) {
-            case 'member':
-                $this->display('project/member');
-                break;
-            case 'history':
-                $this->display('project/history');
-                break;
-            case 'db':
-                $this->display('project/db');
-                break;
-            default:
-                $this->display('project/home');
-                break;
-        }
+        $this->display('project/detail');
 
     }
 

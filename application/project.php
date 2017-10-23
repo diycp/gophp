@@ -2,6 +2,8 @@
 
 namespace app;
 
+use gophp\response;
+
 class project {
 
     /**
@@ -36,6 +38,12 @@ class project {
 
     }
 
+    /**
+     * 检测项目标题是否重复
+     * @param $title
+     * @param $project_id
+     * @return bool
+     */
     public static function check_title($title, $project_id)
     {
 
@@ -65,40 +73,107 @@ class project {
 
         if(!$data || !is_array($data)){
 
-            return false;
+            response::ajax(['code' => 300, 'msg' => '缺少必要参数']);
 
         }
 
-        $notify['res_name'] = 'project';
+        $project_id = $data['id'] ? $data['id'] : 0;
 
-        if($project = project::get_project_info($data['id'])){
+        $project = project::get_project_info($project_id);
+
+        if(!$data['title']){
+
+            response::ajax(['code' => 301, 'msg' => '项目标题不能为空']);
+
+        }
+
+        if(self::check_title($data['title'], $project_id)){
+
+            response::ajax(['code' => 302, 'msg' => '该项目名称已存在']);
+
+        }
+
+        if(!$data['intro']){
+
+            response::ajax(['code' => 303, 'msg' => '项目简介不能为空']);
+
+        }
+
+        if($project){
 
             //更新操作
             $result =  db('project')->show(false)->where('id', '=', $project['id'])->update($data);
 
-            if($result !== false){
+            if($result === false){
 
-                return true;
-
-            }else{
-
-                return false;
+                response::ajax(['code' => 304, 'msg' => '项目更新失败']);
 
             }
 
+            // 记录日志
+            if($project['title'] != $data['title']){
+
+                $log = [
+                    'project_id' => $data['id'],
+                    'type'       => '更新',
+                    'object'     => '项目',
+                    'content'    => '将项目名<code>' . $project['title'] . '</code>修改为<code>' . $data['title'] . '</code>',
+                ];
+
+                log::project($log);
+            }
+
+            if($project['intro'] != $data['intro']){
+
+                $log = [
+                    'project_id' => $data['id'],
+                    'type'       => '更新',
+                    'object'     => '项目',
+                    'content'    => '将项目描述<code>' . $project['intro'] . '</code>修改为<code>' . $data['intro'] . '</code>',
+                ];
+
+                log::project($log);
+            }
+
+            if($project['allow_search'] != $data['allow_search']){
+
+                $log = [
+                    'project_id' => $data['id'],
+                    'type'       => '更新',
+                    'object'     => '项目',
+                    'content'    => '将项目由<code>' . ($project['allow_search'] ? '允许搜索' : '禁止搜索') . '</code>修改为<code>' . ($data['allow_search'] ? '允许搜索' : '禁止搜索') . '</code>',
+                ];
+
+                log::project($log);
+            }
+
+            response::ajax(['code' => 200, 'msg' => '项目更新成功']);
 
         }else{
 
             //新增操作
-            $id =  db('project')->show(false)->add($data);
+            $data['user_id']  = user::get_user_id();
+            $data['add_time'] = date('Y-m-d H:i:s');
+
+            $id  = db('project')->show(false)->add($data);
+
+            //记录日志
+            $log = [
+                'project_id' => $id,
+                'type'       => '添加',
+                'object'     => '项目',
+                'content'    => '新增项目<code>' . $data['title'] . '</code>',
+            ];
+
+            log::project($log);
 
             if($id){
 
-                return $id;
+                response::ajax(['code' => 200, 'msg' => '项目添加成功']);
 
             }else{
 
-                return false;
+                response::ajax(['code' => 304, 'msg' => '项目添加失败']);
 
             }
 

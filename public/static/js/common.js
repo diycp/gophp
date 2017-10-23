@@ -131,15 +131,12 @@ function confirm(msg, ok) {
 
         beforeSubmit: function () {
 
-            if(before){
+            if(before && before() === false){
 
-                before();
-
-            }else{
-
-                $(submitBtn).attr("disabled", "disabled").text('提交中..');
-
+                return false;
             }
+
+            $(submitBtn).attr("disabled", "disabled").text('提交中..');
         },
         callback:function(json){
 
