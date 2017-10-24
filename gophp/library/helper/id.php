@@ -83,7 +83,7 @@ class id{
 
         }
 
-        return $decode_id;
+        return $decode_id ? $decode_id : 0;
 
     }
 

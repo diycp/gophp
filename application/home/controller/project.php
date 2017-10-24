@@ -3,12 +3,12 @@
 namespace app\home\controller;
 
 use app\member;
+use gophp\db;
 use gophp\helper\number;
 use gophp\page;
 use gophp\request;
 use gophp\response;
 use app\user;
-use gophp\schema;
 
 class project extends auth {
 
@@ -94,11 +94,12 @@ class project extends auth {
 
         if(request::isAjax()){
 
+
             $project_id = request::post('id', 0);
             $password   = request::post('password', '');
             $user_id    = request::post('user_id', 0);
 
-            if(!user::is_creater($project_id)){
+            if(!user::is_creater($project_id) && !user::is_admin()){
 
                 response::ajax(['code' => 301, 'msg' => '抱歉，您无权转让该项目']);
 
@@ -106,19 +107,19 @@ class project extends auth {
 
             if(!$project = \app\project::get_project_info($project_id)){
 
-                response::ajax(['code' => 301, 'msg' => '该项目不存在']);
+                response::ajax(['code' => 302, 'msg' => '该项目不存在']);
 
             }
 
             if(!user::get_user_info($user_id)){
 
-                response::ajax(['code' => 302, 'msg' => '该用户不存在']);
+                response::ajax(['code' => 303, 'msg' => '该用户不存在']);
 
             }
 
             if(!user::check_password($password)){
 
-                response::ajax(['code' => 303, 'msg' => '抱歉，密码验证失败!']);
+                response::ajax(['code' => 304, 'msg' => '抱歉，密码验证失败!']);
 
             }
 
@@ -130,7 +131,7 @@ class project extends auth {
 
             }else{
 
-                response::ajax(['code' => 304, 'msg' => '转让失败!']);
+                response::ajax(['code' => 500, 'msg' => '转让失败!']);
 
             }
 
@@ -245,25 +246,62 @@ class project extends auth {
     public function search()
     {
 
-        $totalRows = db('project')->count();
-        $page      = new page($totalRows, 10);
+        $search = request::get('search', []);
 
-        $projects  = db('project')->show(false)->where('allow_search', '=', 1)->page($page)->orderBy('id desc')->findAll();
+        $db = db::instance();
 
+        $table_suffix = $db->suffix;
+        $table_name   = $table_suffix .'project';
+
+        if($title = trim($search['project'])){
+
+            $where = "title like '%{$title}%'";
+
+        }
+
+        if($user = trim($search['user'])){
+
+            $user_sql = 'select id from ' . $table_suffix . 'user where ' .  "(name like '%{$user}%' or email like '%{$user}%') ";
+
+            $user_ids = $db->show(false)->query($user_sql);
+
+            $user_ids = array_column($user_ids, 'id');
+
+            $where = $where ? $where .= ' and ' : '';
+
+            if($user_ids){
+
+                $where .= "user_id in (" . implode(',', $user_ids) . ')';
+
+            }else{
+
+                $where .= 'user_id in (0)';
+
+            }
+
+        }
+
+        $where = $where ? $where .= ' and ' : '';
+
+        $where .= 'allow_search = 1';
+
+        $where = $where ? ' where ' . $where : '';
+
+        $sql   = "select * from $table_name $where";
+
+        $total = count($db->show(false)->query($sql));
+
+        $pre_rows = 10;
+
+        $page  = new page($total, $pre_rows);
+
+        $projects = $db->show(false)->query($sql, $pre_rows);
+
+        $this->assign('search', $search);
         $this->assign('page', $page);
         $this->assign('projects', $projects);
 
         $this->display('project/search');
-
-    }
-
-    /**
-     * 导入项目
-     */
-    public function import()
-    {
-
-        $this->display('project/import');
 
     }
 
@@ -310,7 +348,6 @@ class project extends auth {
 
         $project_id = id_decode($encode_id);
 
-
         $project    = \app\project::get_project_info($project_id);
 
         // 判断项目是否存在
@@ -320,14 +357,11 @@ class project extends auth {
 
         }
 
-        if(!user::has_view_auth($project_id)){
+        if(!member::has_rule($project_id, 'project', 'look')){
 
             $this->error('抱歉，您无权查看该项目');
 
         }
-
-        // 获取项目成员
-        $members = member::get_member_list($project_id);
 
         // 获取项目模块
         $modules = db('module')->where('project_id', '=', $project_id)->findAll();
@@ -335,32 +369,47 @@ class project extends auth {
         // 获取项目环境域名
         $envs    = json_decode($project['envs'], true);
 
-        $logs    = db('project_log')->where('project_id', '=', $project_id)->orderBy('id desc')->findAll();
-
-        // 获取数据表
-        $tables = schema::instance()->getFieldList();
-
         $this->assign('tab', $tab);
         $this->assign('project', $project);
-        $this->assign('members', $members);
         $this->assign('modules', $modules);
         $this->assign('envs', $envs);
-        $this->assign('logs', $logs);
-        $this->assign('tables', $tables);
 
         switch ($tab) {
+
             case 'member':
+
+                // 获取项目成员，含分页
+                $model = db('member')->where('project_id', '=', $project_id);
+                $total = $model->show(false)->count();
+                $page  = new page($total, 10);
+                $model = db('member')->where('project_id', '=', $project_id);
+                $members  = $model->page($page)->orderBy('id desc')->show(false)->orderBy('id desc')->findAll();
+
+                $this->assign('members', $members);
+                $this->assign('page', $page);
                 $this->display('project/member');
+
                 break;
+
             case 'history':
+
+                // 项目动态，含分页
+                $model = db('project_log')->where('project_id', '=', $project_id);
+                $total = $model->show(false)->count();
+                $page  = new page($total, 10);
+                $model = db('project_log')->where('project_id', '=', $project_id);
+                $historys  = $model->page($page)->orderBy('id desc')->show(false)->orderBy('id desc')->findAll();
+
+                $this->assign('historys', $historys);
+                $this->assign('page', $page);
                 $this->display('project/history');
                 break;
-            case 'db':
-                $this->display('project/db');
-                break;
+
             default:
+
                 $this->display('project/home');
                 break;
+
         }
 
     }

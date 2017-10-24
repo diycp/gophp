@@ -33,6 +33,8 @@ class login extends controller {
                 // 添加登录日志
                 db('login_log')->add([
                     'user_id' => $user['id'],
+                    'user_name' => $user['name'],
+                    'user_email' => $user['email'],
                     'add_time'=> date('Y-m-d H:i:s'),
                     'ip'      => request::getClientIp(),
                     'address' => get_ip_address(),

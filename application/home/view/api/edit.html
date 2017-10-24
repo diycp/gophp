@@ -1,14 +1,14 @@
-
+{{$api_id = $api.id}}
 <form role="form" id="js_addApiForm" action="{{url('api/add')}}" method="post">
-    {{$api_id = $api.id}}
+
     <input name="api[id]" type="hidden" value="{{$api_id}}">
     <div class="row">
         <div class="col-lg-12">
             <div class="page-header">
-                <h1>接口编辑 {{if \app\user::is_creater()}}<small>支持Ctrl+S键快速保存</small>{{/if}} </h1>
+                <h1>接口编辑</h1>
                 <div class="opt-btn">
-                    <a class="btn btn-sm btn-success js_submit" href="javascript:void(0);">保存</a>
-                    <a class="btn btn-sm btn-danger" href="javascript:location.reload();">取消</a>
+                    <a class="btn btn-sm btn-success js_submit" href="javascript:void(0);"><i class="fa fa-fw fa-save"></i>保存</a>
+                    <a class="btn btn-sm btn-warning" href="javascript:location.reload();"><i class="fa fa-fw fa-reply"></i>取消</a>
 
                 </div>
             </div>
@@ -100,7 +100,7 @@
                         </div>
 
                         <div class="form-group">
-                            <button type="button" class="btn btn-default js_addRequestFieldBtn" data-id="{{$api.id}}-0"><i class="fa fa-fw fa-plus"></i>添加参数</button>
+                            <button type="button" class="btn btn-default js_addRequestFieldBtn" data-title="添加请求参数" data-id="{{$api.id}}-0"><i class="fa fa-fw fa-plus"></i>添加参数</button>
                         </div>
                     </div>
                     <!-- /.table-responsive -->
@@ -127,7 +127,7 @@
                         </div>
 
                         <div class="form-group">
-                            <button type="button" class="btn btn-default js_addResponseFieldBtn" data-id="{{$api.id}}-0"><i class="fa fa-fw fa-plus"></i>添加参数</button>
+                            <button type="button" class="btn btn-default js_addResponseFieldBtn" data-title="添加响应参数"  data-id="{{$api.id}}-0-0"><i class="fa fa-fw fa-plus"></i>添加参数</button>
                         </div>
                     </div>
                     <!-- /.table-responsive -->
@@ -177,7 +177,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default js_close" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary js_submit">提交</button>
+                <button type="button" class="btn btn-primary js_requestSubmitBtn">提交</button>
             </div>
 
         </div>
@@ -201,7 +201,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default js_close" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary js_submit">提交</button>
+                <button type="button" class="btn btn-primary js_responSubmitBtn">提交</button>
             </div>
 
         </div>
@@ -229,7 +229,7 @@
         $(".js_addRequestFieldBtn").iframeModal({
             modalItem: '#js_addRequestFieldModal', //modal元素
             iframeItem: '#js_addRequestFieldIframe', //提交按钮
-            submitBtn: '.js_submit',
+            submitBtn: '.js_requestSubmitBtn',
             clickBtn: '.js_addRequestFieldBtn',
         });
 
@@ -237,7 +237,7 @@
         $(".js_addResponseFieldBtn").iframeModal({
             modalItem: '#js_addResponseFieldModal', //modal元素
             iframeItem: '#js_addResponseFieldIframe', //提交按钮
-            submitBtn: '.js_submit',
+            submitBtn: '.js_responSubmitBtn',
             clickBtn: '.js_addResponseFieldBtn',
         });
 

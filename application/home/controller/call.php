@@ -3,31 +3,20 @@
 namespace app\home\controller;
 
 use gophp\controller;
-use gophp\session;
+use gophp\response;
 
 class call extends controller {
 
-    public function __construct()
-    {
-        //filter::controller('extension', [], []);
-    }
-
     public function index(){
 
-        echo $this->controlloer;
-
-    }
-
-    public function demo()
-    {
-
+        response::redirect('index');
 
     }
 
     public function __call($name, $arguments)
     {
-        echo $name;
 
+        response::redirect($this->controlloer);
 
     }
 

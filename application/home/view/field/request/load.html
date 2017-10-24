@@ -20,7 +20,7 @@
         <td>{{if $request_field.is_required}}是{{else}}否{{/if}}</td>
         <td>{{$request_field.default_value}}</td>
         <td>{{$request_field.intro}}</td>
-        <td>
+        <td style="width: 10%">
             <a href="javascript:void(0);" class="fa fa-pencil js_addRequestFieldBtn" data-title="编辑请求参数" data-id="{{$api.id}}-{{$request_field.id}}"></a>
             <a href="javascript:void(0);" class="fa fa-trash-o js_deleteFieldBtn" data-title="删除参数" data-id="{{$request_field.id}}"></a>
         </td>

@@ -14,5 +14,14 @@ class config {
 
     }
 
+    public static function get_project_config($field)
+    {
+
+        $project_config = config('project');
+
+        return $field ? $project_config[$field] : $project_config;
+
+    }
+
 
 }

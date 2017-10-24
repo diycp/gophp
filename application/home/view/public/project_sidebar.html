@@ -11,12 +11,21 @@
             <li class="module-item js_moduleItem" data-id="{{$module.id}}">
                 <a href="javascript:void(0);"><i class="fa fa-fw fa-folder-open"></i>
                     {{$module.title}}
+                    {{$project_id = $project.id}}
 
                     <span class="fa fa-fw arrow"></span>
 
+                    {{if \app\member::has_rule($project_id, 'module', 'delete')}}
                     <span class="fa hidden-xs fa-fw fa-trash-o js_deleteModuleBtn hidden" data-id="{{$module.id}}" data-title="删除模块"></span>
+                    {{/if}}
+
+                    {{if \app\member::has_rule($project_id, 'api', 'add')}}
                     <span class="fa hidden-xs fa-fw fa-plus js_addApiBtn hidden" data-id="{{$module.id}}" data-title="添加接口"></span>
+                    {{/if}}
+
+                    {{if \app\member::has_rule($project_id, 'module', 'update')}}
                     <span class="fa hidden-xs fa-fw fa-pencil  js_addModuleBtn hidden" data-id="{{$project.id}}-{{$module.id}}" data-title="编辑模块"></span>
+                    {{/if}}
                 </a>
                 <ul class="nav nav-second-level collapse" id="api-menu-{{$module.id}}">
                     {{$apis = \app\api::get_api_list($module.id)}}

@@ -23,6 +23,9 @@
                 border-left: 1px solid #e7e7e7;
             }
         }
+        .text-center {
+            text-align: center;
+        }
     </style>
 
 </head>
@@ -86,10 +89,6 @@
                                 <td style="width: 80%"><code>{{$env.domain}}/{{$api.uri}}</code></td>
                             </tr>
                             {{/foreach}}
-                            <tr>
-                                <td>模拟环境(mock)</td>
-                                <td><code>{{url("mock/{{id_encode($api_id)}}", '', true)}}</code></td>
-                            </tr>
 
                             </tbody>
                         </table>
@@ -168,8 +167,7 @@
         </div>
         {{/foreach}}
 
-        <hr>
-        <p class="text-center">{{get_config('copyright')}}</p>
+
 
     </div>
 
@@ -177,7 +175,8 @@
 
 <!-- /#wrapper -->
 
-
+<hr>
+<p class="text-center">{{get_config('copyright')}}</p>
 
 </body>
 

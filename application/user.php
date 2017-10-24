@@ -45,6 +45,19 @@ class user {
     }
 
     /**
+     * 根据用户id获取用户名(邮箱)
+     * @param $user_id
+     */
+    public static function get_name_email($user_id)
+    {
+
+        $user = self::get_user_info($user_id);
+
+        return $user['name'] . '(' . $user['email'] . ')';
+
+    }
+
+    /**
      * 根据用户id获取用户类型
      * @param $user_id
      */
@@ -169,25 +182,6 @@ class user {
         $member = db('member')->where('project_id', '=', $project_id)->where('user_id', '=', $user_id)->find();
 
         if($member){
-
-            return true;
-
-        }else{
-
-            return false;
-
-        }
-
-    }
-
-    /**判断当前登录用户是否有可以查看项目的权限
-     * @param $project_id
-     * @return bool
-     */
-    public static function has_view_auth($project_id)
-    {
-
-        if(self::is_admin() || self::is_creater($project_id) || self::is_joiner($project_id)){
 
             return true;
 

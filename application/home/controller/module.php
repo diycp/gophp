@@ -30,7 +30,7 @@ class module extends auth {
 
             }else{
 
-                response::ajax(['code' => 301, 'msg' => '请选择要添加模块的项目']);
+                response::ajax(['code' => 300, 'msg' => '请选择要添加模块的项目']);
 
             }
 
@@ -40,7 +40,7 @@ class module extends auth {
 
             }else{
 
-                response::ajax(['code' => 302, 'msg' => '模块名称不能为空']);
+                response::ajax(['code' => 301, 'msg' => '模块名称不能为空']);
 
             }
 
@@ -48,7 +48,7 @@ class module extends auth {
 
             if($module){
 
-                response::ajax(['code' => 304, 'msg' => '该模块名称已存在']);
+                response::ajax(['code' => 302, 'msg' => '该模块名称已存在']);
 
             }
 
@@ -67,61 +67,79 @@ class module extends auth {
             $module = db('module')->find($module_id);
 
             if($module){
-                // 更新操作
-                $result = db('module')->where('id', '=', $module_id)->update($data);
 
-                if($result !== false){
+                if(!\app\member::has_rule($project_id, 'module', 'update')){
 
-                    // 记录日志
-                    if($module['title'] != $data['title']){
-
-                        $log = [
-                            'project_id' => $module['project_id'],
-                            'type'       => '更新',
-                            'object'     => '模块',
-                            'content'    => '将模块名<code>' . $module['title'] . '</code>修改为<code>' . $data['title'] . '</code>',
-                        ];
-
-                        log::project($log);
-                    }
-
-                    if($module['intro'] != $data['intro']){
-
-                        $log = [
-                            'project_id' => $module['project_id'],
-                            'type'       => '更新',
-                            'object'     => '模块',
-                            'content'    => '将模块描述<code>' . $module['intro'] . '</code>修改为<code>' . $data['intro'] . '</code>',
-                        ];
-
-                        log::project($log);
-                    }
-
-                    response::ajax(['code' => 200, 'msg' => '模块更新成功']);
+                    response::ajax(['code' => 304, 'msg' => '抱歉，您没有编辑权限']);
 
                 }
 
+                // 更新操作
+                $result = db('module')->where('id', '=', $module_id)->update($data);
+
+                if($result === false){
+
+                    response::ajax(['code' => 500, 'msg' => '抱歉，模块更新失败']);
+
+                }
+
+                // 记录日志
+                if($module['title'] != $data['title']){
+
+                    $log = [
+                        'project_id' => $module['project_id'],
+                        'type'       => '更新',
+                        'object'     => '模块',
+                        'content'    => '将模块名<code>' . $module['title'] . '</code>修改为<code>' . $data['title'] . '</code>',
+                    ];
+
+                    log::project($log);
+                }
+
+                if($module['intro'] != $data['intro']){
+
+                    $log = [
+                        'project_id' => $module['project_id'],
+                        'type'       => '更新',
+                        'object'     => '模块',
+                        'content'    => '将模块描述<code>' . $module['intro'] . '</code>修改为<code>' . $data['intro'] . '</code>',
+                    ];
+
+                    log::project($log);
+                }
+
+                response::ajax(['code' => 200, 'msg' => '模块更新成功']);
+
             }else{
+
+                if(!\app\member::has_rule($project_id, 'module', 'add')){
+
+                    response::ajax(['code' => 306, 'msg' => '抱歉，您没有添加权限']);
+
+                }
 
                 $data['add_time']     = date('Y-m-d H:i:s');
 
                 $result = db('module')->add($data);
 
-                if($result){
+                if(!$result){
 
-                    // 记录日志
-                    $log = [
-                        'project_id' => $data['project_id'],
-                        'type'       => '添加',
-                        'object'     => '模块',
-                        'content'    => '新增模块<code>' . $data['title'] . '</code>',
-                    ];
-
-                    log::project($log);
-
-                    response::ajax(['code' => 200, 'msg' => '模块添加成功']);
+                    response::ajax(['code' => 500, 'msg' => '抱歉，模块添加失败']);
 
                 }
+
+                // 记录日志
+                $log = [
+                    'project_id' => $data['project_id'],
+                    'type'       => '添加',
+                    'object'     => '模块',
+                    'content'    => '新增模块<code>' . $data['title'] . '</code>',
+                ];
+
+                log::project($log);
+
+                response::ajax(['code' => 200, 'msg' => '模块添加成功']);
+
             }
 
         }else{
@@ -132,7 +150,7 @@ class module extends auth {
             $module_id  = $ids[1];
 
             $project_id && $project = db('project')->find($project_id);
-            $module_id && $module  = db('module')->find($module_id);
+            $module_id && $module   = db('module')->find($module_id);
 
             $this->assign('project', $project);
             $this->assign('module', $module);
@@ -153,12 +171,18 @@ class module extends auth {
         $password = request::post('password', '');
         $password = md5(encrypt($password));
 
-
         $module   = db('module')->find($id);
+
 
         if(!$module){
 
-            response::ajax(['code' => 301, 'msg' => '请选择要删除的模块!']);
+            response::ajax(['code' => 300, 'msg' => '请选择要删除的模块!']);
+
+        }
+
+        if(!\app\member::has_rule($module['project_id'], 'module', 'delete')){
+
+            response::ajax(['code' => 301, 'msg' => '抱歉，您没有删除权限']);
 
         }
 
@@ -166,31 +190,29 @@ class module extends auth {
 
         if(!$user){
 
-            response::ajax(['code' => 303, 'msg' => '抱歉，密码验证错误!']);
+            response::ajax(['code' => 302, 'msg' => '抱歉，密码验证错误!']);
 
         }
 
         $result = db('module')->show(false)->delete($id);
 
-        if($result){
+        if(!$result){
 
-            // 记录日志
-            $log = [
-                'project_id' => $module['project_id'],
-                'type'       => '删除',
-                'object'     => '模块',
-                'content'    => '删除模块<code>' . $module['title'] . '</code>',
-            ];
-
-            log::project($log);
-
-            response::ajax(['code' => 200, 'msg' => '删除成功!']);
-
-        }else{
-
-            response::ajax(['code' => 403, 'msg' => '删除失败!']);
+            response::ajax(['code' => 500, 'msg' => '模块删除失败!']);
 
         }
+
+        // 记录日志
+        $log = [
+            'project_id' => $module['project_id'],
+            'type'       => '删除',
+            'object'     => '模块',
+            'content'    => '删除模块<code>' . $module['title'] . '</code>',
+        ];
+
+        log::project($log);
+
+        response::ajax(['code' => 200, 'msg' => '删除成功!']);
 
     }
 

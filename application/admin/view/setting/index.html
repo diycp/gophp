@@ -1,4 +1,5 @@
 {{include_file name='public/header' title='系统设置'}}
+
 </head>
 
 <body>
@@ -25,17 +26,17 @@
                                 <form role="form" id="js_settingForm" action="{{url('admin/setting')}}" method="post">
                                     <div class="form-group">
                                         <label>网站名称</label>
-                                        <input class="form-control" name="config[name]" value="{{$config['name']}}" placeholder="必填" datatype="*2-250" nullmsg="请输入网站名称！" errormsg="至少2个字符">
+                                        <input class="form-control" name="config[name]" value="{{$config['name']}}" placeholder="必填，至少2位" datatype="*2-250" nullmsg="请输入网站名称！">
                                     </div>
 
                                     <div class="form-group">
                                         <label>网站关键字</label>
-                                        <input class="form-control" name="config[keywords]" value="{{$config['keywords']}}" placeholder="" ignore="ignore" datatype="*2-250" nullmsg="请输入网站关键字！" errormsg="至少2位">
+                                        <input class="form-control" name="config[keywords]" value="{{$config['keywords']}}" placeholder="" ignore="ignore" datatype="*">
                                     </div>
 
                                     <div class="form-group">
                                         <label>版权信息</label>
-                                        <textarea class="form-control" name="config[copyright]" rows="2" ignore="ignore" datatype="*2-250" nullmsg="请输入版权信息！" errormsg="至少2个字符">{{$config['copyright']}}</textarea>
+                                        <textarea class="form-control" name="config[copyright]" rows="2" ignore="ignore" datatype="*" nullmsg="请输入版权信息！">{{$config['copyright']}}</textarea>
                                     </div>
 
                                     <div class="form-group">
@@ -45,7 +46,7 @@
 
                                     <div class="form-group">
                                         <label>重置默认密码</label>
-                                        <input class="form-control" name="config[default_password]" value="{{$config['default_password']}}" placeholder="必填" value="123456" datatype="*6-20" nullmsg="请输入重置默认密码！" errormsg="至少6位">
+                                        <input class="form-control" name="config[default_password]" value="{{$config['default_password']}}" placeholder="必填，6-20个英文字母、数字或下划线组成的字符" value="123456" datatype="*6-20" nullmsg="请输入重置默认密码！" errormsg="至少6位">
 
                                     </div>
 

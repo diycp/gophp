@@ -14,18 +14,23 @@
                 <h1 class="page-header">登录历史</h1>
                 <div class="search">
                     <div class="well">
-                        <form class="form-inline">
+                        <form class="form-inline" action="{{url()}}" method="get">
                             <div class="form-group">
-                                <label>邮箱/昵称</label>
-                                <input type="text" name="search_filter[user_name]" class="form-control" placeholder="支持模糊查询">
+                                <label>昵称/账号</label>
+                                <input type="text" name="search[name]" class="form-control" placeholder="支持模糊查询" value="{{$search.name}}">
                             </div>
                             <div class="form-group">
-                                <label>登录方式</label>
-                                <select class="form-control" name="search_filter[login_type]">
-                                    <option value="0">不限</option>
-                                    <option value="pc">pc</option>
-                                    <option value="weixin">weixin</option>
-                                    <option value="mobile">mobile</option>
+                                <label>登录IP</label>
+                                <input type="text" name="search[ip]" class="form-control" placeholder="支持模糊查询" value="{{$search.ip}}">
+                            </div>
+                            <div class="form-group">
+                                <label>登录设备</label>
+                                <select class="form-control" name="search[device]">
+                                    {{$devices = \app\user::get_device_list('title')}}
+                                    <option value="">不限</option>
+                                    {{foreach $devices as $k => $device}}
+                                    <option value="{{$k}}" {{if $k == $search.device}}selected{{/if}}>{{$device}}</option>
+                                    {{/foreach}}
                                 </select>
                             </div>
                             <button type="submit" class="btn btn-primary">搜索</button>
@@ -59,11 +64,10 @@
                                 <tbody>
                                 {{if $historys}}
                                 {{foreach $historys as $history}}
-                                {{$user_id = $history.user_id}}
                                 {{$device  = $history.device}}
                                 <tr>
-                                    <td >{{_uri('user', $user_id, 'name')}}</td>
-                                    <td >{{_uri('user', $user_id, 'email')}}</td>
+                                    <td >{{$history.user_name}}</td>
+                                    <td >{{$history.user_email}}</td>
                                     <td >{{$history.ip}}</td>
                                     <td >{{$history.address}}</td>
                                     <td >{{$history.add_time}}</td>

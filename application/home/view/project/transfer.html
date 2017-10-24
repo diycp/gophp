@@ -22,7 +22,7 @@
 
             <div class="form-group">
                 <label for="recipient-name" class="control-label">转让项目:</label>
-                <input type="text" class="form-control" name="title" value="{{$project.title}}" placeholder="必填" datatype="*" disabled>
+                <input type="text" class="form-control" value="{{$project.title}}" placeholder="必填" readonly>
             </div>
 
             <div class="form-group">
@@ -53,14 +53,12 @@
 </div>
 <!-- /#wrapper -->
 
-<script src="{{STATIC_URL}}/plugins/bootstrap/js/bootstrap3-typeahead.min.js"></script>
-
 <script>
 
     $(function(){
 
         //验证表单
-        var projectModal = $(window.parent.document).find('#js_addProjectModal');
+        var projectModal = $(window.parent.document).find('#js_transferProjectModal');
 
         $("#js_transferProjectForm").validateForm({
             submitBtn: '#js_submit',
@@ -78,79 +76,6 @@
             }
         });
 
-        // 获取已选中的成员ids
-        var selectedUser= function () {
-
-            var userIds = '';
-
-            if($(".picked-user").length > 0) {
-                $(".picked-user").each(function () {
-                    userIds += $(this).data('id')+',';
-                });
-            }
-
-            $("input[name=user_ids]").val(userIds);
-
-            return userIds;
-        }
-
-        selectedUser();
-
-        //选择成员
-        $('.js_selectUser').typeahead({
-            source: function (name, process) {
-
-                var projectId = "{{$project.id}}"; //项目id
-                var userIds   = selectedUser();
-
-                if(!projectId){
-
-                    projectId = 0;
-
-                }
-
-                var url = "{{url('user/select')}}";
-
-                $.getJSON(url, { "name": name, "project_id":projectId, "user_ids":userIds }, function (data) {
-                    process(data);
-                });
-
-            },
-
-            afterSelect: function (item) {//选择项之后的时间，item是当前选中的项
-
-                $(".js_selectUser").val('');
-
-                if(!item){
-                    return '';
-                }
-
-                $("input[name=user_ids]").val(selectedUser());
-
-                var pickedUser = "<span class='picked-user' data-id="+item.id+" data-name='"+item.name+"' data-email='"+item.email+"'>"+item.name+"<i title='点击删除' class='fa fa-times js_deleteUser'></i></span>";
-
-                //$(".pick-box").prepend(pickedUser);
-
-                $(".picked-user:last").after(pickedUser);
-
-                selectedUser();
-
-            },
-
-            items: 8, //显示8条
-            delay: 500, //延迟时间
-
-        });
-
-        //删除用户
-        $("body").on('click', '.js_deleteUser',function () {
-            // 阻止事件冒泡
-            event.stopPropagation();
-            $(this).parent('span').remove();
-
-            $("input[name=user_ids]").val(selectedUser());
-
-        });
     });
 
 

@@ -10,9 +10,13 @@ class index  extends auth {
 
         $last_login = \app\user::get_last_login();
 
-        $this->assign('last_login', $last_login);
+        $system = [
+            'version' => GOPHP_VERSION,
+        ];
 
         $this->assign('user', $user);
+        $this->assign('last_login', $last_login);
+        $this->assign('system', $system);
 
         $this->display('index');
 

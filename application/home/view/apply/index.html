@@ -104,7 +104,7 @@
                 $.post(url, { apply_id:applyId }, function(json){
                     if(json.code == 200 || json.code == 304){
 
-                        thisObi.attr("disabled", "disabled").text('审核中');
+                        thisObi.attr("disabled", "disabled").text('已通过');
 
                     }else{
 

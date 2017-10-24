@@ -53,27 +53,70 @@ class member {
         if($member){
 
             //更新操作
-            $result =  db('member')->show(false)->where('id', '=', $member_id)->update(['auths' => $data['auths']]);
+            $rule = [
+                'project_rule'=> $data['project_rule'],
+                'module_rule' => $data['module_rule'],
+                'api_rule'    => $data['api_rule'],
+                'member_rule' => $data['member_rule'],
+            ];
+
+            $result =  db('member')->show(false)->where('id', '=', $member_id)->update($rule);
 
             if($result === false){
 
-                response::ajax(['code' => 303, 'msg' => '成员权限更新失败']);
+                response::ajax(['code' => 303, 'msg' => '权限更新失败']);
 
             }
 
-            if($member['auths'] != $data['auths']) {
-                //记录日志
+            //记录日志
+            $user_name_email = '<code>'.$user['name'] . '(' . $user['email'] . ')</code>';
+
+            if($member['project_rule'] != $data['project_rule']) {
+
                 $log = [
                     'project_id' => $member['project_id'],
                     'type'       => '更新',
-                    'object'     => '成员',
-                    'content'    => '将成员权限由<code>' . member::get_auths_title($member['auths']) . '</code>修改为<code>' . member::get_auths_title($data['auths']) . '</code>',
+                    'object'     => '权限',
+                    'content'    => '将' . $user_name_email . '的项目权限由<code>' . member::get_rules_title($member['project_rule']) . '</code>修改为<code>' . member::get_rules_title($data['project_rule']) . '</code>',
                 ];
 
                 log::project($log);
             }
 
-            response::ajax(['code' => 200, 'msg' => '成员权限更新成功']);
+            if($member['module_rule'] != $data['module_rule']) {
+                $log = [
+                    'project_id' => $member['project_id'],
+                    'type'       => '更新',
+                    'object'     => '权限',
+                    'content'    => '将' . $user_name_email . '的模块权限由<code>' . member::get_rules_title($member['module_rule']) . '</code>修改为<code>' . member::get_rules_title($data['module_rule']) . '</code>',
+                ];
+
+                log::project($log);
+            }
+
+            if($member['api_rule'] != $data['api_rule']) {
+                $log = [
+                    'project_id' => $member['project_id'],
+                    'type'       => '更新',
+                    'object'     => '权限',
+                    'content'    => '将' . $user_name_email . '的接口权限由<code>' . member::get_rules_title($member['api_rule']) . '</code>修改为<code>' . member::get_rules_title($data['api_rule']) . '</code>',
+                ];
+
+                log::project($log);
+            }
+
+            if($member['member_rule'] != $data['member_rule']) {
+                $log = [
+                    'project_id' => $member['project_id'],
+                    'type'       => '更新',
+                    'object'     => '权限',
+                    'content'    => '将' . $user_name_email . '的成员权限由<code>' . member::get_rules_title($member['member_rule']) . '</code>修改为<code>' . member::get_rules_title($data['member_rule']) . '</code>',
+                ];
+
+                log::project($log);
+            }
+
+            response::ajax(['code' => 200, 'msg' => '权限更新成功']);
 
         }else{
 
@@ -162,32 +205,95 @@ class member {
 
     }
 
-    public static function get_auths_title($auths)
+    public static function get_rules_title($rules)
     {
 
-        if(!$auths){
+        if(!$rules){
 
             return '';
 
         }
 
-        $auth_list = explode(',', $auths);
+        $rule_list = explode(',', $rules);
 
         $title  = '';
 
-        foreach ($auth_list as $auth){
-            if($auth == 1){
+        foreach ($rule_list as $rule){
+            if($rule == 'look'){
                 $title .= '查看、';
             }
-            if($auth == 2){
+            if($rule == 'update'){
                 $title .= '编辑、';
             }
-            if($auth == 3){
+            if($rule == 'delete'){
                 $title .= '删除、';
             }
+            if($rule == 'remove'){
+                $title .= '移除、';
+            }
+            if($rule == 'transfer'){
+                $title .= '转让、';
+            }
+            if($rule == 'export'){
+                $title .= '转让、';
+            }
+
+
         }
 
         return trim($title, '、');
+
+    }
+
+    /**
+     * 判断当前登录用户是否拥有权限
+     * @param $project_id //项目id
+     * @param $type //权限对象
+     * @param $option //操作类型
+     * @return bool
+     */
+    public static function has_rule($project_id, $type, $option)
+    {
+
+        $project_id = $project_id ? $project_id : 0;
+
+        if(user::is_admin() || user::is_creater($project_id)){
+
+            return true;
+
+        }
+
+        if(!in_array($type, ['project', 'module', 'api', 'member'])){
+
+            return false;
+
+        }
+
+        if(!in_array($option, ['look', 'add', 'update', 'remove', 'delete', 'transfer'])){
+
+            return false;
+
+        }
+
+        $user_id = user::get_user_id();
+
+        $member  = db('member')->show(false)->where('project_id', '=', $project_id)->where('user_id', '=', $user_id)->find();
+
+        if(!$member){
+
+            return false;
+
+        }
+
+        $rules = explode(',', $member[$type . '_rule']);
+
+        if(in_array($option, $rules)){
+
+            return true;
+
+        }
+
+        return false;
 
     }
 

@@ -100,7 +100,7 @@ class mysql extends contract
      * @param $sql
      * @return int
      */
-    public function query($sql)
+    public function query($sql, $limit = 0)
     {
 
         if($this->chain['show']){
@@ -127,7 +127,29 @@ class mysql extends contract
 
             }
 
+            if (strstr($sql, 'count') || strstr($sql, 'COUNT')) {
+
+                $this->stmt = $this->db->query($sql);
+
+                return $this->stmt->fetchColumn();
+
+            }
+
             if (strstr($sql, 'select') || strstr($sql, 'SELECT')) {
+
+                if($limit){
+
+                    $pageParam = config::get('http', 'page_param');
+
+                    $pageNo    = request::get($pageParam, 1);
+
+                    $firstRow  = $limit * ($pageNo - 1);
+
+                    $limit = ' LIMIT '.$firstRow . ',' . $limit;
+
+                    $sql = trim($sql) . $limit;
+
+                }
 
                 $this->stmt = $this->db->query($sql);
 
@@ -142,6 +164,7 @@ class mysql extends contract
                 return $this->stmt->rowCount();
 
             }
+
 
         }catch(\PDOException $e) {
 

@@ -34,7 +34,7 @@
                                 <i class="fa fa-user fa-5x panel-fa"></i>
                             </div>
                             <div class="col-xs-9 text-center">
-                                <div class="huge">26</div>
+                                <div class="huge">{{\app\statistics::get_today_num('user')}}</div>
                                 <div>今日新增会员</div>
                             </div>
                         </div>
@@ -50,7 +50,7 @@
                                 <i class="fa fa-th fa-5x panel-fa"></i>
                             </div>
                             <div class="col-xs-9 text-center">
-                                <div class="huge">12</div>
+                                <div class="huge">{{\app\statistics::get_today_num('project')}}</div>
                                 <div>今日新增项目</div>
                             </div>
                         </div>
@@ -66,7 +66,7 @@
                                 <i class="fa fa-folder-open fa-5x panel-fa"></i>
                             </div>
                             <div class="col-xs-9 text-center">
-                                <div class="huge">124</div>
+                                <div class="huge">{{\app\statistics::get_today_num('module')}}</div>
                                 <div>今日新增模块</div>
                             </div>
                         </div>
@@ -82,7 +82,7 @@
                                 <i class="fa fa-files-o fa-5x panel-fa"></i>
                             </div>
                             <div class="col-xs-9 text-center">
-                                <div class="huge">13</div>
+                                <div class="huge">{{\app\statistics::get_today_num('api')}}</div>
                                 <div>今日新增接口</div>
                             </div>
                         </div>
@@ -138,10 +138,10 @@
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
-                        <p>程序版本：V2.0  [20150905] [<a href="">查看最新版本</a>]</p>
-                        <p>服务器环境：Apache</p>
+                        <p>程序版本：V{{$system.version}} [<a href="">查看最新版本</a>]</p>
+                        <p>服务器环境：{{PHP_OS}}</p>
                         <p>文件上传大小：10M</p>
-                        <p>系统开发：勾国磊</p>
+                        <p>系统开发：<a href="http://www.gouguoyin.cn/about.html" target="_blank">勾国印</a></p>
                         <p>官方网站：<a href="">www.gouguoyin.cn</a></p>
                         <p>官方论坛：<a href="">bbs.gouguoyin.cn</a></p>
                         <p>帮助中心：<a href="">help.gouguoyin.cn</a></p>

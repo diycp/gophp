@@ -11,12 +11,9 @@ class api {
     public static function get_api_info($api_id)
     {
 
+        $api_id = $api_id ? $api_id : 0;
+
         return db('api')->find($api_id);
-
-    }
-
-    public static function get_encrypt_id($id)
-    {
 
     }
 

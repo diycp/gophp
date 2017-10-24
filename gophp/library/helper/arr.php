@@ -77,6 +77,5 @@ class arr
         return array_key_exists($key, $array);
     }
 
-
 }
 

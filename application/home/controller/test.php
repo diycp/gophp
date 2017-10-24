@@ -5,6 +5,7 @@ namespace app\home\controller;
 use app\category;
 use app\id;
 use app\notify;
+use app\statistics;
 use app\tree;
 use gophp\backup;
 use gophp\config;
@@ -20,14 +21,9 @@ class test {
      */
     public function index(){
 
-        $b = id_decode('lmhqjhhzjw');
-        $a = id_encode('26');
+        $a = \app\config::get_project_config('request_method');
 
-        $c = url::getExtension('http://gocmf.com/project/lmHQJHHzjW.html#user');
-        dump($c);
-
-
-        var_dump($a);
+        dump($a);
 
 
 

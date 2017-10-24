@@ -39,9 +39,9 @@
                 <input type="hidden" name='id' value="{{$member.id}}">
                 <input type="hidden" name='user_id' value="0">
                 <input type="hidden" name='project_id' value="{{$member.project_id}}">
-                <input type="text" class="form-control js_selectMemberBtn" placeholder="请输入关键字" datatype="*1-250">
+                <input type="text" class="form-control js_selectMemberBtn" placeholder="输入昵称/邮箱，支持模糊查询" datatype="*1-250">
                 <span class="input-group-btn">
-                    <button class="btn btn-default js_cleanMemberBtn" type="button"><i class="fa fa-times"></i>
+                    <button class="btn btn-default js_cleanMemberBtn" type="button" data-toggle="tooltip" title="清空"><i class="fa fa-times"></i>
                     </button>
                 </span>
             </div>
@@ -50,21 +50,66 @@
 
             <div class="form-group">
                 <label>项目权限</label>
-                <div class="checkbox">
-                    <label>
-                        <input name="auth[]" onclick="return false;" checked type="checkbox" value="1">查看
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input name="auth[]" {{if in_array(2, $auths)}}checked{{/if}} type="checkbox" value="2">编辑
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input name="auth[]" {{if in_array(3, $auths)}}checked{{/if}}  type="checkbox" value="3">删除
-                    </label>
-                </div>
+                <label class="checkbox-inline">
+                    <input name="project_rule[]" onclick="return false;" checked type="checkbox" value="look">查看
+                </label>
+                <label class="checkbox-inline">
+                    <input name="project_rule[]" {{if in_array('transfer', $project_rules)}}checked{{/if}} type="checkbox" value="transfer">转让
+                </label>
+                <label class="checkbox-inline">
+                    <input name="project_rule[]" {{if in_array('update', $project_rules)}}checked{{/if}} type="checkbox" value="update">编辑
+                </label>
+                <label class="checkbox-inline">
+                    <input name="project_rule[]" {{if in_array('export', $project_rules)}}checked{{/if}} type="checkbox" value="export">导出
+                </label>
+                <label class="checkbox-inline">
+                    <input name="project_rule[]" {{if in_array('delete', $project_rules)}}checked{{/if}}  type="checkbox" value="delete">删除
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label>模块权限</label>
+                <label class="checkbox-inline">
+                    <input name="module_rule[]" onclick="return false;" checked type="checkbox" value="look">查看
+                </label>
+                <label class="checkbox-inline">
+                    <input name="module_rule[]" {{if in_array('add', $module_rules)}}checked{{/if}} type="checkbox" value="add">新增
+                </label>
+                <label class="checkbox-inline">
+                    <input name="module_rule[]" {{if in_array('update', $module_rules)}}checked{{/if}} type="checkbox" value="update">编辑
+                </label>
+                <label class="checkbox-inline">
+                    <input name="module_rule[]" {{if in_array('delete', $module_rules)}}checked{{/if}}  type="checkbox" value="delete">删除
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label>接口权限</label>
+                <label class="checkbox-inline">
+                    <input name="api_rule[]" onclick="return false;" checked type="checkbox" value="look">查看
+                </label>
+                <label class="checkbox-inline">
+                    <input name="api_rule[]" {{if in_array('add', $api_rules)}}checked{{/if}} type="checkbox" value="add">新增
+                </label>
+                <label class="checkbox-inline">
+                    <input name="api_rule[]" {{if in_array('update', $api_rules)}}checked{{/if}} type="checkbox" value="update">编辑
+                </label>
+                <label class="checkbox-inline">
+                    <input name="api_rule[]" {{if in_array('delete', $api_rules)}}checked{{/if}}  type="checkbox" value="delete">删除
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label>成员权限</label>
+                <label class="checkbox-inline">
+                    <input name="member_rule[]" onclick="return false;" checked type="checkbox" value="look">查看
+                </label>
+                <label class="checkbox-inline">
+                    <input name="member_rule[]" {{if in_array('add', $member_rules)}}checked{{/if}} type="checkbox" value="add">新增
+                </label>
+                <label class="checkbox-inline">
+                    <input name="member_rule[]" {{if in_array('remove', $member_rules)}}checked{{/if}}  type="checkbox" value="remove">移除
+                </label>
             </div>
 
             <input type="hidden" id="js_submit" value="提交">

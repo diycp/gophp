@@ -17,15 +17,25 @@ class member extends auth {
             $member_id  = request::post('id', 0);
             $user_id    = request::post('user_id', 0);
             $project_id = request::post('project_id', 0);
-            $auth = request::post('auth', []);
 
-            $auths = implode(',', $auth);
+            $project_rule = request::post('project_rule', []);
+            $module_rule  = request::post('module_rule', []);
+            $api_rule     = request::post('api_rule', []);
+            $member_rule  = request::post('member_rule', []);
+
+            $project_rules = implode(',', $project_rule);
+            $module_rules  = implode(',', $module_rule);
+            $api_rules     = implode(',', $api_rule);
+            $member_rules  = implode(',', $member_rule);
 
             $member = [
-                'auths'      => $auths,
-                'id'         => $member_id,
-                'project_id' => $project_id,
-                'user_id'    => $user_id,
+                'id'          => $member_id,
+                'project_rule'=> $project_rules,
+                'module_rule' => $module_rules,
+                'api_rule'    => $api_rules,
+                'member_rule' => $member_rules,
+                'project_id'  => $project_id,
+                'user_id'     => $user_id,
             ];
 
             $result = \app\member::add($member);
@@ -52,10 +62,17 @@ class member extends auth {
 
             $member['user'] = \app\user::get_user_info($member['user_id']);
 
-            $auths = explode(',', $member['auths']);
+            $project_rules = explode(',', $member['project_rule']);
+            $module_rules  = explode(',', $member['module_rule']);
+            $api_rules     = explode(',', $member['api_rule']);
+            $member_rules  = explode(',', $member['member_rule']);
 
-            $this->assign('auths', $auths);
             $this->assign('member', $member);
+
+            $this->assign('project_rules', $project_rules);
+            $this->assign('module_rules', $module_rules);
+            $this->assign('api_rules', $api_rules);
+            $this->assign('member_rules', $member_rules);
 
             $this->display('member/add');
 

@@ -92,6 +92,9 @@
 
                     thisObj.closest('li').remove();
 
+                    var url = "{{url('notify/load')}}";
+                    $('.js_notifyDropdown').load(url);
+
                 }else{
 
                     alert(json.msg, 3000);
@@ -104,7 +107,7 @@
 
         // 清空全部消息
         $(document).delegate('.js_cleanNotify', 'click',function(){
-            confirm('清空后不会再次推送提醒消息，您确定要清空?', function(){
+            confirm('确定要清空所有的提醒消息?', function(){
 
                 alert('提醒消息清理成功', 500);
 

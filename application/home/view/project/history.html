@@ -1,6 +1,13 @@
 {{include_file name='public/header' title='项目动态'}}
 {{$user_id = $project.user_id}}
-
+<style>
+    .pagination {
+        display: inline-block;
+        padding-left: 0;
+         margin: 0;
+        border-radius: 4px;
+    }
+</style>
 </head>
 
 <body>
@@ -41,25 +48,27 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {{foreach $logs as $log}}
+                                {{foreach $historys as $history}}
                                 <tr>
-                                    <td>{{$log.user_name}}</td>
-                                    <td>{{$log.type}}</td>
-                                    <td>{{$log.object}}</td>
-                                    <td>{{$log.content}}</td>
-                                    <td>{{$log.add_time}}</td>
+                                    <td>{{$history.user_name}}</td>
+                                    <td>{{$history.type}}</td>
+                                    <td>{{$history.object}}</td>
+                                    <td>{{$history.content}}</td>
+                                    <td>{{$history.add_time}}</td>
                                 </tr>
                                 {{/foreach}}
 
                                 </tbody>
                             </table>
-
+                            {{include_file name='public/page'}}
                         </div>
+
                     </div>
                     <!-- /.panel-body -->
                 </div>
                 <!-- /.panel -->
             </div>
+
             <!-- /.col-lg-12 -->
         </div>
 
@@ -74,63 +83,5 @@
 
 <hr>
 <p class="text-center">{{get_config('copyright')}}</p>
-
-<script src="{{STATIC_URL}}/plugins/sortable/sortable.min.js"></script>
-
-<script>
-    $(function(){
-
-        //control+se编辑
-        document.onkeydown=function()   {
-            if (event.ctrlKey == true && event.keyCode == 69) {//Ctrl+S
-                event.returnvalue = false;
-                $(".js_editProjectBtn").trigger('click');
-            }
-
-        };
-
-        //移出项目
-        $(".js_quitProjectBtn").click(function(event){
-            // 阻止事件冒泡
-            event.stopPropagation();
-
-            var thisObj = $(this);
-
-            var projectId = "{{$project.id}}";
-            var userId    = thisObj.data('user_id');
-
-            var url = "{{url('project/quit')}}";
-
-            confirm('确认将该成员移出项目?', function(){
-
-                $.post(url, { project_id:projectId,user_id:userId }, function(json){
-
-                    if(json.code == 200){
-
-                        alert(json.msg, 500, function () {
-                            thisObj.closest('tr').remove();
-                        });
-
-                    }else{
-
-                        alert(json.msg, 2000);
-
-                    }
-
-                }, 'json');
-            });
-
-        });
-
-        // 修改项目
-        $(document).delegate('.js_editProjectBtn', 'click',function(){
-            var id = $(this).data('id');
-            $('#page-wrapper').load("{{url('project/edit')}}", {'id':id});
-        });
-
-    });
-</script>
-
-
 
 {{include_file name='public/footer'}}

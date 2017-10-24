@@ -81,32 +81,21 @@ class project {
 
         $project = project::get_project_info($project_id);
 
-        if(!$data['title']){
-
-            response::ajax(['code' => 301, 'msg' => '项目标题不能为空']);
-
-        }
-
-        if(self::check_title($data['title'], $project_id)){
-
-            response::ajax(['code' => 302, 'msg' => '该项目名称已存在']);
-
-        }
-
-        if(!$data['intro']){
-
-            response::ajax(['code' => 303, 'msg' => '项目简介不能为空']);
-
-        }
-
         if($project){
+
+            // 判断是否有编辑权限
+            if(!member::has_rule($project_id, 'project', 'update')){
+
+                response::ajax(['code' => 301, 'msg' => '抱歉，您没有编辑权限']);
+
+            };
 
             //更新操作
             $result =  db('project')->show(false)->where('id', '=', $project['id'])->update($data);
 
             if($result === false){
 
-                response::ajax(['code' => 304, 'msg' => '项目更新失败']);
+                response::ajax(['code' => 302, 'msg' => '项目更新失败']);
 
             }
 
@@ -150,6 +139,24 @@ class project {
             response::ajax(['code' => 200, 'msg' => '项目更新成功']);
 
         }else{
+
+            if(!$data['title']){
+
+                response::ajax(['code' => 301, 'msg' => '项目标题不能为空']);
+
+            }
+
+            if(self::check_title($data['title'], $project_id)){
+
+                response::ajax(['code' => 302, 'msg' => '该项目名称已存在']);
+
+            }
+
+            if(!$data['intro']){
+
+                response::ajax(['code' => 303, 'msg' => '项目简介不能为空']);
+
+            }
 
             //新增操作
             $data['user_id']  = user::get_user_id();

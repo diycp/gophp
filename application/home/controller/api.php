@@ -234,7 +234,7 @@ class api extends auth {
     public function __call($id, $arguments)
     {
 
-        $api_id = id_decode($id);
+        $api_id = id_decode($id) ? id_decode($id) : 0;
         $api    = \app\api::get_api_info($api_id);
 
         // 判断接口是否存在
@@ -252,7 +252,7 @@ class api extends auth {
 
         $project       = _uri('project', $project_id);
 
-        if(!\app\user::has_view_auth($project_id)){
+        if(!\app\member::has_rule($project_id, 'api', 'look')){
 
             $this->error('抱歉，您无权查看该接口');
 

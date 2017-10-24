@@ -1,12 +1,16 @@
 <?php
 namespace app;
-
+/**
+ * 无线分类
+ * Class category
+ * @package app
+ */
 class category {
 
     //一维数组
     static public function toLevel($category, $delimiter = '———', $parent_id = 0, $level = 0) {
 
-        $data = array();
+        $data = [];
         foreach ($category as $v) {
             if ($v['parent_id'] == $parent_id) {
                 $v['level'] = $level + 1;

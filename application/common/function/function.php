@@ -200,6 +200,6 @@ function id_encode($id)
 function id_decode($string)
 {
 
-    return \gophp\helper\id::decode($string);
+    return  \gophp\helper\id::decode($string);
 
 }

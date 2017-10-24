@@ -1,5 +1,4 @@
 {{include_file name='public/header' title='用户注册'}}
-<link href="{{STATIC_URL}}/plugins/completer/completer.css" rel="stylesheet">
 
 </head>
 
@@ -71,8 +70,6 @@
         <p class="text-center">{{get_config('copyright')}}</p>
     </div>
 
-    <script src="{{STATIC_URL}}/plugins/completer/completer.min.js"></script>
-
     <script>
 
         // 刷新验证码
@@ -85,11 +82,6 @@
             img.attr("src", src[0]+'?random='+new Date().getTime());
 
         }
-
-        $("#auto-complete-email").completer({
-            separator: "@",
-            source: ["qq.com", "136.com", "126.com", "139.com", "gmail.com", "hotmail.com", "sina.com", "sohu.com"]
-        });
 
         $(function(){
 

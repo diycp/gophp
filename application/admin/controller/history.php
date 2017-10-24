@@ -2,6 +2,7 @@
 
 namespace app\admin\controller;
 
+use gophp\db;
 use gophp\page;
 use gophp\request;
 
@@ -11,32 +12,73 @@ class history extends auth {
     public function login()
     {
 
-        $user_id  = request::get('user_id', 0);
+        $user_id = request::get('user_id', 0);
+        $search  = request::get('search', []);
+
+        $db = db::instance();
+
+        $table_suffix = $db->suffix;
+        $table_name   = $table_suffix .'login_log';
 
         if($user_id){
 
-            $model = db('login_log')->where('user_id', '=', $user_id);
-        }else{
-
-            $model = db('login_log');
+            $where = "user_id = $user_id ";
 
         }
 
-        $totalRows = $model->show(false)->count();
+        if($name = trim($search['name'])){
 
-        $page      = new page($totalRows, 10);
+            $user_sql = 'select id from ' . $table_suffix . 'user where ' .  "(name like '%{$name}%' or email like '%{$name}%') ";
 
-        if($user_id){
+            $user_ids = $db->show(false)->query($user_sql);
 
-            $model = db('login_log')->where('user_id', '=', $user_id);
-        }else{
+            $user_ids = array_column($user_ids, 'id');
 
-            $model = db('login_log');
+            $user_ids = $user_ids ? $user_ids : 0;
+
+            $where = $where ? $where .= ' and ' : '';
+
+            if($user_ids){
+
+                $where .= "user_id in (" . implode(',', $user_ids) . ')';
+
+            }else{
+
+                $where .= 'user_id in (0)';
+
+            }
 
         }
 
-        $historys  = $model->page($page)->orderBy('id desc')->show(false)->findAll();
+        if($ip = trim($search['ip'])){
 
+            $where = $where ? $where .= ' and ' : '';
+
+            $where = "ip like '%{$ip}%'";
+
+        }
+
+        if($device = trim($search['device'])){
+
+            $where = $where ? $where .= ' and ' : '';
+
+            $where .= " device = '{$device}' ";
+
+        }
+
+        $where = $where ? ' where ' . $where : '';
+
+        $sql   = "select * from $table_name $where";
+
+        $total = count($db->show(false)->query($sql));
+
+        $pre_rows = 10;
+
+        $page  = new page($total, $pre_rows);
+
+        $historys = $db->show(false)->query($sql, $pre_rows);
+
+        $this->assign('search', $search);
         $this->assign('historys', $historys);
         $this->assign('page', $page);
 

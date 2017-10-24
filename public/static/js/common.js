@@ -228,6 +228,7 @@ function confirm(msg, ok) {
 
         if(clickBtn){
             $(document).on('click', clickBtn, modalShow);
+
         }else{
             thisObj.on('click', modalShow);
         }

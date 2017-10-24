@@ -128,7 +128,11 @@ class apply extends auth {
                 $member = [
                     'project_id' => $project_id,
                     'user_id'    => $user_id,
-                    'add_time'   => date('Y-m-d H:i:s'),
+                    'project_rule' => 'look',
+                    'module_rule'  => 'look',
+                    'api_rule'    => 'look',
+                    'member_rule' => 'look',
+                    'add_time'    => date('Y-m-d H:i:s'),
                 ];
 
                 member::add($member);
