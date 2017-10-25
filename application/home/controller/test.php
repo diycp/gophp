@@ -21,9 +21,11 @@ class test {
      */
     public function index(){
 
-        $a = \app\config::get_project_config('request_method');
+        $a = RUNTIME_PATH.'/data/db.php';
 
-        dump($a);
+        $b = config::get($a);
+
+        dump($b);
 
 
 
