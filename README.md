@@ -18,7 +18,8 @@
 
 ## Requirement
 
- - PHP >= 5.5.0
+ - PHP >= 5.4.0
+ - MySQL >= 5.1.0
  - COMPOSER
  - PDO 拓展
  - GD 拓展
