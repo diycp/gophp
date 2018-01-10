@@ -3,6 +3,7 @@
 namespace gophp\view\driver;
 
 use gophp\exception;
+use gophp\helper\str;
 use gophp\view\contract;
 
 class smarty extends contract
@@ -74,6 +75,10 @@ class smarty extends contract
         if($this->exists($viewFile)){
 
             $this->view->display($viewFile);
+
+        }else{
+
+            throw new exception(  ' template file  ' . str::quote($viewFile) . ' not exist');
 
         }
 

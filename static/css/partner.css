@@ -1,0 +1,885 @@
+.amazing-bar {
+    background-color: rgba(0,0, 0, 0.4);
+    z-index: 999;
+    position: fixed;
+    width: 100%;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    height: 52px;
+    margin-bottom: 0;
+    top: 0;
+}
+.banner {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    top: 0px;
+    z-index: 0;
+}
+.coverImg {
+	width: 100%;
+}
+.amazing-content {
+	/* height: 1800px; */
+	/*background-color: green;*/
+}
+/* 众多明星伴侣的首选婚策机构 */
+.amazing-content .content-celebrity {
+    width: 990px;
+    margin: 0 auto;
+    border-bottom: 1px dashed #ccc;
+}
+.amazing-content .content-celebrity .celebrity-title {
+    text-align: center;
+    padding: 80px 0 0;
+    font-size: 35px;
+    font-family: PingFang-SC-Light;
+    font-weight: 700;
+    color: #212121;
+    margin-bottom: 0;
+}
+.amazing-content .content-celebrity .celebrity-name {
+    text-align: center;
+    padding: 20px 0 80px;
+    font-size: 20px;
+    font-family: PingFang-SC-Light;
+    font-weight: 700;
+    color: #212121;
+    letter-spacing: 5px;
+    margin-bottom: 0;
+}
+.amazing-content .content-celebrity img {
+    display: block;
+    width: 100%;
+    padding-bottom: 100px;
+}
+
+/* 39Ïî»éÀñÈÎÎñ */
+#NoNine {
+	background-color: #fff;
+}
+#NoNine .NoNine-title {
+	font-size: 38px;
+	color: #343434;
+	letter-spacing: 1.55px;
+	padding: 60px 0 20px;
+	text-align: center;
+	margin-bottom: 0;
+    font-family: PingFang-SC-Light;
+}
+#NoNine .NoNine-list {
+	list-style: none;
+	margin: 0;
+	background-color: #fff;
+	padding-bottom: 47px;
+	margin-left: 5%;
+}
+#NoNine .NoNine-cell {
+	float: left;
+	width: 10%;
+	background-color: #fff;
+	text-align: center;
+	position: relative;
+	min-height: 120px;
+}
+#NoNine .NoNine-cell .cell-logo {
+	background-image: url('../image/icon01.png');
+	background-repeat: no-repeat;
+	background-size: 40px 40px;
+	background-position: center 25px;
+	padding-top: 60px;
+}
+#NoNine .activeBorder {
+	border-top: 2px solid #00C1AF;
+	border-radius: 2px 2px 0px 0px;
+}
+#NoNine .NoNine-cell:nth-of-type(2) .cell-logo {
+	background-image: url('../image/icon02.png');
+}
+#NoNine .NoNine-cell:nth-of-type(3) .cell-logo {
+    background-image: url('../image/icon03.png');
+
+}
+#NoNine .NoNine-cell:nth-of-type(4) .cell-logo {
+    background-image: url('../image/icon04.png');
+
+}
+#NoNine .NoNine-cell:nth-of-type(5) .cell-logo {
+    background-image: url('../image/icon05.png');
+
+}
+#NoNine .NoNine-cell:nth-of-type(6) .cell-logo {
+    background-image: url('../image/icon06.png');
+
+}
+
+
+#NoNine .NoNine-cell .cell-detail > .cell-detail-text {
+	padding: 0 10px;
+    text-align: left;
+}
+/* Îå²¿ÃÅ½éÉÜ */
+#NoFive {
+	background-color: #F6F9FC;
+}
+#NoFive .NoFive-title {
+	font-size: 38px;
+	color: #343434;
+	letter-spacing: 1.55px;
+	padding: 0px;
+	margin: 0px;
+	padding-top: 60px;
+	text-align: center;
+    font-family: PingFang-SC-Light;
+}
+#NoFive .NoFive-mask {
+	width: 100%;
+    overflow: hidden;
+}
+#NoFive .NoFive-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    width: 120%;
+    text-align: center;
+    margin-left: -10%;
+    height: 330px;
+}
+#NoFive .NoFive-cell {
+	display: inline-block;
+    width: 180px;
+    height: 180px;
+    background-color: #fff;
+    border-radius: 50%;
+    overflow: hidden;
+    transition: all .4s;
+    margin: 60px 20px 0;
+    background-image: url('../../images/officialWebsite/wed-planning/Five01.png');
+    background-size: 300px 300px;
+    background-position: center center;
+    box-sizing: border-box;
+}
+#NoFive .NoFive-cell:nth-of-type(2) {
+    background-image: url('../../images/officialWebsite/wed-planning/Five02.png');
+}
+#NoFive .NoFive-cell:nth-of-type(3) {
+    background-image: url('../../images/officialWebsite/wed-planning/Five03.png');
+}
+#NoFive .NoFive-cell:nth-of-type(4) {
+    background-image: url('../../images/officialWebsite/wed-planning/Five04.png');
+}
+#NoFive .NoFive-cell:nth-of-type(5) {
+    background-image: url('../../images/officialWebsite/wed-planning/Five05.png');
+}
+#NoFive .NoFive-cell .NoFive-cell-mask {
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,.3);
+	text-align: center;
+}
+#NoFive .NoFive-cell .NoFive-cell-mask .mask-text {
+    font-size: 20px;
+    color: #FFFFFF;
+    letter-spacing: 1.63px;
+    line-height: 20px;
+    margin-bottom: 0;
+    padding-top: 37%
+}
+#NoFive .NoFive-cell .NoFive-cell-mask > span {
+	display: inline-block;
+	width: 30px;
+	height: 3px;
+	border-radius: 1px;
+	background-color: #fff;
+}
+#NoFive .NoFive-cell:hover {
+    width: 260px;
+    height: 260px;
+    margin-top: 0;
+    margin-bottom: -40px;
+    /* border: 10px solid #fff; */
+    box-shadow: 0px 0px 12px 2px rgba(49,49,93,0.15);
+    background-size: 260px 260px;
+}
+#NoFive .NoFive-cell:hover .NoFive-cell-mask {
+	display: none;
+}
+#specialized .specialized-title {
+    font-family: PingFang-SC-Light;
+    font-size: 38px;
+    color: #343434;
+    letter-spacing: 1.55px;
+    padding-top: 60px;
+    background-color: #F6F9FC;
+    margin: 0;
+    text-align: center;
+}
+#specialized .specialized-content {
+    background-color: #F6F9FC;
+    background-image: url(../../images/officialWebsite/wed-planning/number-bg.png);
+    background-size: 100% 150px;
+    background-repeat: no-repeat;
+    background-position: center 150px;
+    padding-bottom: 50px;
+}
+#specialized .specialized-content .specialized-box {
+    width: 1200px;
+    margin: 0 auto;
+}
+#specialized .specialized-content .specialized-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    float: left;
+}
+#specialized .specialized-cell {
+    background-image: url(../../images/officialWebsite/wed-planning/one.png);
+    background-repeat: no-repeat;
+    background-size: 113px 113px;
+    background-position: left 40px;
+    padding-top: 200px;
+    margin-left: 10px;
+    float: left;
+    width: 195px;
+    margin-top: 66px;
+}
+#specialized .specialized-cell:nth-of-type(2) {
+    background-image: url(../../images/officialWebsite/wed-planning/two.png);
+}
+#specialized .specialized-cell:nth-of-type(3) {
+    background-image: url(../../images/officialWebsite/wed-planning/three.png);
+}
+#specialized .specialized-cell:nth-of-type(4) {
+    background-image: url(../../images/officialWebsite/wed-planning/four.png);
+}
+#specialized .specialized-cell .cell-box {
+    background-image: url(../../images/officialWebsite/wed-planning/tea.png);
+    background-repeat: no-repeat;
+    background-size: 40px 40px;
+    background-position: 10px 10px;
+    padding-left: 60px;
+    margin-left: 10px;
+}
+#specialized .specialized-cell:nth-of-type(2) .cell-box {
+    background-image: url('../../images/officialWebsite/wed-planning/signgood.png');
+}
+#specialized .specialized-cell:nth-of-type(3) .cell-box {
+    background-image: url('../../images/officialWebsite/wed-planning/stone.png');
+}
+#specialized .specialized-cell:nth-of-type(4) .cell-box {
+    background-image: url('../../images/officialWebsite/wed-planning/king.png');
+}
+#specialized .cell-box .cell-box-title {
+    font-size: 19px;
+    color: #343434;
+    letter-spacing: 0.81px;
+}
+#specialized .cell-box .cell-box-text {
+    font-size: 14px;
+    color: #343434;
+    letter-spacing: 0.57px;
+}
+#specialized .specialized-img {
+    width: 370px;
+    height: 370px;
+    float: right;
+}
+/*¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ýÍ·²¿banner¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý¡ý*/
+#topBanner .custom-bullet{
+    width: 225px;
+    height: 90px;
+    -webkit-border-radius:0;
+    -moz-border-radius:0;
+    border-radius:0;
+}
+#topBanner .swiper-pagination-bullet{
+    opacity: 1;
+    padding: 18px 26px;
+    background: rgba(0, 0, 0, 0.5);
+}
+#topBanner .swiper-pagination-bullet-active{
+    opacity: 0.9;
+    background: #00C1AF;
+}
+#topBanner .swiper-pagination-bullet i{
+    width: 54px;
+    height: 54px;
+}
+#topBanner .pagination-banner .custom-bullet:first-child i{
+    background: url("../../images/officialWebsite/wed-planning/01_icon.png");
+    background-size:100%;
+}
+#topBanner .pagination-banner .custom-bullet:nth-child(2) i{
+    background: url("../../images/officialWebsite/wed-planning/02_icon.png");
+    background-size:100%;
+}
+#topBanner .pagination-banner .custom-bullet:nth-child(3) i{
+    background: url("../../images/officialWebsite/wed-planning/03_icon.png");
+    background-size:100%;
+}
+#topBanner .pagination-banner .custom-bullet:nth-child(4) i{
+    background: url("../../images/officialWebsite/wed-planning/04_icon.png");
+    background-size:100%;
+}
+/*rong*/
+/*#topBanner .pagination-banner .custom-bullet:last-child i{
+    background: url("../../images/officialWebsite/wed-planning/04_icon.png");
+    background-size:100%;
+}*/
+#topBanner .pagination-banner .custom-bullet:last-child i{
+    /*background: url("../../images/officialWebsite/wed-planning/04_icon.png");
+    background-size:100%;*/
+  	/* width: 0px; */
+
+}
+#topBanner .pagination-banner .custom-bullet:last-child p{
+	/* margin-right: 20px; */
+}
+/*----------*/
+#topBanner .swiper-pagination-bullet p {
+    margin:0;
+    font-family: PingFang-SC-Light;
+    font-size: 20px;
+    color: #FFFFFF;
+    letter-spacing: 0px;
+    line-height: 52px;
+}
+#freehand{
+    margin:0 auto;
+    width: 990px;
+    background-color: #fff;
+}
+#company .top-title,
+#cooperation .top-title,
+#freehand .top-title{
+    text-align: center;
+    font-family: PingFang-SC-Light;
+    font-size: 38px;
+    color: #343434;
+    letter-spacing: 1.55px;
+    text-align: center;
+    padding: 60px 0 40px;
+}
+#sketching{
+    /* width: 1366px; */
+    /* height: 775px; */
+    margin: 0 auto;
+}
+#freehand  .swiper-slide{
+    padding-bottom: 160px;
+}
+#freehand  .swiper-slide img{
+    width: 100%;
+    height: 100%;
+}
+#freehand  .swiper-slide .foot-content {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 160px;
+    padding: 30px 133px 50px;
+}
+#freehand  .swiper-slide .foot-content p:first-child{
+    font-size: 30px;
+    color: #343434;
+    letter-spacing: 1.22px;
+    line-height: 25px;
+    text-align: center;
+}
+#freehand  .swiper-slide .foot-content p:last-child{
+    font-size: 16px;
+    color: #343434;
+    letter-spacing: 0.65px;
+    line-height: 25px;
+    text-align: center;
+}
+#freehand .swiper-button-next, #freehand .swiper-button-prev{
+    top: 102px;
+}
+
+#freehand  .ani {
+    animation-fill-mode: backwards;
+    -webkit-animation-fill-mode:backwards ;
+}
+#freehand .swiper-button-next{
+    right: 2px;
+}
+#freehand .swiper-button-prev{
+    left: 1px;
+}
+#freehand .swiper-button-next,
+#freehand .swiper-button-prev{
+    height: 98px;
+    width: 38px;
+    background-color: rgba(0,0,0,.2);
+    border-radius: 4px;
+}
+#freehand .swiper-button-next:hover,
+#freehand .swiper-button-prev:hover{
+    background-color: rgba(0,0,0,.6);
+}
+/*¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡üÍ·²¿banner¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü*/
+/*↑↑↑↑↑↑↑↑↑↑↑↑↑头部banner↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑*/
+
+/*↓↓↓↓↓↓↓↓↓↓↓↓↓优质合作↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓*/
+#cooperation {
+    padding-bottom: 40px;
+}
+#cooperation .sm-title{
+    font-family: PingFang-SC-Light;
+    font-size: 18px;
+    color: #999999;
+    letter-spacing: 0.73px;
+    text-align: center;
+    /*width: 75px;*/
+   /*rong*/
+  	width: 140px;
+  	/*-----*/
+    margin: 0 auto;
+    height: 41px;
+    position: relative;
+}
+#cooperation .sm-title span{
+    position: absolute;
+    bottom: 0;
+    background: #333333;
+    width: 40px;
+    height: 2px;
+    left: 50%;
+    margin-left:-20px;
+}
+#cooperation .logos{
+    width: 920px;
+    margin: 0 auto;
+    margin-top:27px;
+}
+#cooperation .logos img{
+    width: 100%;
+    height: 100%;
+}
+/*↑↑↑↑↑↑↑↑↑↑↑↑↑优质合作↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑*/
+
+/*↓↓↓↓↓↓↓↓↓↓婚宴场地↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓*/
+#weddingP{
+    width: 1200px;
+    position: relative;
+    margin: 0 auto;
+}
+#weddingP img {
+    width: 100%;
+    height: 100%;
+}
+#weddingP > p{
+    font-family: PingFang-SC-Light;
+    font-size: 38px;
+    color: #343434;
+    letter-spacing: 1.55px;
+    padding-top: 60px;
+    background-color: #fff;
+    margin: 0;
+    text-align: center;
+    margin-bottom:50px;
+}
+#weddingP > .fl,
+#weddingP > .fr{
+    width: 48%;
+    border: 1px solid #ccc;
+}
+#weddingP .tu{
+    width: 100%;
+}
+#weddingP .tu img{
+    width: 100%;
+}
+#weddingP .tu-container > a {
+    color: #333;
+    text-decoration: none;
+}
+#weddingP .tu-container > a:hover {
+    color: #333;
+    text-decoration: none;
+}
+#weddingP .tu-container>div+p{
+    font-size: 18px;
+}
+#weddingP .tu-container>p+p{
+    font-size: 16px;
+    color: #9B9B9B;
+}
+.zi-container {
+    padding: 10px;
+}
+.zi-container .zi-top {
+    font-size: 20px;
+}
+.zi-container .zi-subhead {
+    color: #555;
+    font-size: 15px;
+    line-height: 20px;
+    height: 20px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+#weddingP .adds .fl {
+    margin-bottom: 0;
+    text-align: left;
+}
+#weddingP .adds .fr {
+    margin-bottom: 0;
+    text-align: right;
+}
+/*↑↑↑↑↑↑↑↑↑↑↑↑↑婚宴场地↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑*/
+
+/*↓↓↓↓↓↓↓↓↓↓↓↓↓公司动态↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓*/
+
+#company{
+    background: #F6F9FC;
+}
+#company .magzines{
+    margin: 0 auto;
+    width: 990px;
+}
+#company .magzines>div{
+    width: 25%;
+    position: relative;
+}
+#company .magzines>div img {
+    width: 100%;
+    height: 100%;
+}
+#company .magzines a {
+    display: block;
+}
+#company .magzines>div .des{
+    position: absolute;
+    bottom:0;
+    width: 100%;
+    background-color: rgba(0,0,0,.5);
+    text-align: left;
+}
+#company .magzines>div .des>a{
+    font-family: PingFang-SC-Light;
+    font-size: 16px;
+    /*line-height:44px;*/
+    height: 44px;
+    width: 100%;
+    color: #FFFFFF;
+    letter-spacing: 0.65px;
+    width: 100%;
+    display: block;
+    margin: 11px 0;
+    padding-left: 2%;
+}
+#company .magzines>div .des>a:hover{
+    color: #00C1AF ;
+}
+#company .magzines>div:last-child .des>a{
+    /* padding-top: 10px; */
+}
+/*↑↑↑↑↑↑↑↑↑↑↑↑↑公司动态↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑*/
+/* 新建导航在线预约 */
+#amazingCollapse .nav-revolution {
+    /*display: none;*/
+}
+#amazingCollapse .nav-revolution-btn {
+    background-color: #00C1AF;
+    padding: 6px;
+    margin-top: 9px;
+    border-radius: 6px;
+}
+#nav-revolution-box {
+    position: absolute;
+    right: 10%;
+    top: 50%;
+    width: 359px;
+    height: 380px;
+    margin-top: -190px;
+    background-color: rgba(255,255,255,0.95);
+    padding: 176px 15px 0px 15px;
+    z-index: 999;
+    background: url("../../images/officialWebsite/wed-planning/yuyue.png") 100% 100%;
+}
+.swiper-container-horizontal>.swiper-pagination-bullets{
+    bottom: 0px!important;
+}
+#nav-revolution-box > .revolution-input {
+    outline: none;
+    width: 78%;
+    display: block;
+    height: 44px;
+    margin: 0 auto;
+    line-height: 50px;
+    background-color: rgba(255,255,255,0);
+    font-size: 16px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.59);
+    box-shadow: none;
+    border-radius: 4px;
+    margin-top: 11px;
+    color: #999;
+    position: relative;
+    border-radius: 4px;
+    color: #fff;
+    font-family: sans-self;
+}
+#nav-revolution-box input::-webkit-input-placeholder{
+    color: #fff;
+    letter-spacing:0px;
+    font-size: 16px;
+    font-family: sans-self;
+}
+#nav-revolution-box input::-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #fff;
+    letter-spacing:0px;
+    font-size: 16px;
+    font-family: sans-self;
+}
+#nav-revolution-box input::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #fff;
+    letter-spacing:0px;
+    font-size: 16px;
+    font-family: sans-self;
+}
+#nav-revolution-box input::-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: #fff;
+    letter-spacing:0px;
+    font-size: 16px;
+    font-family: sans-self;
+}
+#nav-revolution-box .revolution-name {
+    margin-top: 0;
+}
+#datepickers {
+    background-image: url('../../images/officialWebsite/wed-planning/Rectangle .png');
+    background-size: 10px 10px;
+    background-repeat: no-repeat;
+    background-position: 100% 95%;
+}
+.newerror::-webkit-input-placeholder { /* WebKit browsers */
+color: red;
+}
+.newerror::-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+color: red;
+}
+.newerror::-moz-placeholder { /* Mozilla Firefox 19+ */
+color: red;
+}
+.newerror::-ms-input-placeholder { /* Internet Explorer 10+ */
+color: red;
+}
+#nav-revolution-box .revolution-money {
+    background-image: url('../../images/officialWebsite/wed-planning/Rectangle .png');
+    background-size: 10px 10px;
+    background-repeat: no-repeat;
+    background-position: 100% 95%;
+}
+#nav-revolution-box .revolution-money-box {
+    display: none;
+    position: absolute;
+    width: 100%;
+    background-color: #fff;
+}
+#nav-revolution-box .revolution-money-box > span {
+    float: left;
+    width: 50%;
+    background-color: #fff;
+    border-bottom: 1px solid #eee;
+    cursor: default;
+}
+#nav-revolution-box .revolution-money-box > span:nth-of-type(2n-1) {
+    border-right: 1px solid #eee;
+}
+#nav-revolution-box .revolution-money-box > span:nth-last-child(-n+2) {
+    border-bottom: none;
+}
+#nav-revolution-box .revolution-money-box > span:hover {
+    background-color: #eee;
+    color: #00C1AF;
+}
+#nav-revolution-box .revolution-send {
+    font-family: sans-self;
+    width: 100%;
+    margin: 20px auto 0;
+    height: 91px;
+    line-height: 71px;
+    text-align: center;
+    color: #00C1AF;
+    /* background-color: #fff; */
+    border-radius: 5px;
+    font-size: 22px;
+    cursor: pointer;
+    /* box-shadow: 0 5px 15px #00C1AF; */
+    letter-spacing: 4px;
+    background: url("../../images/officialWebsite/wed-planning/button.png");
+    background-size: 100% 100%;
+    background-position: -5px 0px;
+}
+#nav-revolution-box .nav-revolution-advertisement {
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+}
+#nav-revolution-box .nav-revolution-advertisement .advertisement01 {
+
+}
+#nav-revolution-box .nav-revolution-advertisement .advertisement02 {
+    width: 100%;
+}
+ .swiper-pagination {
+    position: absolute;
+    text-align: center!important;
+    -webkit-transition: .3s;
+    -moz-transition: .3s;
+    -o-transition: .3s;
+    transition: .3s;
+    -webkit-transform: translate3d(0,0,0);
+    -ms-transform: translate3d(0,0,0);
+    -o-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+    z-index: 10;
+}
+.swiper-container-horizontal>.swiper-pagination-bullets {
+    bottom: 10px;
+    /* left: 10%!important; */
+    width: 100%;
+}
+@media (max-width: 1600px) {
+    /*#nav-revolution-box {*/
+        /*position: absolute;*/
+        /*right: 13%;*/
+        /*top: 50%;*/
+        /*width: 300px;*/
+        /*height: 400px;*/
+        /*margin-top: -220px;*/
+        /*background-color: rgba(255,255,255,0.95);*/
+        /*padding: 20px 15px;*/
+        /*z-index: 999;*/
+    /*}*/
+    /*#nav-revolution-box > .revolution-input {*/
+        /*border: none;*/
+        /*outline: none;*/
+        /*width: 100%;*/
+        /*height: 50px;*/
+        /*line-height: 50px;*/
+        /*background-color: rgba(255,255,255,0);*/
+        /*font-size: 15px;*/
+        /*text-align: center;*/
+        /*border-bottom: 1px solid #e0e0e0;*/
+        /*box-shadow: none;*/
+        /*border-radius: 0px;*/
+        /*margin-top: 5px;*/
+        /*color: #999;*/
+        /*position: relative;*/
+    /*}*/
+    /*#nav-revolution-box .revolution-name {*/
+        /*margin-top: 0;*/
+    /*}*/
+    /*#nav-revolution-box .revolution-send {*/
+        /*width: 80%;*/
+        /*margin: 15px auto 0;*/
+        /*height: 45px;*/
+        /*line-height: 45px;*/
+        /*text-align: center;*/
+        /*color: #fff;*/
+        /*background-color: #00C1AF;*/
+        /*border-radius: 5px;*/
+        /*font-size: 16px;*/
+        /*cursor: pointer;*/
+        /*box-shadow: 0 5px 15px #D5D5D5;*/
+
+    /*}*/
+    /*#nav-revolution-box .nav-revolution-advertisement {*/
+        /*width: 100%;*/
+        /*text-align: center;*/
+        /*margin-top: 10px;*/
+    /*}*/
+    /*#nav-revolution-box .nav-revolution-advertisement .advertisement01 {*/
+        /*width: 30px;*/
+    /*}*/
+    /*#nav-revolution-box .nav-revolution-advertisement .advertisement02 {*/
+        /*width: 80%;*/
+        /*display: block;*/
+        /*margin: 0 auto;*/
+    /*}*/
+}
+@media (max-width: 1400px) {
+    #topBanner .custom-bullet {
+        width: 200px;
+        height: 70px;
+        -webkit-border-radius: 0;
+        -moz-border-radius: 0;
+        border-radius: 0;
+    }
+    #topBanner .swiper-pagination-bullet {
+        opacity: 1;
+        padding: 10px 26px;
+        background: rgba(0, 0, 0, 0.5);
+    }
+    #topBanner .swiper-pagination-bullet-active{
+        opacity: 0.9;
+        background: #00C1AF;
+    }
+}
+/* 400 */
+.app-float {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    min-width: 1170px;
+    width: 100%;
+    height: 0;
+    z-index: 99;
+    height: 140px;
+    left: -100%;
+}
+.app-float .app-float-btn {
+    width: 133px;
+    height: 133px;
+    position: fixed;
+    left: 0;
+    bottom: 80px;
+    background: url('../../images/officialWebsite/wed-planning/bottom-btn.png') center center no-repeat;
+    cursor: pointer;
+    left: -100%;
+    background-color: rgba(0,0,0,.5);
+}
+.app-float .app-float-banner {
+    width: 1170px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    left: 0%;
+}
+.app-float .app-float-close {
+    right: 24px;
+    top: 14px;
+    position: absolute;
+}
+.app-float .app-float-bgmask {
+    width: 0;
+    height: 100%;
+    background-color: #000;
+    opacity: .7;
+    -ms-filter: Alpha(opacity=50);
+    filter: Alpha(opacity=50);
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+#toolbar img {
+    box-sizing: content-box;
+}
+.main-nav {
+    background: #3a3a3a;
+    /*position: absolute;*/
+    /*top: 0;*/
+    /*width: 100%;*/
+    /*height: 33px;*/
+    /*z-index: 1;*/
+    /*padding: 20px 0;*/
+    /*box-sizing: content-box;*/
+    /*background-color: rgba(0,0,0,0.3);*/
+}

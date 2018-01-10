@@ -1,0 +1,182 @@
+{{include_file name='public/header' title='案例管理'}}
+<link href="{{STATIC_URL}}/plugs/uploadview/style.css" type="text/css" rel="stylesheet" />
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    {{include_file name='public/nav' sidebar='sidebar'}}
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="page-header">
+                    <h1>案例管理 </h1>
+                    <div class="opt-btn">
+
+                        <a href="{{url('admin/cases')}}" class="btn hidden-xs btn-sm btn-success"><i class="fa fa-fw fa-reply"></i>返回</a>
+
+                    </div>
+                </div>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <form id="js_navForm" role="form" action="{{url('admin/cases/add','','','json')}}" method="post" enctype="multipart/form-data" >
+                                    <input type="hidden" class="form-control" name="id" value="{{$news.id}}">
+
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="control-label">案例名称:</label>
+                                        <input type="text" class="form-control" name="title" value="{{$news.title}}" placeholder="必填，不大于8位" datatype="*1-8">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="control-label">案例封面:<span class="text-danger">(上传尺寸320px*320px)</span></label>
+                                        <div class="control-group js_uploadBox">
+                                            <div class="btn-upload">
+                                                <a href="javascript:void(0);"><i class="icon-upload"></i><span class="js_uploadText">上传</span>图片</a>
+                                                <input class="js_upFile" type="file" name="cover">
+                                            </div>
+
+                                            <div class="js_showBox {{if !$news.cover}}hidden{{/if}}"><img class="js_logoBox" src="{{$news.cover}}" width="320px" height="320px"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>案例简介</label>
+                                        <textarea class="form-control" id="js_intro" name="intro" rows="3" placeholder="必填" datatype="*" nullmsg="请输入新闻简介！">{{$news.intro}}</textarea>
+                                        <span class="Validform_checktip"></span>
+
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label>案例照片(<span class="text-danger">只上传图片，上传图片建议宽度600px，高度不限</span>)</label>
+                                        <textarea style="min-height:500px;" id="js_content" class="form-control" name="content" rows="3" placeholder="必填"  datatype="*" nullmsg="请输入详细内容！">{{$news.content}}</textarea>
+                                        <span class="Validform_checktip"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="control-label">案例状态 <a data-toggle="tooltip" data-placement="right" title="" class="btn-show-tips" data-original-title="关闭后前台不会展示">
+                                                <i class="fa fa-info-circle"></i>
+                                            </a></label>
+                                        <div class="form-group">
+                                            <label class="radio-inline">
+                                                <input type="radio" name="status" {{if !$news || $news.status == 1}}checked{{/if}} value=1 > 开启
+                                            </label>
+
+                                            <label class="radio-inline">
+                                                <input type="radio" name="status" {{if $news.status == 2}}checked{{/if}} value=2> 关闭
+                                            </label>
+
+                                        </div>
+                                    </div>
+
+
+                                    <button type="submit" class="btn btn-primary js_submit">提交</button>
+
+
+                                </form>
+
+
+                            </div>
+                            <!-- /.col-lg-6 (nested) -->
+
+                            <!-- /.col-lg-6 (nested) -->
+                        </div>
+                        <!-- /.row (nested) -->
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <hr>
+    <p class="text-center">{{get_config('copyright')}}</p>
+    <!-- /#wrapper -->
+    <script charset="utf-8" src="{{STATIC_URL}}/plugs/kindeditor/kindeditor-all-min.js"></script>
+    <script charset="utf-8" src="{{STATIC_URL}}/plugs/kindeditor/lang/zh-CN.js"></script>
+
+    <script src="{{STATIC_URL}}/plugs/uploadview/js.js"></script>
+    <script>
+
+        var editor;
+        KindEditor.ready(function(K) {
+            editor = K.create('#js_content', {
+                resizeType : 1,
+                allowFileManager:false,
+                allowPreviewEmoticons : true,
+                allowImageUpload : true,
+                uploadJson: "{{url('admin/upload/image')}}",
+                items : [
+                    'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+                    'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+                    'insertunorderedlist', '|', 'emoticons', 'link','image','source']
+            });
+        });
+
+        $(function(){
+
+            $(".js_upFile").uploadView({
+                uploadBox: '.js_uploadBox',//设置上传框容器
+                showBox : '.js_showBox',//设置显示预览图片的容器
+                width : 320, //预览图片的宽度，单位px
+                height : 320, //预览图片的高度，单位px
+                allowType: ["gif", "jpeg", "jpg", "bmp", "png"], //允许上传图片的类型
+                maxSize :2, //允许上传图片的最大尺寸，单位M
+                success:function(e){
+                    $(".js_uploadText").text('更改');
+                    //alert('图片上传成功');
+                }
+            });
+
+            //验证表单
+            //表单合法性验证
+            $("#js_navForm").Validform({
+                tiptype:function(msg,o,cssctl){
+                    if(!o.obj.is("form")){
+                        var objtip=o.obj.siblings(".Validform_checktip");
+                        cssctl(objtip,o.type);
+                        objtip.text(msg);
+                    }
+                },
+                ajaxPost:false,
+                label:"label",
+                beforeCheck:function(e){
+                    $("#js_content").val(editor.html());
+                },
+                beforeSubmit:function(e){
+                    var content = editor.text();
+                    if(!content){
+                        alert('请填写新闻内容', 2000);
+                        return false
+                    }
+                },
+                callback:function (json) {
+                    if(json.code == 200){
+                        $(".js_view").attr('href', json.url);
+                        $("#js_tipModal").modal('show');
+                    }else{
+                        alert(json.msg);
+                    }
+                }
+            });
+
+        });
+
+
+    </script>
+
+    {{include_file name='public/footer'}}

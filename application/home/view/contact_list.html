@@ -1,0 +1,66 @@
+{{include_file name='public/header' title="联系我们"}}
+<style>
+    .contact{
+        color: #0f0f0f;
+    }
+    .contact h3{
+        font-weight:800;
+        font-size: 16px;
+        /*color: #fff;*/
+        letter-spacing: 0.5px;
+        margin-bottom: 14px;
+    }
+    .contact p {
+        display: block;
+        text-decoration: none;
+        font-size: 14px;
+        /*color: #fff;*/
+        margin-bottom: 14px;
+        margin-right: 8px;
+        opacity: .69;
+    }
+</style>
+<link rel="stylesheet" href="{{STATIC_URL}}/css/news-detail.css">
+<!-- main -->
+<div class="container" id="container">
+    {{include_file name='public/position'}}
+    <div class="content clx">
+        <div class="content-left">
+
+            <div style="word-wrap: break-word;">
+
+                <div class="contact">
+                    <h3>联系方式</h3>
+                    <p class="">
+                        客服电话：{{get_config('kefu_tel')}}/{{get_config('kefu_phone')}}
+                    </p>
+                    <p class="">
+                        客服微信：{{get_config('kefu_weixin')}}
+                    </p>
+                    <p class="">
+                        服务时间：{{get_config('kefu_time')}}
+                    </p>
+                    <p class="">
+                        公司地址：{{get_config('address')}}
+                    </p>
+                </div>
+
+                <div class="contact">
+                    <h3>地图导航</h3>
+                    <iframe src="{{url('map')}}" style="min-height: 550px;" width="100%" border='0' scrolling="no"></iframe>
+                </div>
+            </div>
+
+        </div>
+        <div class="content-right">
+
+            {{include_file name='public/sidebar' type='手机扫一扫 获取联系方式'}}
+        </div>
+    </div>
+
+    <!-- 相关推荐 -->
+</div>
+
+<!-- footer -->
+
+{{include_file name='public/footer'}}

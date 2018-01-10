@@ -53,7 +53,7 @@ class controller
     public function success($msg, $url = '', $time = 1)
     {
 
-        $viewFile = config::get('view', 'error_template');
+        $viewFile = view::instance()->config['error_template'];
 
         if(!$url){
 
@@ -79,7 +79,7 @@ class controller
     public function error($msg, $url = '', $time = 3)
     {
 
-        $viewFile = config::get('view', 'error_template');
+        $viewFile = view::instance()->config['error_template'];
 
         if(!$url){
 

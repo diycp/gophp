@@ -19,7 +19,7 @@ class db extends contract
     private function __construct()
     {
 
-        $config = config::get(RUNTIME_PATH.'/config/db.php');
+        $config = config::get('db');
 
         $this->driver = $config['driver'];
 
@@ -29,13 +29,6 @@ class db extends contract
 
     }
 
-    public function ping()
-    {
-
-        $this->handler = $this->handler();
-
-        return $this->handler->ping();
-    }
 
     public function connect()
     {
@@ -131,9 +124,7 @@ class db extends contract
 
         $method = __FUNCTION__;
 
-        $this->handler->$method($sql);
-
-        return $this;
+        return $this->handler->$method($sql);
 
     }
 

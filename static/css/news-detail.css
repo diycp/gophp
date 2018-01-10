@@ -1,0 +1,254 @@
+.main-nav{
+	background: #3a3a3a;
+}
+body{
+	overflow-x: hidden;
+}
+.container{
+	width: 1000px;
+	margin: 0 auto;
+	padding: 0px;
+	padding-top: 87px;
+	padding-bottom: 10px;
+	position: relative;
+	top: -14px;
+}
+.container .crumbs{
+	padding: 18px 0px 17px;
+}
+ .container .crumbs ul li{
+	float:  left;
+	font-size: 14px;
+	color: #3A3A3A;
+	letter-spacing: -0.1px;
+}
+ .container .crumbs a{
+ 	letter-spacing: .8px;
+	color: #999;
+	text-decoration: none !important; 
+	cursor: pointer;
+}
+.container .crumbs ul li:nth-of-type(1) a{
+	/*color: #3A3A3A;*/
+}
+.container .crumbs ul li:nth-last-of-type(1) a{
+	cursor: default;
+	
+}
+ .container .crumbs ul{
+	margin: 0px;
+}
+ .container .crumbs ul li:after{
+	content:"";
+	width: 5px;
+	height: 9px;
+	content: url(../image/right.png);
+	padding: 0px 8px;
+	font-size: 14px;
+}
+ .container .crumbs ul li:last-of-type:after{
+	content: '';
+}
+.content{
+	width: 100%;
+}
+.content-left {
+	float: left;
+	width: 660px;
+	margin-right: 30px;
+}
+.content-left p {
+	margin-bottom: 20px;
+	line-height: 1.5;
+}
+.content-left > .content-title {
+	font-size: 32px;
+	color: #333333;
+	text-align: center;
+	margin-bottom: 10px;
+}
+.content-left > .title-subhead {
+	font-size: 14px;
+	color: #999999;
+	text-align: center;
+	margin-bottom: 30px;
+}
+.content-left > .title-subhead  > span {
+	margin: 0 5px;
+}
+.content-left > .introduction {
+	color: #888;
+	margin-bottom: 30px;
+
+	font-size: 16px;
+	letter-spacing: 0px;
+	line-height: 30px;
+}
+.content-left img{
+	width: 100%;
+	margin-bottom: 5px;
+}
+.content-right{
+	float: right;
+	width: 310px;
+}
+.content-right h2{
+	font-size: 20px;
+	color: #3A3A3A;
+	margin-bottom: 10px;
+	font-weight: 600;
+}
+.content-right .title{
+	font-size: 14px;
+	color: #999999;
+	margin-bottom: 15px;
+}
+.content-right .design{
+	font-size: 16px;
+	color: #4A4A4A;
+	margin-bottom: 6px;
+}
+.content-right  .content-text{
+	font-size: 13px;
+	color: #999;
+	letter-spacing: 0px;
+	line-height: 22px;
+	margin-bottom: 20px;
+	/*height: 85px;*/
+	overflow: hidden;
+	position: relative;
+}
+.content-right .case-desc-overflow{
+	position: relative;
+}
+.content-right  .content-text::after {
+	display: none;
+	/*content: '...';*/
+    width: 21px;
+    height: 21px;
+    position: absolute;
+    bottom: 0;
+    right: -8px;
+    color: #999;
+    font-weight: bold;
+    line-height: 21px;
+    letter-spacing: 1px;
+    z-index: 99;
+}
+.content-right .desc-show  .content-text::after {
+	display: block;
+}
+.content-right  hr{
+	margin-bottom: 15px;
+	margin-top: 14px;
+	border: 1px solid #efefef;
+	border-bottom: none;
+}
+.content-right .basic{
+	font-size: 16px;
+	color: #4A4A4A;
+	font-weight: 500;
+}
+.content-right ul{
+	width: 100%;
+	margin-bottom: 20px;
+}
+.content-right ul li{
+	width: 100%;
+	margin-bottom: 8px;
+}
+.content-right ul li p{
+	width: 160px;
+	float: left;
+}
+.content-right ul li p:nth-of-type(2){
+	padding-left: 15px;
+	width: 150px;
+	box-sizing: border-box;
+}
+.content-right ul li p span:nth-of-type(1){
+	font-size: 14px;
+	color: #999999;
+	margin-right: 10px;
+}
+
+.allPhone{
+	margin-top: 10px;
+	margin-bottom: 10px;
+	font-weight: 600;
+	font-size: 14px;
+	color: rgba(58,58,58,0.99);
+	letter-spacing: 0.43px;
+}
+/* article-module */
+#mwt-article .modular-title {
+	background-image: url('../../images/officialWebsite-v2.0/hotel-detail/line.png');
+	background-position: left 50px;
+	background-repeat: repeat-x;
+	padding-top: 120px;
+	padding-bottom: 30px;
+}
+.main-modular .modular-title > h2 {
+	float: left;
+	font-size: 30px;
+	color: #3A3A3A;
+	letter-spacing: 0px;
+}
+#mwt-article .modular-container {
+	position: relative;
+	margin-bottom: 20px;
+}
+#mwt-article .article-lists {
+
+}
+#mwt-article .article-lists .article-cell {
+	float: left;
+	width: 235px;
+	-webkit-transition: transform .2s linear;
+	   -moz-transition: transform .2s linear;
+	    -ms-transition: transform .2s linear;
+	     -o-transition: transform .2s linear;
+	        transition: transform .2s linear;
+}
+#mwt-article .article-lists .article-cell + .article-cell {
+	margin-left: 20px;
+}
+#mwt-article .article-cell .article-img {
+	display: block;
+	width: 100%;
+	/* height: 140px; */
+}
+#mwt-article .article-cell .article-text {
+	background: #FFFFFF;
+	border: 1px solid #EDEDED;
+	padding: 20px;
+	height: 230px;
+	box-sizing: border-box;
+}
+#mwt-article .article-cell .article-text .article-title {
+    width: 100%;
+    max-height: 44px;
+    font-size: 16px;
+    color: #3A3A3A;
+    letter-spacing: 0.88px;
+    line-height: 22px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    /* white-space: nowrap; */
+    /* text-overflow: ellipsis; */
+}
+#mwt-article .article-cell .article-text .article-desc {
+    width: 100%;
+    height: 120px;
+    line-height: 24px;
+    font-size: 14px;
+    color: #555555;
+    letter-spacing: 0px;
+    overflow: hidden;
+}
+#mwt-article .article-lists .article-cell:hover {
+	-webkit-box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    -webkit-transform: translate3d(0,-2px,0);
+    transform: translate3d(0,-2px,0);
+}

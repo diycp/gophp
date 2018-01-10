@@ -339,3 +339,23 @@ if(!function_exists('_uri'))
     }
 
 }
+
+if(!function_exists('_list'))
+{
+
+    function _list($table, $where, $limit = 0)
+    {
+
+        $db = \gophp\db::instance();
+
+        $sql = "select * from $table where $where";
+
+        if($limit){
+            $sql .= ' limit '.$limit;
+        }
+
+        return $db->show(false)->query($sql);
+
+    }
+
+}

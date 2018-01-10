@@ -1,0 +1,161 @@
+<!-- bottom banner -->
+<div class="bottom-banner bottom-banner-delay" id="bottom-banner" style="display: none">
+    <div class="bottom-banner-top">
+        <img src="{{STATIC_URL}}/image/bottom-form-people.png" alt="" class="people">
+        <img src="{{STATIC_URL}}/image/word.png" alt="" class="textNum">
+        <div class="bottom-banner-form" id="bottom-banner-form">
+            <div class="bb-input-box-cell">
+                <input type="text" class="bb-name" id="bb-name" placeholder="姓名">
+            </div>
+            <div class="bb-input-box-cell">
+                <input type="tel" class="bb-tel" id="bb-tel" placeholder="手机号码" maxlength="11">
+            </div>
+        </div>
+        <div class="bb-submit" id="bb-submit">
+            免费回电
+        </div>
+    </div>
+</div>
+<!-- footer -->
+<div class="footer" id="footer">
+    <div class="w clx">
+        <div class="footer-title clx">
+
+        </div>
+
+        <div class="contact footer-cell">
+            <h3>联系方式</h3>
+            <p class="">
+                客服电话：{{get_config('kefu_tel')}}/{{get_config('kefu_phone')}}
+            </p>
+            <p class="">
+                客服微信：{{get_config('kefu_weixin')}}
+            </p>
+            <p class="">
+                服务时间：{{get_config('kefu_time')}}
+            </p>
+            <p class="">
+                公司地址：{{get_config('address')}}
+            </p>
+        </div>
+        <div class="about-amazing footer-cell">
+            <h3>关注我们</h3>
+            <div class="amazing-way clx">
+                <a href="javascript:;" class="fl">
+                    <img src="{{STATIC_URL}}/image/weixin.png" alt="{{get_config('name')}}微信公众号">
+                </a>
+                <a href="{{get_config('kefu_weibo')}}" class="fl" target="_blank">
+                    <img src="{{STATIC_URL}}/image/weibo.png" alt="{{get_config('name')}}官方微博">
+                </a>
+                <div class="erweima" style="margin-top: 10px;">
+                    <img height="100px" src="{{get_config('kefu_qrcode')}}" alt="{{get_config('name')}}微信公众号">
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="copyright w clx">
+        <p class="fl">
+            {{get_config('copyright', false)}}
+        </p>
+    </div>
+</div>
+<!-- toolbar module -->
+<div class="other-module">
+    <div id="toolbar" class="toolbar">
+        <div id="tool-reservation" class="tool-reservation tool-cell">
+            <img src="{{STATIC_URL}}/image/reservation.png" alt="reservation">
+            <p>
+                在线预约
+            </p>
+        </div>
+
+        <div id="tool-qq" class="tool-qq tool-cell">
+            <a href="http://wpa.qq.com/msgrd?v=3&amp;uin={{get_config('kefu_qq')}}&amp;site=qq&amp;menu=yes" target="_blank">
+                <img src="{{STATIC_URL}}/image/qq.png" alt="通过QQ咨询婚礼">
+                <p>
+                    QQ咨询
+                </p>
+            </a>
+        </div>
+        <div id="tool-gotop" class="tool-gotop tool-cell" style="display: block;">
+            <img src="{{STATIC_URL}}/image/gotop.png" alt="goBackTop">
+            <p>
+                TOP
+            </p>
+        </div>
+    </div>
+    <div id="reservation-form" class="reservation-form" style="display: none">
+        <p class="form-title">
+            预约咨询
+        </p>
+        <p class="form-subhead">
+            咨询热线：{{get_config('kefu_tel')}}
+        </p>
+        <div class="input-box">
+            <div class="input-box-cell clx">
+                <input type="text" class="name" id="name" placeholder="姓名">
+            </div>
+            <div class="input-box-cell clx">
+                <input type="tel" class="tel" id="tel" placeholder="手机号码" maxlength="11">
+            </div>
+        </div>
+        <p class="form-point">
+        </p>
+        <div class="submit" id="submit">
+            立即预约
+        </div>
+        <span class="reservation-close-btn"></span>
+    </div>
+    <div class="reservation-result" id="reservation-result">
+        <p class="result-title">
+            预约成功
+        </p>
+        <p class="result-msg">
+            稍后将有专业的婚礼顾问与您取得联系
+        </p>
+        <div class="result-confirm" id="popsub">
+            确认
+        </div>
+    </div>
+    <div class="ui-mask">
+    </div>
+</div>
+
+
+<script>
+
+    // 返回顶部
+    var gotopBtn = $('#tool-gotop');
+
+    $(document).on('scroll',function() {
+        var scrollTop = $(this).scrollTop(); // 页面滚动距离
+        if (scrollTop >= window.innerHeight) {
+            gotopBtn.show();
+        }else {
+            gotopBtn.hide();
+        }
+
+    }).trigger('scroll');
+
+    gotopBtn.on('click',function() {
+        $('html,body').animate({scrollTop:0}, 500);
+    });
+
+    // 多行截取
+    function moreLineOverflow(fatherObj,lineNum,toogelClass) {
+        var toggleClassName =  toogelClass ? toogelClass : 'desc-show';
+        var lineHeight = parseInt(fatherObj.children('p').css('line-height'));
+        for (var i = 0; i < fatherObj.length; i++) {
+            if (fatherObj.eq(i).find('span').height() > (lineHeight*lineNum)) {
+                fatherObj.eq(i).addClass(toggleClassName);
+            }
+        }
+    }
+    moreLineOverflow($('.case-desc-overflow'),2,'desc-show');
+
+</script>
+</body>
+</html>

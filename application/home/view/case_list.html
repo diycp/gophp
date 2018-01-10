@@ -1,0 +1,47 @@
+{{include_file name='public/header' title="案例展示"}}
+
+<link rel="stylesheet" href="{{STATIC_URL}}/css/case-list.css">
+
+<div class="container">
+    {{include_file name='public/position'}}
+
+    <div class="case-detail" id="mwt-case">
+        <div class="modular-container">
+            <ul id="app" class="case-lists clearfix">
+                {{foreach $list as $info}}
+                <li class="case-cell"><a href="{{\app\article::get_url($info.id)}}" target="_self"><img src="{{\app\article::get_cover($info.id)}}" class="cese-img">
+                        <div class="case-sign">
+                        </div>
+                        <div class="case-mask">
+                        </div>
+                        <div class="case-text">
+                            <div class="case-hover-box-two">
+                                <p class="case-name">
+                                    {{$info.title}}
+                                </p>
+                                <p class="case-desc">
+                                    <span class="case-desc-text">
+                                        {{$info.intro}}
+                                    </span>
+                                </p>
+
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                {{/foreach}}
+
+            </ul>
+            <div class="loader" style="display: none;">
+                <div class="card">
+                    <span class="throbber-loader">Loading…</span>
+                </div>
+                <p>
+                    加载更多
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- footer -->
+{{include_file name='public/footer'}}

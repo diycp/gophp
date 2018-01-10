@@ -1,0 +1,59 @@
+{{include_file name='public/header' title="招聘职位"}}
+<style>
+    .contact{
+        box-sizing: border-box;
+        border-bottom: 1px dashed rgba(151,151,151,0.2);
+        color: #0f0f0f;
+        margin-bottom: 20px;
+    }
+    .contact h3{
+        font-weight:800;
+        font-size: 16px;
+        /*color: #fff;*/
+        letter-spacing: 0.5px;
+        margin-bottom: 14px;
+    }
+    .contact p {
+        display: block;
+        text-decoration: none;
+        font-size: 14px;
+        /*color: #fff;*/
+        margin-bottom: 14px;
+        margin-right: 8px;
+        opacity: .69;
+    }
+</style>
+<link rel="stylesheet" href="{{STATIC_URL}}/css/news-detail.css">
+<!-- main -->
+<div class="container" id="container">
+    {{include_file name='public/position'}}
+    <div class="content clx">
+        <div class="content-left">
+
+            <div style="word-wrap: break-word;">
+                {{foreach $list as $info}}
+                <div class="contact">
+                    <h3>{{$info.title}}</h3>
+
+                    <div class="job-content">
+                    {{$info.content}}
+                    </div>
+
+                </div>
+                {{/foreach}}
+
+            </div>
+
+        </div>
+        <div class="content-right">
+
+            {{include_file name='public/sidebar' type='手机扫一扫 获取联系方式'}}
+        </div>
+    </div>
+
+    <!-- 相关推荐 -->
+</div>
+
+<!-- footer -->
+
+{{include_file name='public/footer'}}

@@ -1,0 +1,7 @@
+<div class="crumbs">
+    <ul class="clx">
+        {{foreach \app\nav::position() as $position}}
+        <li><a href="{{$position.url}}">{{$position.title}}</a></li>
+        {{/foreach}}
+    </ul>
+</div>

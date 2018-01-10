@@ -1,39 +1,24 @@
 <?php
+
 namespace app\home\controller;
 
 use gophp\controller;
-use app\home\model\user;
-use gophp\db;
-use gophp\helper\str;
-use gophp\request;
-use gophp\route;
 
 class index extends controller {
 
-    public function __construct()
-    {
-        //filter::controller('extension', [], []);
-    }
-
     public function index(){
 
+        $services = db('service')->where('status', '=', 1)->orderBy('sort desc,id desc')->findAll();
 
-        $a = db::table('hy_yy')->join('dd_yy')->on("hy_yy.id = dd_yy.b11")->limit(10)->findAll();
+        $cases = db('article')->where('status', '=', 1)->where('nav_alias', '=', 'case')->orderBy('id desc')->limit(6)->findAll();
+        $news  = db('article')->where('status', '=', 1)->where('nav_alias', '=', 'news')->orderBy('id desc')->limit(8)->findAll();
 
-        dump($a);
-
-        $this->display();
+        $this->assign('news', $news);
+        $this->assign('cases', $cases);
+        $this->assign('services', $services);
+        $this->display('index');
 
     }
 
-    public function demo()
-    {
-        echo 'demo';
-    }
-
-    public function __call($name, $arguments)
-    {
-        echo $name;
-    }
 
 }

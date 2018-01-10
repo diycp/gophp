@@ -1,0 +1,154 @@
+{{include_file name='public/header' title='招聘管理'}}
+
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    {{include_file name='public/nav' sidebar='sidebar'}}
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="page-header">
+                    <h1>招聘管理 </h1>
+                    <div class="opt-btn">
+
+                        <a href="{{url('admin/job/add')}}" class="btn hidden-xs btn-sm btn-success js_editBtn" data-id="0" data-title="添加头图"><i class="fa fa-fw fa-plus"></i>添加</a>
+
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th>职位名称</th>
+
+<!--                                    <th>操作人</th>-->
+                                    <th>添加时间</th>
+                                    <th>修改时间</th>
+                                    <th>排序</th>
+                                    <th>状态</th>
+                                    <th>操作面板</th>
+
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {{foreach $navs as $nav}}
+                                <tr>
+                                    <td >{{$nav.title}}</td>
+
+<!--                                    <td >{{$nav.user_name}}</td>-->
+                                    <td >{{$nav.add_time}}</td>
+                                    <td >{{$nav.update_time}}</td>
+                                    <td >{{$nav.sort}}</td>
+                                    <td >
+                                        {{if $nav.status == 1}}
+                                        <i class="fa fa-check"></i>
+                                        {{else if $nav.status == 2}}
+                                        <i class="fa fa-times"></i>
+                                        {{/if}}
+                                    </td>
+
+                                    <td style="width: 10%;">
+
+                                        <a class="btn btn-warning btn-xs js_viewProjectBtn" href="{{url("admin/job/add")}}?id={{$nav.id}}">编辑</a>
+
+                                        <button type="button" class="btn btn-danger btn-xs js_deleteBtn" data-id="{{$nav.id}}">删除</button>
+
+                                    </td>
+
+                                </tr>
+                                {{/foreach}}
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.table-responsive -->
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+            <div class="col-sm-12">
+                {{include_file name='public/page'}}
+
+            </div>
+
+            <!-- /.col-lg-6 -->
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+    <!-- 添加分类模态框 -->
+    <div class="modal fade" id="js_navModal" tabindex="2" role="dialog">
+        <div class="modal-dialog" role="document">
+                <input type="hidden" class="form-control" name="id">
+
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">招聘管理</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <iframe id="js_navIframe" style="min-height: 285px;" src="{{url('admin/zhaopin/add')}}"></iframe>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-success js_submit">确认</button>
+                    </div>
+                </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+    <hr>
+    <p class="text-center">{{get_config('copyright')}}</p>
+
+    <script>
+
+        // 删除
+        $(".js_deleteBtn").click(function () {
+
+            var thisObj = $(this);
+            var id = thisObj.data('id');
+            var url = "{{url('admin/job/delete')}}";
+
+            confirm('确认要删除该职位?', function(){
+                $.post(url, {id:id}, function (json) {
+                    if(json.code == 200){
+                        alert(json.msg, 500, function () {
+                            thisObj.closest('tr').remove();
+                        });
+                    }else{
+                        alert(json.msg, 2000);
+                    }
+                }, 'json');
+
+            });
+
+        });
+
+        // 添加/编辑
+        $(".js_editBtn").iframeModal({
+            modalItem: '#js_navModal', //modal元素
+            iframeItem: '#js_navIframe', //iframe元素
+            submitBtn: '.js_submit',
+        });
+
+    </script>
+    {{include_file name='public/footer'}}

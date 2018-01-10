@@ -1,0 +1,39 @@
+{{include_file name='public/header' title="{{$info.title}}"}}
+
+<link rel="stylesheet" href="{{STATIC_URL}}/css/news-detail.css">
+<!-- main -->
+<div class="container" id="container">
+    {{include_file name='public/position'}}
+    <div class="content clx">
+        <div class="content-left">
+            <h1 class="content-title">{{$info.title}}</h1>
+            <p class="title-subhead">
+                <span>{{$info.add_time}}</span>
+                <span>{{$info.source}}</span>
+            </p>
+            <div style="word-wrap: break-word;">
+            {{$info.content}}
+            </div>
+        </div>
+        <div class="content-right" style="position: static; z-index: 999; width: 310px;">
+            <h2>{{$info.title}}</h2>
+
+            <div class="case-desc-overflow">
+                <p class="content-text">
+                    <span class="case-desc-text">
+                        {{$info.intro}}
+                    </span>
+                </p>
+            </div>
+
+            {{include_file name='public/sidebar' type='手机扫一扫 分享该动态'}}
+
+        </div>
+    </div>
+
+        <!-- 相关推荐 -->
+    </div>
+
+    <!-- footer -->
+
+{{include_file name='public/footer'}}

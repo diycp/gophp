@@ -141,9 +141,9 @@ function pass_time($time)
  * @param $field
  * @return mixed
  */
-function get_config($field)
+function get_config($field,$show = true)
 {
-    return \app\config::get_config_value($field);
+    return \app\config::get_config_value($field, $show);
 }
 
 /**

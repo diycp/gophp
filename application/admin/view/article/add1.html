@@ -1,0 +1,158 @@
+{{include_file name='public/header' title='动态管理'}}
+<link href="{{STATIC_URL}}/plugs/uploadview/style.css" type="text/css" rel="stylesheet" />
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    {{include_file name='public/nav' sidebar='sidebar'}}
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="page-header">
+                    <h1>动态管理 </h1>
+                    <div class="opt-btn">
+
+                        <a href="javascript:history.go(-1);" class="btn hidden-xs btn-sm btn-success" data-id="0" data-title="返回列表"><i class="fa fa-fw fa-plus"></i>返回</a>
+
+                    </div>
+
+
+                </div>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <form id="js_navForm" role="form" action="{{url('admin/focus/add','','','json')}}" method="post" enctype="multipart/form-data" >
+                                    <input type="hidden" class="form-control" name="id" value="{{$focus.id}}">
+
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="control-label">标题:</label>
+                                        <input type="text" class="form-control" name="title" value="{{$focus.title}}" placeholder="必填，不大于8位" datatype="*1-8">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="control-label">封面:</label>
+                                        <div class="control-group js_uploadBox">
+                                            <div class="btn-upload">
+                                                <a href="javascript:void(0);"><i class="icon-upload-alt"></i><span class="js_uploadText">上传</span>图片</a>
+                                                <input class="js_upFile" type="file" name="src">
+                                            </div>
+
+                                            <div class="js_showBox {{if !$focus.src}}hidden{{/if}}"><img class="js_logoBox" src="{{$focus.src}}" width="100px" ></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="control-label">来源:</label>
+                                        <input type="text" class="form-control" name="sort" value="{{$focus.sort|default:99}}" placeholder="" datatype="*">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>简介</label>
+                                        <textarea class="form-control" name="config[description]" rows="3" ignore="ignore" datatype="*" nullmsg="请输入版权信息！">{{$config['description']}}</textarea>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>详细内容</label>
+                                        <textarea class="form-control" name="config[description]" rows="3" ignore="ignore" datatype="*" nullmsg="请输入版权信息！">{{$config['description']}}</textarea>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="control-label">状态 <a data-toggle="tooltip" data-placement="right" title="" class="btn-show-tips" data-original-title="关闭后前台不会展示">
+                                                <i class="fa fa-info-circle"></i>
+                                            </a></label>
+                                        <div class="form-group">
+                                            <label class="radio-inline">
+                                                <input type="radio" name="status" {{if !$focus || $focus.status == 1}}checked{{/if}} value=1 > 开启
+                                            </label>
+
+                                            <label class="radio-inline">
+                                                <input type="radio" name="status" {{if $focus.status == 2}}checked{{/if}} value=2> 关闭
+                                            </label>
+
+                                        </div>
+                                    </div>
+
+
+                                    <button type="submit" class="btn btn-primary js_submit">提交</button>
+
+
+                                </form>
+
+
+                            </div>
+                            <!-- /.col-lg-6 (nested) -->
+
+                            <!-- /.col-lg-6 (nested) -->
+                        </div>
+                        <!-- /.row (nested) -->
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <hr>
+    <p class="text-center">{{get_config('copyright')}}</p>
+    <!-- /#wrapper -->
+    <script src="{{STATIC_URL}}/plugs/uploadview/js.js"></script>
+    <script>
+
+        $(function(){
+
+            $(".js_upFile").uploadView({
+                uploadBox: '.js_uploadBox',//设置上传框容器
+                showBox : '.js_showBox',//设置显示预览图片的容器
+                width : 100, //预览图片的宽度，单位px
+                height : 100, //预览图片的高度，单位px
+                allowType: ["gif", "jpeg", "jpg", "bmp", "png"], //允许上传图片的类型
+                maxSize :2, //允许上传图片的最大尺寸，单位M
+                success:function(e){
+                    $(".js_uploadText").text('更改');
+                    //alert('图片上传成功');
+                }
+            });
+
+            //验证表单
+            $("#js_navForm").Validform({
+
+                tiptype:function(msg,o,cssctl){
+
+                    if(!o.obj.is("form")){
+
+                        var objtip=o.obj.siblings(".Validform_checktip");
+
+                        cssctl(objtip,o.type);
+
+                        objtip.text(msg);
+
+                    }
+
+                },
+
+                label:"label",
+
+                ajaxPost:false,
+
+            });
+
+        });
+
+
+    </script>
+
+    {{include_file name='public/footer'}}

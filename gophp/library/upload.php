@@ -41,6 +41,20 @@ class upload
 
     }
 
+    public function exist($inputName)
+    {
+        $method = __FUNCTION__;
+
+        return $this->handler()->$method($inputName);
+    }
+
+    public function watermark($dst_path,$mark_file)
+    {
+        $method = __FUNCTION__;
+
+        return $this->handler()->$method($dst_path,$mark_file);
+    }
+
     public function getError()
     {
 

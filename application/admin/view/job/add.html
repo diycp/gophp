@@ -1,0 +1,154 @@
+{{include_file name='public/header' title='招聘管理'}}
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    {{include_file name='public/nav' sidebar='sidebar'}}
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="page-header">
+                    <h1>招聘管理 </h1>
+                    <div class="opt-btn">
+
+                        <a href="{{url('admin/job/')}}" class="btn hidden-xs btn-sm btn-success"><i class="fa fa-fw fa-reply"></i>返回</a>
+
+                    </div>
+                </div>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <form id="js_navForm" role="form" action="{{url('admin/job/add','','','json')}}" method="post" enctype="multipart/form-data" >
+                                    <input type="hidden" class="form-control" name="id" value="{{$job.id}}">
+
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="control-label">职位名称:</label>
+                                        <input type="text" class="form-control" name="title" value="{{$job.title}}" placeholder="必填，1-50位" datatype="*1-50">
+                                        <span class="Validform_checktip"></span>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>职位要求</label>
+                                        <textarea style="min-height:400px;" id="js_content" class="form-control" name="content" rows="3" placeholder="非必填"  datatype="*" nullmsg="请输入详细内容！">{{$job.content}}</textarea>
+                                        <span class="Validform_checktip"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="control-label">展示顺序:<a data-toggle="tooltip" data-placement="right" title="" class="btn-show-tips" data-original-title="数字越大越靠前">
+                                                <i class="fa fa-info-circle"></i>
+                                            </a></label>
+                                        <input type="text" class="form-control" name="sort" value="{{$job.sort|default:99}}" placeholder="数字越大越靠前" datatype="n">
+                                        <span class="Validform_checktip"></span>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="control-label">职位状态 <a data-toggle="tooltip" data-placement="right" title="" class="btn-show-tips" data-original-title="关闭后前台不会展示">
+                                                <i class="fa fa-info-circle"></i>
+                                            </a></label>
+                                        <div class="form-group">
+                                            <label class="radio-inline">
+                                                <input type="radio" name="status" {{if !$job || $job.status == 1}}checked{{/if}} value=1 > 有效
+                                            </label>
+
+                                            <label class="radio-inline">
+                                                <input type="radio" name="status" {{if $job.status == 2}}checked{{/if}} value=2> 过期
+                                            </label>
+
+                                        </div>
+                                    </div>
+
+
+                                    <button type="submit" class="btn btn-primary js_submit">提交</button>
+
+
+                                </form>
+
+
+                            </div>
+                            <!-- /.col-lg-6 (nested) -->
+
+                            <!-- /.col-lg-6 (nested) -->
+                        </div>
+                        <!-- /.row (nested) -->
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <hr>
+    <p class="text-center">{{get_config('copyright')}}</p>
+    <!-- /#wrapper -->
+    <script charset="utf-8" src="{{STATIC_URL}}/plugs/kindeditor/kindeditor-all-min.js"></script>
+    <script charset="utf-8" src="{{STATIC_URL}}/plugs/kindeditor/lang/zh-CN.js"></script>
+    <script>
+
+        var editor;
+        KindEditor.ready(function(K) {
+            editor = K.create('#js_content', {
+                resizeType : 1,
+                allowPreviewEmoticons : false,
+                allowImageUpload : false,
+                items : [
+                    'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+                    'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+                    'insertunorderedlist', '|', 'emoticons', 'link','source']
+            });
+        });
+
+        $(function(){
+
+            $("#js_newsForm").Validform({
+                tiptype:function(msg,o,cssctl){
+                    if(!o.obj.is("form")){
+                        var objtip=o.obj.siblings(".Validform_checktip");
+                        cssctl(objtip,o.type);
+                        objtip.text(msg);
+                    }
+                },
+                ajaxPost:false,
+                label:"label",
+                beforeCheck:function(e){
+                    $("#js_content").val(editor.html());
+                },
+                beforeSubmit:function(e){
+                    var content = editor.text();
+                    var jumpUrl = $(".js_jumpUrl").val();
+                    if(!content && !jumpUrl){
+                        alert('跳转链接和新闻内容至少填写一项', 2000);
+                        return false
+                    }
+                },
+                callback:function (json) {
+                    if(json.code == 200){
+                        $(".js_view").attr('href', json.url);
+                        $("#js_tipModal").modal('show');
+                    }else{
+                        alert(json.msg);
+                    }
+                }
+            });
+
+        });
+
+
+    </script>
+
+    {{include_file name='public/footer'}}

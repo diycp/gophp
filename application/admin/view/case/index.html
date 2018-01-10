@@ -1,0 +1,146 @@
+{{include_file name='public/header' title='案例管理'}}
+
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    {{include_file name='public/nav' sidebar='sidebar'}}
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="page-header">
+                    <h1>案例管理 </h1>
+                    <div class="opt-btn">
+
+                        <a href="{{url('admin/cases/add')}}" class="btn hidden-xs btn-sm btn-success js_editBtn"><i class="fa fa-fw fa-plus"></i>添加</a>
+
+                    </div>
+                </div>
+                <div class="search">
+                    <div class="well">
+                        <form class="form-inline" action="{{url()}}" method="get">
+                            <div class="form-group">
+                                <label>标题</label>
+                                <input name="search[title]" type="text" class="form-control" placeholder="支持模糊查询" value="{{$search.title}}">
+                            </div>
+
+                            <div class="form-group">
+                                <label>状态</label>
+                                <select class="form-control" name="search[status]">
+                                    <option value="">不限</option>
+                                    <option value="1" {{if $search.status == 1}}selected{{/if}}>开启</option>
+                                    <option value="2" {{if $search.status == 2}}selected{{/if}}>关闭</option>
+                                </select>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">搜索</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th>案例名</th>
+                                    <th>案例封面</th>
+<!--                                    <th>操作人</th>-->
+                                    <th>添加时间</th>
+                                    <th>修改时间</th>
+                                    <th>状态</th>
+                                    <th>操作面板</th>
+
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {{foreach $cases as $case}}
+                                <tr>
+                                    <td >{{$case.title}}</td>
+
+                                    <td >
+                                        <img class="img-responsive center-block" src="{{$case.cover}}" alt="{{$case.title}}" width="150px;">
+
+                                    </td>
+<!--                                    <td >{{$nav.user_name}}</td>-->
+                                    <td >{{$case.add_time}}</td>
+                                    <td >{{$case.update_time}}</td>
+                                    <td >
+                                        {{if $case.status == 1}}
+                                        <i class="fa fa-check"></i>
+                                        {{else if $case.status == 2}}
+                                        <i class="fa fa-times"></i>
+                                        {{/if}}
+                                    </td>
+
+                                    <td style="width: 10%;">
+
+                                        <a href="{{url('admin/cases/add')}}?id={{$case.id}}" type="button" class="btn btn-success btn-xs js_editBtn" data-title="编辑案例" data-id="{{$case.id}}">编辑</a>
+                                        <a href="javascript:void(0);" type="button" class="btn btn-danger btn-xs js_deleteBtn" data-title="删除案例" data-id="{{$case.id}}">删除</a>
+
+                                    </td>
+
+                                </tr>
+                                {{/foreach}}
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.table-responsive -->
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+            <div class="col-sm-12">
+                {{include_file name='public/page'}}
+
+            </div>
+
+            <!-- /.col-lg-6 -->
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+    <hr>
+    <p class="text-center">{{get_config('copyright')}}</p>
+
+    <script>
+
+        // 删除
+        $(".js_deleteBtn").click(function () {
+
+            var thisObj = $(this);
+            var id = thisObj.data('id');
+            var url = "{{url('admin/cases/delete')}}";
+
+            confirm('确认要删除该案例?', function(){
+                $.post(url, {id:id}, function (json) {
+                    if(json.code == 200){
+                        alert(json.msg, 500, function () {
+                            thisObj.closest('tr').remove();
+                        });
+                    }else{
+                        alert(json.msg, 2000);
+                    }
+                }, 'json');
+
+            });
+
+        });
+
+    </script>
+    {{include_file name='public/footer'}}

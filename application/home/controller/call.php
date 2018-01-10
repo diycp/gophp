@@ -1,32 +1,38 @@
 <?php
+
 namespace app\home\controller;
 
+use app\nav;
 use gophp\controller;
-use app\home\model\user;
+use gophp\response;
 
 class call extends controller {
 
-    public function __construct()
-    {
-        //filter::controller('extension', [], []);
-    }
-
     public function index(){
 
-        echo $this->controlloer;
+        $nav = strtolower($this->controlloer);
 
+        $list = db('article')->where('status', '=', 1)->where('nav_alias', '=', $nav)->orderBy('sort desc,id desc')->findAll();
 
-    }
+        $this->assign('list', $list);
 
-    public function demo()
-    {
-
+        $this->display($nav."_list");
 
     }
 
     public function __call($name, $arguments)
     {
-        echo $name;
+
+        $info = _uri('article', $this->action);
+
+        if(!$info){
+            response::redirect('index');
+        }
+
+        $this->assign('info', $info);
+
+        $this->display(strtolower($this->controlloer)."_detail");
+
     }
 
 }

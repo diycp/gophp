@@ -2,6 +2,7 @@
 
 namespace gophp;
 
+use gophp\helper\str;
 use gophp\view\contract;
 use gophp\traits\driver;
 
