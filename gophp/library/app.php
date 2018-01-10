@@ -2,9 +2,6 @@
 
 namespace gophp;
 
-use gophp\helper\dir;
-use gophp\helper\file;
-
 class app
 {
 

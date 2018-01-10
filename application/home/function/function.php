@@ -3,7 +3,7 @@
  * 公共函数库
  */
 
-function demo()
+function demo1()
 {
-    echo 'jjjjj';
+    echo 'kkkkk';
 }

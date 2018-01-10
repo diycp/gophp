@@ -48,10 +48,14 @@ class route
 
         define('MODULE_PATH',     APP_PATH. '/' . MODULE_NAME); //定义当前模块目录常量
         define('CONTROLLER_PATH', MODULE_PATH . '/controller'); //定义当前模块控制器目录常量
+        define('FUNCTION_PATH', MODULE_PATH . '/function'); //定义当前模块函数库目录常量
         define('MODEL_PATH',      MODULE_PATH . '/model'); //定义当前模块模型目录常量
         define('VIEW_PATH',       MODULE_PATH . '/view'); //定义当前模块视图目录常量
         define('CONFIG_PATH',     MODULE_PATH . '/config'); //定义当前模块配置目录常量
         define('FILTER_PATH',     MODULE_PATH . '/filter'); //定义当前模块过滤器目录常量
+
+        // 引入模块专用函数库文件
+        is_file($functionFile = FUNCTION_PATH . '/function.php') and require $functionFile;
 
     }
 
